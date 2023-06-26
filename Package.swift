@@ -28,7 +28,8 @@ let package = Package(
             dependencies: [
                 .product(name: "SmilesFontsManager", package: "SmilesFontsManager"),
                 .product(name: "SmilesUtilities", package: "SmilesUtilities")
-            ]),
+            ],
+            resources: [.process("Resources")]),
         .testTarget(
             name: "SmilesManCityTests",
             dependencies: ["SmilesManCity"]),

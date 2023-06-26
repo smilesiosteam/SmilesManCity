@@ -10,5 +10,23 @@
 			<integer>0</integer>
 		</dict>
 	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>SmilesManCity</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>SmilesManCityTests</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>SmilesManCity_SmilesManCity</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>

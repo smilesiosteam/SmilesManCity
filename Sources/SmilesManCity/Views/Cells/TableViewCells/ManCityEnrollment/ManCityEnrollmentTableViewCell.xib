@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="691" id="KGk-i7-Jjw" customClass="ManCityEnrollmentTableViewCell" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="367" height="691"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="367" height="691"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbQ-eS-vST" customClass="UICustomView" customModule="SmilesUtilities">
+                        <rect key="frame" x="16" y="0.0" width="335" height="691"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="manCity_logo" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-80-KTX">
+                                <rect key="frame" x="123.66666666666666" y="40" width="88" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="eNl-D8-wtL"/>
+                                    <constraint firstAttribute="width" secondItem="oeN-80-KTX" secondAttribute="height" multiplier="1:1" id="eVf-4g-yvl"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Become an annual MCFC member and enjoy for" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxe-GR-a2I">
+                                <rect key="frame" x="33" y="152" width="269" height="40.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline5"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SmilesSmiley" translatesAutoresizingMaskIntoConstraints="NO" id="SQE-Em-jH3">
+                                <rect key="frame" x="58" y="208.66666666666666" width="24" height="24"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QQV-zp-GsR">
+                                <rect key="frame" x="86" y="210.66666666666666" width="175" height="20.333333333333343"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15,075 PTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dU-ho-wpl">
+                                        <rect key="frame" x="0.0" y="0.0" width="85.666666666666671" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.45882352941176469" green="0.25882352941176467" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline5"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lg-kF-7GG">
+                                        <rect key="frame" x="93.666666666666657" y="0.0" width="15.666666666666671" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.47450980392156861" green="0.49019607843137253" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesSubtitle1"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 AED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jy-HP-eVy">
+                                        <rect key="frame" x="117.33333333333336" y="0.0" width="57.666666666666671" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.45882352939999999" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline5"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LB-VA-IgH">
+                                <rect key="frame" x="35" y="272.66666666666669" width="265" height="152"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="152" id="cjG-TI-S22"/>
+                                </constraints>
+                            </tableView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKd-PR-l8j" customClass="UICustomButton" customModule="SmilesUtilities">
+                                <rect key="frame" x="95" y="456.66666666666669" width="145" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="1L3-hM-Xtr"/>
+                                    <constraint firstAttribute="width" constant="145" id="zSg-pa-Uei"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Enroll Now">
+                                    <color key="titleColor" red="0.43137254901960786" green="0.23529411764705882" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.43137254899999999" green="0.23529411759999999" blue="0.50980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="enrollPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ggg-5J-htQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yKd-PR-l8j" firstAttribute="top" secondItem="9LB-VA-IgH" secondAttribute="bottom" constant="32" id="0ub-98-46u"/>
+                            <constraint firstItem="dxe-GR-a2I" firstAttribute="top" secondItem="oeN-80-KTX" secondAttribute="bottom" constant="24" id="1Cu-nk-SMz"/>
+                            <constraint firstItem="9LB-VA-IgH" firstAttribute="leading" secondItem="rbQ-eS-vST" secondAttribute="leading" constant="35" id="4FU-0U-l27"/>
+                            <constraint firstItem="QQV-zp-GsR" firstAttribute="leading" secondItem="SQE-Em-jH3" secondAttribute="trailing" constant="4" id="8s1-eq-FYr"/>
+                            <constraint firstAttribute="trailing" secondItem="dxe-GR-a2I" secondAttribute="trailing" constant="33" id="DNg-Sa-DDL"/>
+                            <constraint firstItem="QQV-zp-GsR" firstAttribute="centerY" secondItem="SQE-Em-jH3" secondAttribute="centerY" id="Hz2-S7-2Ah"/>
+                            <constraint firstItem="oeN-80-KTX" firstAttribute="top" secondItem="rbQ-eS-vST" secondAttribute="top" constant="40" id="Ijb-KL-frj"/>
+                            <constraint firstItem="dxe-GR-a2I" firstAttribute="leading" secondItem="rbQ-eS-vST" secondAttribute="leading" constant="33" id="PV0-a9-hsx"/>
+                            <constraint firstItem="QQV-zp-GsR" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" constant="6" id="Q45-Ik-Boh"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yKd-PR-l8j" secondAttribute="bottom" constant="40" id="YJm-mF-A3W"/>
+                            <constraint firstItem="9LB-VA-IgH" firstAttribute="top" secondItem="SQE-Em-jH3" secondAttribute="bottom" constant="40" id="dHb-vi-mgg"/>
+                            <constraint firstItem="SQE-Em-jH3" firstAttribute="top" secondItem="dxe-GR-a2I" secondAttribute="bottom" constant="16" id="hv4-fh-uDZ"/>
+                            <constraint firstItem="oeN-80-KTX" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" id="lDT-1G-wSI"/>
+                            <constraint firstItem="yKd-PR-l8j" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" id="pDD-DZ-hzp"/>
+                            <constraint firstAttribute="trailing" secondItem="9LB-VA-IgH" secondAttribute="trailing" constant="35" id="uem-Rw-YqU"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                <color key="value" red="0.61960784313725492" green="0.81176470588235294" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                <color key="value" red="0.85882352941176465" green="0.91764705882352937" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="point" keyPath="startPoint">
+                                <point key="value" x="0.0" y="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="point" keyPath="endPoint">
+                                <point key="value" x="1" y="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.82352941176470584" green="0.83137254901960778" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="rbQ-eS-vST" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1F6-uw-TGf"/>
+                    <constraint firstItem="rbQ-eS-vST" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="KE2-Tb-Ztr"/>
+                    <constraint firstAttribute="bottom" secondItem="rbQ-eS-vST" secondAttribute="bottom" id="pbl-YB-pLa"/>
+                    <constraint firstAttribute="trailing" secondItem="rbQ-eS-vST" secondAttribute="trailing" constant="16" id="pc4-r9-vsd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="bgView" destination="rbQ-eS-vST" id="Iuy-VU-c9r"/>
+                <outlet property="descriptionLabel" destination="dxe-GR-a2I" id="zXF-uD-efS"/>
+                <outlet property="logoImageView" destination="oeN-80-KTX" id="QyO-cH-O3a"/>
+                <outlet property="pointsLabel" destination="7dU-ho-wpl" id="xqz-Xg-pWA"/>
+                <outlet property="priceLabel" destination="9Jy-HP-eVy" id="mg2-Ev-emG"/>
+                <outlet property="rewardsTableView" destination="9LB-VA-IgH" id="Utk-YP-Yw5"/>
+                <outlet property="tableViewHeight" destination="cjG-TI-S22" id="dqE-bX-2AF"/>
+            </connections>
+            <point key="canvasLocation" x="92.36641221374046" y="226.40845070422537"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="yKd-PR-l8j">
+            <size key="intrinsicContentSize" width="73" height="30"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="SmilesSmiley" width="24" height="24"/>
+        <image name="manCity_logo" width="88" height="88"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
