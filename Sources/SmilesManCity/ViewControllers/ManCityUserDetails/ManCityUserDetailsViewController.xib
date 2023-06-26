@@ -55,6 +55,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -78,6 +81,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -101,6 +107,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -124,6 +133,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -146,6 +158,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -168,6 +183,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </textField>
                                             </subviews>
                                         </stackView>

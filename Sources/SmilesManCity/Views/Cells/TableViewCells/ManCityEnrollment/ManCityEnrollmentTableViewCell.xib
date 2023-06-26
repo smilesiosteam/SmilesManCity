@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -34,10 +33,10 @@
                                 <color key="textColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline5"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline3"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SmilesSmiley" translatesAutoresizingMaskIntoConstraints="NO" id="SQE-Em-jH3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smilesSmiley" translatesAutoresizingMaskIntoConstraints="NO" id="SQE-Em-jH3">
                                 <rect key="frame" x="58" y="208.66666666666666" width="24" height="24"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QQV-zp-GsR">
@@ -49,7 +48,7 @@
                                         <color key="textColor" red="0.45882352941176469" green="0.25882352941176467" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline5"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline3"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lg-kF-7GG">
@@ -58,7 +57,7 @@
                                         <color key="textColor" red="0.47450980392156861" green="0.49019607843137253" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesSubtitle1"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesBody3"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 AED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jy-HP-eVy">
@@ -67,7 +66,7 @@
                                         <color key="textColor" red="0.45882352939999999" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline5"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline3"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
@@ -91,7 +90,7 @@
                                     <color key="titleColor" red="0.43137254901960786" green="0.23529411764705882" blue="0.50980392156862742" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline4"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="24"/>
                                     </userDefinedRuntimeAttribute>
@@ -178,8 +177,8 @@
         </designable>
     </designables>
     <resources>
-        <image name="SmilesSmiley" width="24" height="24"/>
         <image name="manCity_logo" width="88" height="88"/>
+        <image name="smilesSmiley" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
