@@ -1,12 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "bc268c28fb170f494de9e9927c371b8342979ece",
+        "version" : "5.7.1"
+      }
+    },
+    {
       "identity" : "cryptoswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
       "state" : {
         "revision" : "32f641cf24fc7abc1c591a2025e9f2f572648b0f",
         "version" : "1.7.2"
+      }
+    },
+    {
+      "identity" : "networkinglayer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "39dece8c4d630686da89032ca26e504b89982dec"
       }
     },
     {
@@ -32,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
-        "revision" : "132a0e82f71402e3ea78bcfb50a4a264e3a3585f",
-        "version" : "1.0.4"
+        "branch" : "main",
+        "revision" : "132a0e82f71402e3ea78bcfb50a4a264e3a3585f"
       }
     },
     {
@@ -41,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesFontsManager.git",
       "state" : {
-        "revision" : "385db98c4481fce90b19296021b72203ebc78a31",
-        "version" : "1.1.0"
+        "branch" : "main",
+        "revision" : "e3f7b642d336d8f6feac7877854676f1c44ac3e5"
       }
     },
     {
@@ -52,6 +70,15 @@
       "state" : {
         "revision" : "dedbbba61476d4721105a977759382c750f884bb",
         "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "smilessectionsmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesSectionsManager.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "786babe11435fed069e3d074f0379a1ca8f092b2"
       }
     },
     {
@@ -68,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
-        "revision" : "b331ab4919597df6c50815c64e0e643a28d18ce3",
-        "version" : "1.1.3"
+        "branch" : "main",
+        "revision" : "2f2b7597b8538b41979d7f736ea0f54f8f4eaf47"
       }
     }
   ],

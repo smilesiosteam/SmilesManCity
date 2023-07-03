@@ -21,6 +21,7 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
     
     // MARK: - PROPERTIES -
     private var rowHeight: CGFloat = 40
+    private var spacing: CGFloat = 16
     private var numberOfCells = 3
     
     // MARK: - ACTIONS -
@@ -40,10 +41,10 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
     
     private func setupTableView() {
         
-        rewardsTableView.register(UINib(nibName: "EnrollmentBenefitsTableViewCell", bundle: Bundle.module), forCellReuseIdentifier: "EnrollmentBenefitsTableViewCell")
+        rewardsTableView.registerCellFromNib(EnrollmentBenefitsTableViewCell.self, bundle: Bundle.module)
         rewardsTableView.delegate = self
         rewardsTableView.dataSource = self
-        tableViewHeight.constant = rowHeight * CGFloat(numberOfCells)
+        tableViewHeight.constant = (rowHeight + spacing) * CGFloat(numberOfCells)
         
     }
     
