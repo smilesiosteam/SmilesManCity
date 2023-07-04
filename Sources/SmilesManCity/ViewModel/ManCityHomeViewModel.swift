@@ -7,8 +7,10 @@
 
 import Foundation
 import Combine
-import SmilesSectionsManager
+import SmilesSharedServices
 import SmilesUtilities
+import NetworkingLayer
+import SmilesLocationHandler
 
 class ManCityHomeViewModel: NSObject {
     
@@ -18,9 +20,18 @@ class ManCityHomeViewModel: NSObject {
     
     // MARK: - VIEWMODELS -
     private let sectionsViewModel = SectionsViewModel()
+    private let rewardPointsViewModel = SectionsViewModel()
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
+    private var rewardPointsUseCaseInput: PassthroughSubject<RewardPointsViewModel.Input, Never> = .init()
     
     // MARK: - METHODS -
+    func logoutUser() {
+        UserDefaults.standard.set(false, forKey: .notFirstTime)
+        UserDefaults.standard.set(true, forKey: .isLoggedOut)
+        UserDefaults.standard.removeObject(forKey: .loyaltyID)
+        LocationStateSaver.removeLocation()
+        LocationStateSaver.removeRecentLocations()
+    }
     
 }
 
@@ -33,6 +44,10 @@ extension ManCityHomeViewModel {
             case .getSections(categoryID: let categoryID):
                 self?.bind(to: self?.sectionsViewModel ?? SectionsViewModel())
                 self?.sectionsUseCaseInput.send(.getSections(categoryID: categoryID, baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser))
+            case .getSubscriptionInfo:
+                self?.getSubscriptionInfo()
+            case .getRewardPoints:
+                self?.rewardPointsUseCaseInput.send(.getRewardPoints(baseUrl: AppCommonMethods.serviceBaseUrl))
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -51,6 +66,58 @@ extension ManCityHomeViewModel {
                     self?.output.send(.fetchSectionsDidFail(error: error))
                 }
             }.store(in: &cancellables)
+    }
+    
+    func bind(to rewardPointsViewModel: RewardPointsViewModel) {
+        rewardPointsUseCaseInput = PassthroughSubject<RewardPointsViewModel.Input, Never>()
+        let output = rewardPointsViewModel.transform(input: rewardPointsUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchRewardPointsDidSucceed(let response, _):
+                    if let responseCode = response.responseCode {
+                        if responseCode == "101" || responseCode == "0000252" {
+                            self?.logoutUser()
+                            self?.output.send(.fetchRewardPointsDidSucceed(response: response, shouldLogout: true))
+                        }
+                    } else {
+                        if let totalPoints = response.totalPoints {
+                            self?.output.send(.fetchRewardPointsDidSucceed(response: response, shouldLogout: false))
+                        }
+                    }
+                case .fetchRewardPointsDidFail(let error):
+                    self?.output.send(.fetchRewardPointsDidFail(error: error))
+                }
+            }.store(in: &cancellables)
+    }
+    
+}
+
+// MARK: - HOME API CALLS -
+extension ManCityHomeViewModel {
+    
+    private func getSubscriptionInfo() {
+        
+        let request = SubscriptionInfoRequest()
+        let service = ManCityHomeRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60),
+            baseUrl: AppCommonMethods.serviceBaseUrl,
+            endPoint: .getSubscriptionInfo
+        )
+        service.getSubscriptionInfoService(request: request)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchSubscriptionInfoDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                self?.output.send(.fetchSubscriptionInfoDidSucceed(response: response))
+            }
+        .store(in: &cancellables)
+        
     }
     
 }

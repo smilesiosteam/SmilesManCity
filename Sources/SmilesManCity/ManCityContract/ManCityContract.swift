@@ -6,20 +6,26 @@
 //
 
 import Foundation
-import SmilesSectionsManager
+import SmilesSharedServices
+import SmilesUtilities
 
 extension ManCityHomeViewModel {
     
     enum Input {
         case getSections(categoryID: Int)
         case getSubscriptionInfo
+        case getRewardPoints
     }
     
     enum Output {
         case fetchSectionsDidSucceed(response: GetSectionsResponseModel)
         case fetchSectionsDidFail(error: Error)
         
-        case fetchSubscriptionInfoDisSucceed
+        case fetchSubscriptionInfoDidSucceed(response: SubscriptionInfoResponse)
+        case fetchSubscriptionInfoDidFail(error: Error)
+        
+        case fetchRewardPointsDidSucceed(response: RewardPointsResponseModel, shouldLogout: Bool?)
+        case fetchRewardPointsDidFail(error: Error)
     }
     
 }

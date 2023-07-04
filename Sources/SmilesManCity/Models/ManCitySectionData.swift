@@ -13,6 +13,8 @@ enum ManCitySectionIdentifier: String {
     case quickAccess = "QUICK_ACCESS"
     case offerListing = "OFFER_LISTING"
     case about = "ABOUT"
+    case enrollment = "ENROLLMENT"
+    case FAQS
     
 }
 

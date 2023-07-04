@@ -18,24 +18,27 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
     @IBOutlet weak var rewardsTableView: UITableView!
     @IBOutlet weak var bgView: UICustomView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var enrollButton: UICustomButton!
     
     // MARK: - PROPERTIES -
+    private var benefits = [WhatYouGet]()
     private var rowHeight: CGFloat = 40
     private var spacing: CGFloat = 16
-    private var numberOfCells = 3
+    var enrollPressed: (() -> Void)?
     
     // MARK: - ACTIONS -
     @IBAction func enrollPressed(_ sender: Any) {
+        enrollPressed?()
     }
     
     
     // MARK: - METHODS -
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupTableView()
+        setupViews()
     }
     
-    private func ssetupViews() {
+    private func setupViews() {
         setupTableView()
     }
     
@@ -44,7 +47,19 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
         rewardsTableView.registerCellFromNib(EnrollmentBenefitsTableViewCell.self, bundle: Bundle.module)
         rewardsTableView.delegate = self
         rewardsTableView.dataSource = self
-        tableViewHeight.constant = (rowHeight + spacing) * CGFloat(numberOfCells)
+        
+    }
+    
+    func setupData(subscriptionData: SubscriptionInfoResponse) {
+        
+        logoImageView.setImageWithUrlString(subscriptionData.themeResources?.mancityImageURL ?? "", defaultImage: "manCity_logo")
+        descriptionLabel.text = subscriptionData.lifestyleOffers?.first?.offerDescription
+        pointsLabel.text = String(describing: subscriptionData.lifestyleOffers?.first?.pointsValue)
+        priceLabel.text = String(describing: subscriptionData.lifestyleOffers?.first?.price)
+        enrollButton.setTitle(subscriptionData.themeResources?.mancitySubButtonText, for: .normal)
+        benefits = subscriptionData.lifestyleOffers?.first?.benefits ?? []
+        tableViewHeight.constant = (rowHeight + spacing) * CGFloat(benefits.count)
+        rewardsTableView.reloadData()
         
     }
     
@@ -58,11 +73,15 @@ extension ManCityEnrollmentTableViewCell: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfCells
+        return benefits.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return EnrollmentBenefitsTableViewCell()
+        
+        let cell = tableView.cellForRow(at: indexPath) as! EnrollmentBenefitsTableViewCell
+        cell.setupData(benefit: benefits[indexPath.row])
+        return cell
+        
     }
     
 }

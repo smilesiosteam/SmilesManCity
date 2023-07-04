@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SmilesUtilities
 
 class EnrollmentBenefitsTableViewCell: UITableViewCell {
 
@@ -23,6 +24,13 @@ class EnrollmentBenefitsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func setupData(benefit: WhatYouGet) {
+        
+        iconImageView.setImageWithUrlString(benefit.iconURL)
+        benefitLabel.text = benefit.text
+        
     }
     
 }

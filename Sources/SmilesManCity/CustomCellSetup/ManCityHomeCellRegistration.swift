@@ -13,7 +13,7 @@ struct ManCityHomeCellRegistration: CellRegisterable {
     
     func register(for tableView: UITableView) {
         
-        tableView.registerCellFromNib(ManCityEnrollmentTableViewCell.self, withIdentifier: String(describing: ManCityEnrollmentTableViewCell.self))
+        tableView.registerCellFromNib(ManCityEnrollmentTableViewCell.self, bundle: Bundle.module)
         
     }
     
