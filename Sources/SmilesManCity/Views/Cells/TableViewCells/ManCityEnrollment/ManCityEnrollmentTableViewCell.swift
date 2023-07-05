@@ -7,6 +7,7 @@
 
 import UIKit
 import SmilesUtilities
+import SmilesLanguageManager
 
 class ManCityEnrollmentTableViewCell: UITableViewCell {
 
@@ -54,8 +55,8 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
         
         logoImageView.setImageWithUrlString(subscriptionData.themeResources?.mancityImageURL ?? "", defaultImage: "manCity_logo")
         descriptionLabel.text = subscriptionData.lifestyleOffers?.first?.offerDescription
-        pointsLabel.text = String(describing: subscriptionData.lifestyleOffers?.first?.pointsValue)
-        priceLabel.text = String(describing: subscriptionData.lifestyleOffers?.first?.price)
+        pointsLabel.text = "\(subscriptionData.lifestyleOffers?.first?.pointsValue ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "PTS"))"
+        priceLabel.text = "\(subscriptionData.lifestyleOffers?.first?.price ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
         enrollButton.setTitle(subscriptionData.themeResources?.mancitySubButtonText, for: .normal)
         benefits = subscriptionData.lifestyleOffers?.first?.benefits ?? []
         tableViewHeight.constant = (rowHeight + spacing) * CGFloat(benefits.count)
@@ -78,7 +79,7 @@ extension ManCityEnrollmentTableViewCell: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.cellForRow(at: indexPath) as! EnrollmentBenefitsTableViewCell
+        let cell = tableView.dequeueCell(withClass: EnrollmentBenefitsTableViewCell.self, for: indexPath)
         cell.setupData(benefit: benefits[indexPath.row])
         return cell
         

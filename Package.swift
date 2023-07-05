@@ -19,8 +19,9 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", branch: "main"),
-//        .package(url: "https://github.com/smilesiosteam/SmilesSharedServices.git", branch: "main"),
-        .package(url: "https://github.com/smilesiosteam/SmilesLocationHandler.git", branch: "main")
+        .package(url: "https://github.com/smilesiosteam/SmilesSharedServices.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesLocationHandler.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -30,10 +31,15 @@ let package = Package(
             dependencies: [
                 .product(name: "SmilesFontsManager", package: "SmilesFontsManager"),
                 .product(name: "SmilesUtilities", package: "SmilesUtilities"),
-//                .product(name: "SmilesSharedServices", package: "SmilesSharedServices"),
-                .product(name: "SmilesLocationHandler", package: "SmilesLocationHandler")
+                .product(name: "SmilesSharedServices", package: "SmilesSharedServices"),
+                .product(name: "SmilesLocationHandler", package: "SmilesLocationHandler"),
+                .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager")
             ],
-            resources: [.process("Resources")]),
+            resources: [
+                .process("Resources"),
+                .process("Views/Cells/TableViewCells/ManCityEnrollment/ManCityEnrollmentTableViewCell.xib"),
+                .process("Views/Cells/TableViewCells/EnrollmentBenefits/EnrollmentBenefitsTableViewCell.xib")
+            ]),
         .testTarget(
             name: "SmilesManCityTests",
             dependencies: ["SmilesManCity"]),

@@ -25,7 +25,7 @@ public class ManCityHomeViewController: UIViewController {
         return ManCityHomeViewModel()
     }()
     private let categoryId: Int
-    private var manCitySections: GetSectionsResponseModel?
+    var manCitySections: GetSectionsResponseModel?
     private var sections = [ManCitySectionData]()
     private var isUserSubscribed: Bool? = nil
     private var subscriptionInfo: SubscriptionInfoResponse?
@@ -52,7 +52,6 @@ public class ManCityHomeViewController: UIViewController {
     // MARK: - METHODS -
     private func setupViews() {
         
-        hidesBottomBarWhenPushed = true
         setupTableView()
         bind(to: viewModel)
         getSections()
@@ -87,6 +86,7 @@ public class ManCityHomeViewController: UIViewController {
             self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: sectionDetailsArray.count))
         }
         if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) {
+            headerImageView.setImageWithUrlString(topPlaceholderSection.backgroundImage ?? "")
             setUpNavigationBar(headerData: topPlaceholderSection)
         }
 //        configureDataSource()
@@ -94,7 +94,7 @@ public class ManCityHomeViewController: UIViewController {
         
     }
     
-    private func getSectionIndex(for identifier: ManCitySectionIdentifier) -> Int? {
+    func getSectionIndex(for identifier: ManCitySectionIdentifier) -> Int? {
         
         return sections.first(where: { obj in
             return obj.identifier == identifier
