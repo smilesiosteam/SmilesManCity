@@ -20,12 +20,14 @@ class ManCityHomeViewModel: NSObject {
     
     // MARK: - VIEWMODELS -
     private let sectionsViewModel = SectionsViewModel()
-    private let rewardPointsViewModel = SectionsViewModel()
+    private let rewardPointsViewModel = RewardPointsViewModel()
+    private let faqsViewModel = FAQsViewModel()
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var rewardPointsUseCaseInput: PassthroughSubject<RewardPointsViewModel.Input, Never> = .init()
+    private var faqsUseCaseInput: PassthroughSubject<FAQsViewModel.Input, Never> = .init()
     
     // MARK: - METHODS -
-    func logoutUser() {
+    private func logoutUser() {
         UserDefaults.standard.set(false, forKey: .notFirstTime)
         UserDefaults.standard.set(true, forKey: .isLoggedOut)
         UserDefaults.standard.removeObject(forKey: .loyaltyID)
@@ -48,6 +50,9 @@ extension ManCityHomeViewModel {
                 self?.getSubscriptionInfo()
             case .getRewardPoints:
                 self?.rewardPointsUseCaseInput.send(.getRewardPoints(baseUrl: AppCommonMethods.serviceBaseUrl))
+            case .getFAQsDetails(faqId: let faqId):
+                self?.bind(to: self?.faqsViewModel ?? FAQsViewModel())
+                self?.faqsUseCaseInput.send(.getFAQsDetails(faqId: faqId, baseUrl: AppCommonMethods.serviceBaseUrl))
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -81,12 +86,26 @@ extension ManCityHomeViewModel {
                             self?.output.send(.fetchRewardPointsDidSucceed(response: response, shouldLogout: true))
                         }
                     } else {
-                        if let totalPoints = response.totalPoints {
+                        if response.totalPoints != nil {
                             self?.output.send(.fetchRewardPointsDidSucceed(response: response, shouldLogout: false))
                         }
                     }
                 case .fetchRewardPointsDidFail(let error):
                     self?.output.send(.fetchRewardPointsDidFail(error: error))
+                }
+            }.store(in: &cancellables)
+    }
+    
+    func bind(to faqsViewModel: FAQsViewModel) {
+        faqsUseCaseInput = PassthroughSubject<FAQsViewModel.Input, Never>()
+        let output = faqsViewModel.transform(input: faqsUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchFAQsDidSucceed(let response):
+                    self?.output.send(.fetchFAQsDidSucceed(response: response))
+                case .fetchFAQsDidFail(let error):
+                    self?.output.send(.fetchFAQsDidFail(error: error))
                 }
             }.store(in: &cancellables)
     }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SmilesSharedServices
+import SmilesUtilities
 
 class FAQTableViewCell: UITableViewCell {
     
@@ -25,7 +27,11 @@ class FAQTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setupCell() {
-        // TODO: Populate data here
+    func setupCell(faqDetail: FaqsDetail) {
+        
+        title.text = faqDetail.faqTitle
+        textContent.attributedText = faqDetail.faqContent.asStringOrEmpty().htmlToAttributedString
+        
     }
+    
 }

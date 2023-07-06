@@ -60,6 +60,13 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
         enrollButton.setTitle(subscriptionData.themeResources?.mancitySubButtonText, for: .normal)
         benefits = subscriptionData.lifestyleOffers?.first?.benefits ?? []
         tableViewHeight.constant = (rowHeight + spacing) * CGFloat(benefits.count)
+        if let components = subscriptionData.themeResources?.mancitySubBgColor?.components(separatedBy: "|"), let startColor = components.first, let endColor = components.last {
+            bgView.startColor = UIColor(hexString: startColor)
+            bgView.endColor = UIColor(hexString: endColor)
+            let points = GradientUtility.shared.getGradientStartAndEndPoint(withDirection: subscriptionData.themeResources?.mancitySubBgColorDirection ?? "bottom-right")
+            bgView.startPoint = points.startPoint
+            bgView.endPoint = points.endPoint
+        }
         rewardsTableView.reloadData()
         
     }

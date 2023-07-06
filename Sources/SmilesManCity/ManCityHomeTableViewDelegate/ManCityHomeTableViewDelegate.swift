@@ -12,18 +12,22 @@ extension ManCityHomeViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        guard let enrollmentIndex = getSectionIndex(for: .enrollment), enrollmentIndex != section else {
-            return nil
+        if let isUserSubscribed {
+            if !isUserSubscribed {
+                if let faqIndex = getSectionIndex(for: .FAQS), faqIndex == section {
+                    let header = ManCityHeader()
+                    header.setupData(title: "FAQs", subTitle: nil, color: .clear)
+                    return header
+                }
+            } else {
+                if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
+                    let header = ManCityHeader()
+                    header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
+                    return header
+                }
+            }
         }
-        guard let quickAccessIndex = getSectionIndex(for: .quickAccess), quickAccessIndex != section else {
-            return nil
-        }
-        if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
-            let header = ManCityHeader()
-            header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
-            return header
-        }
-        return nil
+        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0))
         
     }
     

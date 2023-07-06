@@ -7,6 +7,7 @@
 
 import Foundation
 import SmilesUtilities
+import SmilesSharedServices
 
 extension TableViewDataSource where Model == SubscriptionInfoResponse {
     static func make(forEnrollment  subscriptionInfo: SubscriptionInfoResponse,
@@ -19,6 +20,21 @@ extension TableViewDataSource where Model == SubscriptionInfoResponse {
         ) { (subscription, cell, data, indexPath) in
             guard let cell = cell as? ManCityEnrollmentTableViewCell else {return}
             cell.setupData(subscriptionData: subscription)
+        }
+    }
+}
+
+extension TableViewDataSource where Model == FaqsDetail {
+    static func make(forFAQs  faqsDetails: [FaqsDetail],
+                     reuseIdentifier: String = "FAQTableViewCell", data : String, isDummy:Bool = false, completion:(() -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: faqsDetails,
+            reuseIdentifier: reuseIdentifier,
+            data: data,
+            isDummy:isDummy
+        ) { (faqDetail, cell, data, indexPath) in
+            guard let cell = cell as? FAQTableViewCell else {return}
+            cell.setupCell(faqDetail: faqDetail)
         }
     }
 }

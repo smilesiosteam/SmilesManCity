@@ -42,7 +42,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="poZ-xV-ABP" secondAttribute="trailing" constant="16" id="2mG-Wp-juw"/>
                         <constraint firstItem="poZ-xV-ABP" firstAttribute="leading" secondItem="mAo-dy-FlF" secondAttribute="leading" constant="16" id="5lo-Ub-EiJ"/>
@@ -55,7 +55,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="mAo-dy-FlF" secondAttribute="trailing" id="KPb-KR-dae"/>
                 <constraint firstItem="mAo-dy-FlF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="MQ3-k1-84b"/>

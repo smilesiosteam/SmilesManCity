@@ -27,7 +27,7 @@ public class ManCityHomeViewController: UIViewController {
     private let categoryId: Int
     var manCitySections: GetSectionsResponseModel?
     private var sections = [ManCitySectionData]()
-    private var isUserSubscribed: Bool? = nil
+    var isUserSubscribed: Bool? = nil
     private var subscriptionInfo: SubscriptionInfoResponse?
     
     // MARK: - ACTIONS -
@@ -55,18 +55,12 @@ public class ManCityHomeViewController: UIViewController {
         setupTableView()
         bind(to: viewModel)
         getSections()
-        if let isUserSubscribed {
-            if !isUserSubscribed {
-                self.input.send(.getSubscriptionInfo)
-            }
-        } else {
-            self.input.send(.getRewardPoints)
-        }
         
     }
     
     private func setupTableView() {
         
+        contentTableView.delegate = self
         let manCityCellRegistrable: CellRegisterable = ManCityHomeCellRegistration()
         manCityCellRegistrable.register(for: contentTableView)
         
@@ -89,6 +83,13 @@ public class ManCityHomeViewController: UIViewController {
             headerImageView.setImageWithUrlString(topPlaceholderSection.backgroundImage ?? "")
             setUpNavigationBar(headerData: topPlaceholderSection)
         }
+        if let isUserSubscribed {
+            if !isUserSubscribed {
+                setupPreEnrollmentUI()
+            }
+        } else {
+            self.input.send(.getRewardPoints)
+        }
 //        configureDataSource()
 //        manCityHomeAPICalls()
         
@@ -104,13 +105,12 @@ public class ManCityHomeViewController: UIViewController {
     
     private func setupPreEnrollmentUI() {
         
-        self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: 1))
-        if let subscriptionInfo {
-            dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: subscriptionInfo, data: "#FFFFFF", isDummy: false, completion: {
-                debugPrint("EnrollPressed")
-            })
-            configureDataSource()
-        }
+        self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: 2))
+        self.sections.removeAll()
+        self.sections.append(ManCitySectionData(index: 0, identifier: .enrollment))
+        self.sections.append(ManCitySectionData(index: 1, identifier: .FAQS))
+        self.input.send(.getSubscriptionInfo)
+        self.input.send(.getFAQsDetails(faqId: 9))
         
     }
     
@@ -176,8 +176,7 @@ extension ManCityHomeViewController {
                 case .fetchSectionsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                 case .fetchSubscriptionInfoDidSucceed(response: let response):
-                    self?.subscriptionInfo = response
-                    self?.setupPreEnrollmentUI()
+                    self?.configureEnrollment(with: response)
                 case .fetchSubscriptionInfoDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                 case .fetchRewardPointsDidSucceed(response: let response, _):
@@ -187,6 +186,10 @@ extension ManCityHomeViewController {
                         self?.setupPreEnrollmentUI()
                     }
                 case .fetchRewardPointsDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
+                case .fetchFAQsDidSucceed(response: let response):
+                    self?.configureFAQsDetails(with: response)
+                case .fetchFAQsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                 }
             }.store(in: &cancellables)
@@ -229,6 +232,28 @@ extension ManCityHomeViewController {
                 }
             }
         }
+        
+    }
+    
+}
+
+// MARK:- TABLEVIEW DATASOURCE CONFIGURATION -
+extension ManCityHomeViewController {
+    
+    private func configureEnrollment(with response: SubscriptionInfoResponse) {
+        
+        self.subscriptionInfo = response
+        dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: {
+            debugPrint("EnrollPressed")
+        })
+        configureDataSource()
+        
+    }
+    
+    private func configureFAQsDetails(with response: FAQsDetailsResponse) {
+        
+        dataSource?.dataSources?[1] = TableViewDataSource.make(forFAQs: response.faqsDetails ?? [], data: "#FFFFFF", completion: nil)
+        configureDataSource()
         
     }
     
