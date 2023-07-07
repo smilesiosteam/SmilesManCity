@@ -37,6 +37,7 @@ class ManCityHomeViewModel: NSObject {
     
 }
 
+// MARK: - VIEWMODELS BINDINGS -
 extension ManCityHomeViewModel {
     
     func transform(input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
@@ -49,10 +50,13 @@ extension ManCityHomeViewModel {
             case .getSubscriptionInfo:
                 self?.getSubscriptionInfo()
             case .getRewardPoints:
+                self?.bind(to: self?.rewardPointsViewModel ?? RewardPointsViewModel())
                 self?.rewardPointsUseCaseInput.send(.getRewardPoints(baseUrl: AppCommonMethods.serviceBaseUrl))
             case .getFAQsDetails(faqId: let faqId):
                 self?.bind(to: self?.faqsViewModel ?? FAQsViewModel())
                 self?.faqsUseCaseInput.send(.getFAQsDetails(faqId: faqId, baseUrl: AppCommonMethods.serviceBaseUrl))
+            case .getPlayersList:
+                self?.getPlayersList()
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -112,7 +116,7 @@ extension ManCityHomeViewModel {
     
 }
 
-// MARK: - HOME API CALLS -
+// MARK: - API CALLS -
 extension ManCityHomeViewModel {
     
     private func getSubscriptionInfo() {
@@ -134,6 +138,29 @@ extension ManCityHomeViewModel {
                 }
             } receiveValue: { [weak self] response in
                 self?.output.send(.fetchSubscriptionInfoDidSucceed(response: response))
+            }
+        .store(in: &cancellables)
+        
+    }
+    
+    private func getPlayersList() {
+        
+        let request = ManCityPlayersRequest()
+        let service = ManCityUserDetailsRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60),
+            baseUrl: AppCommonMethods.serviceBaseUrl
+        )
+        service.getPlayersService(request: request)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchPlayersDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                self?.output.send(.fetchPlayersDidSucceed(response: response))
             }
         .store(in: &cancellables)
         

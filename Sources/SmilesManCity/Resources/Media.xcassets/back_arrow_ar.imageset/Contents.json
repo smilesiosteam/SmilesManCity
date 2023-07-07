@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "macCity_logo.png",
+      "filename" : "back_arrow_ar.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "macCity_logo@2x.png",
+      "filename" : "back_arrow_ar@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "macCity_logo@3x.png",
+      "filename" : "back_arrow_ar@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

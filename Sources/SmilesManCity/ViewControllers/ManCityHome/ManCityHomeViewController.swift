@@ -29,6 +29,7 @@ public class ManCityHomeViewController: UIViewController {
     private var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
     private var subscriptionInfo: SubscriptionInfoResponse?
+    private var userData: RewardPointsResponseModel?
     
     // MARK: - ACTIONS -
     
@@ -139,13 +140,9 @@ public class ManCityHomeViewController: UIViewController {
         hStack.alignment = .center
         self.navigationItem.titleView = hStack
         
-        let btnBack: UIButton = UIButton()
+        let btnBack: UIButton = UIButton(type: .custom)
         btnBack.backgroundColor = .white
-        if AppCommonMethods.languageIsArabic() {
-            btnBack.setImage(UIImage(named: "back_icon_ar"), for: .normal)
-        } else {
-            btnBack.setImage(UIImage(named: "back_icon"), for: .normal)
-        }
+        btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_icon_ar" : "back_icon", in: .module, compatibleWith: nil), for: .normal)
         btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
         btnBack.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         btnBack.layer.cornerRadius = btnBack.frame.height / 2
@@ -191,6 +188,7 @@ extension ManCityHomeViewController {
                     self?.configureFAQsDetails(with: response)
                 case .fetchFAQsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
+                default: break
                 }
             }.store(in: &cancellables)
     }
@@ -237,14 +235,15 @@ extension ManCityHomeViewController {
     
 }
 
-// MARK:- TABLEVIEW DATASOURCE CONFIGURATION -
+// MARK: - TABLEVIEW DATASOURCE CONFIGURATION -
 extension ManCityHomeViewController {
     
     private func configureEnrollment(with response: SubscriptionInfoResponse) {
         
         self.subscriptionInfo = response
-        dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: {
-            debugPrint("EnrollPressed")
+        dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
+            guard let self else {return}
+            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel)
         })
         configureDataSource()
         

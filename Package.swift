@@ -21,7 +21,9 @@ let package = Package(
         .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesSharedServices.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesLocationHandler.git", branch: "main"),
-        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main")
+        .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", branch: "main")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -33,12 +35,12 @@ let package = Package(
                 .product(name: "SmilesUtilities", package: "SmilesUtilities"),
                 .product(name: "SmilesSharedServices", package: "SmilesSharedServices"),
                 .product(name: "SmilesLocationHandler", package: "SmilesLocationHandler"),
-                .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager")
+                .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager"),
+                .product(name: "SmilesLoader", package: "SmilesLoader"),
+                .product(name: "SmilesBaseMainRequestManager", package: "SmilesBaseMainRequest")
             ],
             resources: [
-                .process("Resources"),
-                .process("Views/Cells/TableViewCells/ManCityEnrollment/ManCityEnrollmentTableViewCell.xib"),
-                .process("Views/Cells/TableViewCells/EnrollmentBenefits/EnrollmentBenefitsTableViewCell.xib")
+                .process("Resources")
             ]),
         .testTarget(
             name: "SmilesManCityTests",

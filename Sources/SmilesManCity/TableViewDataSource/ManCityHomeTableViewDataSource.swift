@@ -20,6 +20,7 @@ extension TableViewDataSource where Model == SubscriptionInfoResponse {
         ) { (subscription, cell, data, indexPath) in
             guard let cell = cell as? ManCityEnrollmentTableViewCell else {return}
             cell.setupData(subscriptionData: subscription)
+            cell.enrollPressed = completion
         }
     }
 }

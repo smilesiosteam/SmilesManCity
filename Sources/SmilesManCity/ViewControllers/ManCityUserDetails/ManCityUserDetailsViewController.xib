@@ -151,17 +151,45 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pick a player" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q34-zq-i9v" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2P8-g9-g08">
                                                     <rect key="frame" x="0.0" y="24.333333333333371" width="361" height="40"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pick a player" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q34-zq-i9v" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
+                                                            <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="KQw-LO-MZl"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textField>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropdown_icon" translatesAutoresizingMaskIntoConstraints="NO" id="n0r-Br-fSy">
+                                                            <rect key="frame" x="326" y="5" width="30" height="30"/>
+                                                        </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqL-Hs-MNZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="361" height="40"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <connections>
+                                                                <action selector="pickPlayerPressed:" destination="-1" eventType="touchUpInside" id="kLD-2s-whX"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="KQw-LO-MZl"/>
+                                                        <constraint firstItem="q34-zq-i9v" firstAttribute="leading" secondItem="2P8-g9-g08" secondAttribute="leading" id="A0f-f1-cEO"/>
+                                                        <constraint firstAttribute="trailing" secondItem="MqL-Hs-MNZ" secondAttribute="trailing" id="CM8-yh-Ud8"/>
+                                                        <constraint firstItem="MqL-Hs-MNZ" firstAttribute="leading" secondItem="2P8-g9-g08" secondAttribute="leading" id="HIC-nw-8eP"/>
+                                                        <constraint firstAttribute="bottom" secondItem="MqL-Hs-MNZ" secondAttribute="bottom" id="I6r-Rc-t07"/>
+                                                        <constraint firstItem="MqL-Hs-MNZ" firstAttribute="top" secondItem="2P8-g9-g08" secondAttribute="top" id="QZ5-SH-HeG"/>
+                                                        <constraint firstItem="q34-zq-i9v" firstAttribute="top" secondItem="2P8-g9-g08" secondAttribute="top" id="SFL-xq-FMQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="n0r-Br-fSy" secondAttribute="trailing" constant="5" id="hjz-mp-wuf"/>
+                                                        <constraint firstAttribute="trailing" secondItem="q34-zq-i9v" secondAttribute="trailing" id="i9k-aO-C7e"/>
+                                                        <constraint firstItem="n0r-Br-fSy" firstAttribute="centerY" secondItem="q34-zq-i9v" secondAttribute="centerY" id="kA8-mC-bTM"/>
+                                                        <constraint firstAttribute="bottom" secondItem="q34-zq-i9v" secondAttribute="bottom" id="yix-BW-7yT"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </textField>
+                                                </view>
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="uJg-fV-7oq">
@@ -176,7 +204,7 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxw-v7-5jn" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxw-v7-5jn" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
                                                     <rect key="frame" x="0.0" y="24.333333333333371" width="361" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Vrw-1J-PsK"/>
@@ -212,9 +240,9 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="SjY-az-eiq" secondAttribute="height" multiplier="1:1" id="t9F-0d-DTL"/>
                                                                     </constraints>
-                                                                    <color key="tintColor" red="1" green="0.45098039215686275" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" image="circle.fill" catalog="system"/>
+                                                                    <state key="normal" image="circle" catalog="system"/>
                                                                     <connections>
                                                                         <action selector="yesPressed:" destination="-1" eventType="touchUpInside" id="cMq-mL-lXF"/>
                                                                     </connections>
@@ -332,7 +360,7 @@
                 </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="POQ-hN-qk7"/>
-            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="POQ-hN-qk7" firstAttribute="bottom" secondItem="IVH-Gv-9he" secondAttribute="bottom" id="01r-aC-a1o"/>
                 <constraint firstItem="POQ-hN-qk7" firstAttribute="trailing" secondItem="IVH-Gv-9he" secondAttribute="trailing" id="DYq-tY-6Kc"/>
@@ -394,6 +422,6 @@
     </designables>
     <resources>
         <image name="circle" catalog="system" width="128" height="123"/>
-        <image name="circle.fill" catalog="system" width="128" height="123"/>
+        <image name="dropdown_icon" width="30" height="30"/>
     </resources>
 </document>
