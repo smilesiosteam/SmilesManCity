@@ -29,22 +29,19 @@ class FAQTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.setupViewUI()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    func setupViewUI() {
-        titleLabel.font = SmilesFonts.circular.getFont(style: .regular, size: 16)
-        descriptionLabel.font = SmilesFonts.circular.getFont(style: .regular, size: 14)
-    }
-    
     func setupCell(faqDetail: FaqsDetail) {
         
         titleLabel.text = faqDetail.faqTitle
-        descriptionLabel.attributedText = faqDetail.faqContent.asStringOrEmpty().htmlToAttributedString
+        descriptionLabel.attributedText(faqDetail.faqContent.asStringOrEmpty().htmlToAttributedString, style: .smilesBody2,
+                                        alignment: AppCommonMethods.languageIsArabic() ? .right : .left)
+        dropdownImageView.image = UIImage(named: (faqDetail.isHidden ?? true) ? "faq_dropdown" : "faq_collapse", in: .module, compatibleWith: nil)
+        titleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         
     }
 }

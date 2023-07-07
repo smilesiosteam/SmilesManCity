@@ -87,6 +87,8 @@ public class ManCityHomeViewController: UIViewController {
         if let isUserSubscribed {
             if !isUserSubscribed {
                 setupPreEnrollmentUI()
+            } else {
+                
             }
         } else {
             self.input.send(.getRewardPoints)
@@ -218,9 +220,8 @@ extension ManCityHomeViewController {
                     sections.append(ManCitySectionData(index: index, identifier: section))
                 }
                 switch ManCitySectionIdentifier(rawValue: sectionIdentifier) {
-                case .topPlaceholder:
-                    break
                 case .quickAccess:
+                    
                     break
                 case .offerListing:
                     break

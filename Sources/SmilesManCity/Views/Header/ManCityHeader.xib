@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,34 +22,36 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAo-dy-FlF">
                     <rect key="frame" x="0.0" y="0.0" width="478" height="175"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exclusive offers for you" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poZ-xV-ABP">
-                            <rect key="frame" x="16" y="15.999999999999998" width="446" height="20.333333333333329"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline2"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The best of ManCity for you" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62K-JI-5Ww">
-                            <rect key="frame" x="16" y="40.333333333333336" width="446" height="20.333333333333336"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesBody3"/>
-                            </userDefinedRuntimeAttributes>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="pIl-4Z-Hjn">
+                            <rect key="frame" x="16" y="15.999999999999996" width="446" height="44.666666666666657"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exclusive offers for you" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poZ-xV-ABP" customClass="UILocalizableLabel" customModule="SmilesUtilities">
+                                    <rect key="frame" x="0.0" y="0.0" width="446" height="20.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline2"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The best of ManCity for you" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="62K-JI-5Ww" customClass="UILocalizableLabel" customModule="SmilesUtilities">
+                                    <rect key="frame" x="0.0" y="24.333333333333343" width="446" height="20.333333333333329"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesBody3"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="poZ-xV-ABP" secondAttribute="trailing" constant="16" id="2mG-Wp-juw"/>
-                        <constraint firstItem="poZ-xV-ABP" firstAttribute="leading" secondItem="mAo-dy-FlF" secondAttribute="leading" constant="16" id="5lo-Ub-EiJ"/>
-                        <constraint firstItem="poZ-xV-ABP" firstAttribute="top" secondItem="mAo-dy-FlF" secondAttribute="top" constant="16" id="Zhy-bS-3jE"/>
-                        <constraint firstItem="62K-JI-5Ww" firstAttribute="top" secondItem="poZ-xV-ABP" secondAttribute="bottom" constant="4" id="fY0-M1-gGk"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="62K-JI-5Ww" secondAttribute="bottom" constant="16" id="g5E-45-bCa"/>
-                        <constraint firstItem="62K-JI-5Ww" firstAttribute="leading" secondItem="poZ-xV-ABP" secondAttribute="leading" id="nES-bu-iUP"/>
-                        <constraint firstItem="62K-JI-5Ww" firstAttribute="trailing" secondItem="poZ-xV-ABP" secondAttribute="trailing" id="pHb-Za-lFJ"/>
+                        <constraint firstItem="pIl-4Z-Hjn" firstAttribute="leading" secondItem="mAo-dy-FlF" secondAttribute="leading" constant="16" id="QGa-Oo-1MM"/>
+                        <constraint firstAttribute="trailing" secondItem="pIl-4Z-Hjn" secondAttribute="trailing" constant="16" id="ZkQ-EI-vWA"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pIl-4Z-Hjn" secondAttribute="bottom" constant="16" id="dlc-CC-ScO"/>
+                        <constraint firstItem="pIl-4Z-Hjn" firstAttribute="top" secondItem="mAo-dy-FlF" secondAttribute="top" constant="16" id="qaR-9e-wRp"/>
                     </constraints>
                 </view>
             </subviews>
@@ -66,4 +67,12 @@
             <point key="canvasLocation" x="111.45038167938931" y="-239.78873239436621"/>
         </view>
     </objects>
+    <designables>
+        <designable name="62K-JI-5Ww">
+            <size key="intrinsicContentSize" width="211.33333333333334" height="20.333333333333332"/>
+        </designable>
+        <designable name="poZ-xV-ABP">
+            <size key="intrinsicContentSize" width="176.33333333333334" height="20.333333333333332"/>
+        </designable>
+    </designables>
 </document>

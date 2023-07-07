@@ -7,12 +7,13 @@
 
 import UIKit
 import SmilesUtilities
+import SmilesLanguageManager
 
 class ManCityHeader: UIView {
     
     // MARK: - OUTLETS -
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var subTitleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILocalizableLabel!
+    @IBOutlet weak var subTitleLabel: UILocalizableLabel!
     @IBOutlet weak var mainView: UIView!
     
     // MARK: - METHODS -
@@ -35,9 +36,12 @@ class ManCityHeader: UIView {
     }
     
     func setupData(title: String?, subTitle: String?, color: UIColor?) {
-        titleLabel.text = title
-        subTitleLabel.text = subTitle
+        titleLabel.localizedString = title ?? ""
+        subTitleLabel.localizedString = subTitle ?? ""
         mainView.backgroundColor = color
+        subTitleLabel.isHidden = subTitle == nil
+        titleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
+        subTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
     }
     
 }
