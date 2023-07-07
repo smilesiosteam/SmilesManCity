@@ -18,7 +18,7 @@ public class ManCityHomeViewController: UIViewController {
     
     
     // MARK: - PROPERTIES -
-    private var dataSource: SectionedTableViewDataSource?
+    var dataSource: SectionedTableViewDataSource?
     private var input: PassthroughSubject<ManCityHomeViewModel.Input, Never> = .init()
     private var cancellables = Set<AnyCancellable>()
     private lazy var viewModel: ManCityHomeViewModel = {
@@ -26,7 +26,7 @@ public class ManCityHomeViewController: UIViewController {
     }()
     private let categoryId: Int
     var manCitySections: GetSectionsResponseModel?
-    private var sections = [ManCitySectionData]()
+    var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?

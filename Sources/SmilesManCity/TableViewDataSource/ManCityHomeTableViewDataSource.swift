@@ -35,6 +35,7 @@ extension TableViewDataSource where Model == FaqsDetail {
             isDummy:isDummy
         ) { (faqDetail, cell, data, indexPath) in
             guard let cell = cell as? FAQTableViewCell else {return}
+            cell.bottomView.isHidden = faqDetail.isHidden ?? true
             cell.setupCell(faqDetail: faqDetail)
         }
     }

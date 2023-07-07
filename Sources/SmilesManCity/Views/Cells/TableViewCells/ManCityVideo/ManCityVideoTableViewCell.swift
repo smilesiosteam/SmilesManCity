@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import SmilesUtilities
 
 class ManCityVideoTableViewCell: UITableViewCell {
     
     // MARK: - OUTLETS -
     
-    @IBOutlet weak var videoPlayerView: UIView!
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
+    @IBOutlet weak var playButton: UIButton!
     
     // MARK: - METHODS -
     
@@ -20,7 +23,16 @@ class ManCityVideoTableViewCell: UITableViewCell {
         
     }
     
-    func setupCell() {
-        // TODO: Populate data here
+    func setupCell(videoUrl: String?) {
+        let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: videoUrl ?? "")
+        self.thumbnailImageView.setImageWithUrlString(thumbnailUrl, backgroundColor: .systemGray5) { image in
+            if let image {
+                self.thumbnailImageView.image = image
+            }
+        }
+    }
+    
+    @IBAction func playButtonTapped(_ sender: UIButton) {
+        
     }
 }

@@ -17,6 +17,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/youtube/youtube-ios-player-helper.git", branch: "master"),
         .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesSharedServices.git", branch: "main"),
@@ -31,6 +32,7 @@ let package = Package(
         .target(
             name: "SmilesManCity",
             dependencies: [
+                .product(name: "YouTubeiOSPlayerHelper", package: "youtube-ios-player-helper"),
                 .product(name: "SmilesFontsManager", package: "SmilesFontsManager"),
                 .product(name: "SmilesUtilities", package: "SmilesUtilities"),
                 .product(name: "SmilesSharedServices", package: "SmilesSharedServices"),
