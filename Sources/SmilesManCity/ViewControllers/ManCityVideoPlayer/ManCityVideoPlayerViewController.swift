@@ -22,7 +22,6 @@ public class ManCityVideoPlayerViewController: UIViewController {
     // MARK: - PROPERTIES -
     public var videoUrl: String?
     public var welcomeTitle: String?
-    var youtubeId: String?
     
     // MARK: - LIFECYCLE -
     public override func viewDidLoad() {
@@ -47,8 +46,8 @@ public class ManCityVideoPlayerViewController: UIViewController {
     
     // MARK: - METHODS -
     func initialSetup() {
-        self.youtubeId = AppCommonMethods.extractYoutubeId(fromLink: videoUrl ?? "")
-        thumbnailImageView.setImageWithUrlString(self.youtubeId ?? "", backgroundColor: .systemGray5) { image in
+        let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: self.videoUrl ?? "")
+        thumbnailImageView.setImageWithUrlString(thumbnailUrl, backgroundColor: .systemGray5) { image in
             if let image {
                 self.thumbnailImageView.image = image
             }
@@ -64,7 +63,8 @@ public class ManCityVideoPlayerViewController: UIViewController {
         if let videoUrl = URL(string: self.videoUrl ?? "") {
             if videoUrl.absoluteString.contains("youtube.com") || videoUrl.absoluteString.contains("youtu.be") {
                 // do something here
-                youtubePlayerView.load(withVideoId: self.youtubeId ?? "", playerVars: ["origin": "http://www.youtube.com", "autoplay": 1, "playsinline": 1, "showinfo": 1, "rel" : 0])
+                let youtubeId = AppCommonMethods.extractYoutubeId(fromLink: videoUrl.absoluteString)
+                youtubePlayerView.load(withVideoId: youtubeId, playerVars: ["origin": "http://www.youtube.com", "autoplay": 1, "playsinline": 1, "showinfo": 1, "rel" : 0])
                 youtubePlayerView.delegate = self
             } else {
                 let player = AVPlayer(url: videoUrl as URL)

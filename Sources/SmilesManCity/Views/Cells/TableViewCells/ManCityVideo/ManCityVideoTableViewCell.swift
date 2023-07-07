@@ -24,8 +24,8 @@ class ManCityVideoTableViewCell: UITableViewCell {
     }
     
     func setupCell(videoUrl: String?) {
-        let youtubeId = AppCommonMethods.extractYoutubeId(fromLink: videoUrl ?? "")
-        self.thumbnailImageView.setImageWithUrlString(youtubeId, backgroundColor: .systemGray5) { image in
+        let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: videoUrl ?? "")
+        self.thumbnailImageView.setImageWithUrlString(thumbnailUrl, backgroundColor: .systemGray5) { image in
             if let image {
                 self.thumbnailImageView.image = image
             }

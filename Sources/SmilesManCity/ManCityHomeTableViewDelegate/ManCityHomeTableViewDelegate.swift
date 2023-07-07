@@ -7,8 +7,21 @@
 
 import UIKit
 import SmilesUtilities
+import SmilesSharedServices
 
 extension ManCityHomeViewController: UITableViewDelegate {
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let faqIndex = getSectionIndex(for: .FAQS), faqIndex == indexPath.section {
+            let faqDetail = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<FaqsDetail>)?.models?[safe: indexPath.row] as? FaqsDetail)
+            faqDetail?.isHidden = !(faqDetail?.isHidden ?? true)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
