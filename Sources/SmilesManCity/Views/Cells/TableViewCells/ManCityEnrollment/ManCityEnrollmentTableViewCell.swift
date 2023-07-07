@@ -7,6 +7,7 @@
 
 import UIKit
 import SmilesUtilities
+import SmilesLanguageManager
 
 class ManCityEnrollmentTableViewCell: UITableViewCell {
 
@@ -54,11 +55,18 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
         
         logoImageView.setImageWithUrlString(subscriptionData.themeResources?.mancityImageURL ?? "", defaultImage: "manCity_logo")
         descriptionLabel.text = subscriptionData.lifestyleOffers?.first?.offerDescription
-        pointsLabel.text = String(describing: subscriptionData.lifestyleOffers?.first?.pointsValue)
-        priceLabel.text = String(describing: subscriptionData.lifestyleOffers?.first?.price)
+        pointsLabel.text = "\(subscriptionData.lifestyleOffers?.first?.pointsValue ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "PTS"))"
+        priceLabel.text = "\(subscriptionData.lifestyleOffers?.first?.price ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
         enrollButton.setTitle(subscriptionData.themeResources?.mancitySubButtonText, for: .normal)
         benefits = subscriptionData.lifestyleOffers?.first?.benefits ?? []
         tableViewHeight.constant = (rowHeight + spacing) * CGFloat(benefits.count)
+        if let components = subscriptionData.themeResources?.mancitySubBgColor?.components(separatedBy: "|"), let startColor = components.first, let endColor = components.last {
+            bgView.startColor = UIColor(hexString: startColor)
+            bgView.endColor = UIColor(hexString: endColor)
+            let points = GradientUtility.shared.getGradientStartAndEndPoint(withDirection: subscriptionData.themeResources?.mancitySubBgColorDirection ?? "bottom-right")
+            bgView.startPoint = points.startPoint
+            bgView.endPoint = points.endPoint
+        }
         rewardsTableView.reloadData()
         
     }
@@ -78,7 +86,7 @@ extension ManCityEnrollmentTableViewCell: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.cellForRow(at: indexPath) as! EnrollmentBenefitsTableViewCell
+        let cell = tableView.dequeueCell(withClass: EnrollmentBenefitsTableViewCell.self, for: indexPath)
         cell.setupData(benefit: benefits[indexPath.row])
         return cell
         

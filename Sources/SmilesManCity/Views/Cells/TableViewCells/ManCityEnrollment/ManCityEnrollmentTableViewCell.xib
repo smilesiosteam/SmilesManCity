@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ManCityEnrollmentTableViewCell" rowHeight="691" id="KGk-i7-Jjw" customClass="ManCityEnrollmentTableViewCell" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ManCityEnrollmentTableViewCell" rowHeight="691" id="KGk-i7-Jjw" customClass="ManCityEnrollmentTableViewCell" customModule="SmilesManCity">
             <rect key="frame" x="0.0" y="0.0" width="367" height="691"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -52,13 +52,14 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline3"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lg-kF-7GG">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lg-kF-7GG" customClass="UILocalizableLabel" customModule="SmilesUtilities">
                                         <rect key="frame" x="93.666666666666657" y="0.0" width="15.666666666666671" height="20.333333333333332"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.47450980392156861" green="0.49019607843137253" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesBody3"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="localizedString" value="or"/>
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 AED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Jy-HP-eVy">
@@ -72,15 +73,15 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LB-VA-IgH">
-                                <rect key="frame" x="35" y="272.66666666666669" width="265" height="152"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LB-VA-IgH">
+                                <rect key="frame" x="35" y="264.66666666666669" width="265" height="152"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="152" id="cjG-TI-S22"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKd-PR-l8j" customClass="UICustomButton" customModule="SmilesUtilities">
-                                <rect key="frame" x="95" y="456.66666666666669" width="145" height="48"/>
+                                <rect key="frame" x="95" y="440.66666666666669" width="145" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="1L3-hM-Xtr"/>
@@ -109,7 +110,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="yKd-PR-l8j" firstAttribute="top" secondItem="9LB-VA-IgH" secondAttribute="bottom" constant="32" id="0ub-98-46u"/>
+                            <constraint firstItem="yKd-PR-l8j" firstAttribute="top" secondItem="9LB-VA-IgH" secondAttribute="bottom" constant="24" id="0ub-98-46u"/>
                             <constraint firstItem="dxe-GR-a2I" firstAttribute="top" secondItem="oeN-80-KTX" secondAttribute="bottom" constant="24" id="1Cu-nk-SMz"/>
                             <constraint firstItem="9LB-VA-IgH" firstAttribute="leading" secondItem="rbQ-eS-vST" secondAttribute="leading" constant="35" id="4FU-0U-l27"/>
                             <constraint firstItem="QQV-zp-GsR" firstAttribute="leading" secondItem="SQE-Em-jH3" secondAttribute="trailing" constant="4" id="8s1-eq-FYr"/>
@@ -119,7 +120,7 @@
                             <constraint firstItem="dxe-GR-a2I" firstAttribute="leading" secondItem="rbQ-eS-vST" secondAttribute="leading" constant="33" id="PV0-a9-hsx"/>
                             <constraint firstItem="QQV-zp-GsR" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" constant="6" id="Q45-Ik-Boh"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yKd-PR-l8j" secondAttribute="bottom" constant="40" id="YJm-mF-A3W"/>
-                            <constraint firstItem="9LB-VA-IgH" firstAttribute="top" secondItem="SQE-Em-jH3" secondAttribute="bottom" constant="40" id="dHb-vi-mgg"/>
+                            <constraint firstItem="9LB-VA-IgH" firstAttribute="top" secondItem="SQE-Em-jH3" secondAttribute="bottom" constant="32" id="dHb-vi-mgg"/>
                             <constraint firstItem="SQE-Em-jH3" firstAttribute="top" secondItem="dxe-GR-a2I" secondAttribute="bottom" constant="16" id="hv4-fh-uDZ"/>
                             <constraint firstItem="oeN-80-KTX" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" id="lDT-1G-wSI"/>
                             <constraint firstItem="yKd-PR-l8j" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" id="pDD-DZ-hzp"/>
@@ -139,7 +140,7 @@
                                 <point key="value" x="0.0" y="0.0"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="point" keyPath="endPoint">
-                                <point key="value" x="1" y="1"/>
+                                <point key="value" x="0.0" y="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="1"/>
@@ -161,7 +162,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="bgView" destination="rbQ-eS-vST" id="Iuy-VU-c9r"/>
+                <outlet property="bgView" destination="rbQ-eS-vST" id="orW-dd-Kf6"/>
                 <outlet property="descriptionLabel" destination="dxe-GR-a2I" id="zXF-uD-efS"/>
                 <outlet property="enrollButton" destination="yKd-PR-l8j" id="gvS-Bw-eiN"/>
                 <outlet property="logoImageView" destination="oeN-80-KTX" id="QyO-cH-O3a"/>

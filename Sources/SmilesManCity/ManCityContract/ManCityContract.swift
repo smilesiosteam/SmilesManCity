@@ -15,6 +15,7 @@ extension ManCityHomeViewModel {
         case getSections(categoryID: Int)
         case getSubscriptionInfo
         case getRewardPoints
+        case getFAQsDetails(faqId: Int)
     }
     
     enum Output {
@@ -26,6 +27,9 @@ extension ManCityHomeViewModel {
         
         case fetchRewardPointsDidSucceed(response: RewardPointsResponseModel, shouldLogout: Bool?)
         case fetchRewardPointsDidFail(error: Error)
+        
+        case fetchFAQsDidSucceed(response: FAQsDetailsResponse)
+        case fetchFAQsDidFail(error: Error)
     }
     
 }

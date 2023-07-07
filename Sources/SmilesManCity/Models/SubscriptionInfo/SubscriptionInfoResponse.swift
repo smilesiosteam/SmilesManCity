@@ -7,9 +7,8 @@
 
 import Foundation
 import SmilesUtilities
-import NetworkingLayer
 
-class SubscriptionInfoResponse: BaseMainResponse {
+class SubscriptionInfoResponse: Codable {
     
     var extTransactionID: String?
     var themeResources: ThemeResources?
