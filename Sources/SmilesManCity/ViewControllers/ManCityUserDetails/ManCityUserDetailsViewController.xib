@@ -28,10 +28,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVH-Gv-9he">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2d-47-MLe">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="759"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="wV1-bf-FCS">
                                     <rect key="frame" x="16" y="34" width="361" height="612.33333333333337"/>
@@ -50,7 +50,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="29f-ws-YgF" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
-                                                    <rect key="frame" x="0.0" y="24.333333333333336" width="361" height="40.000000000000007"/>
+                                                    <rect key="frame" x="0.0" y="24.333333333333329" width="361" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="ZQG-lG-q82"/>
                                                     </constraints>
@@ -76,7 +76,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yFi-o2-bk4" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
-                                                    <rect key="frame" x="0.0" y="24.333333333333329" width="361" height="40"/>
+                                                    <rect key="frame" x="0.0" y="24.333333333333314" width="361" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="bxz-sQ-CUG"/>
                                                     </constraints>
@@ -89,7 +89,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="2NK-fu-zoa">
-                                            <rect key="frame" x="0.0" y="184.66666666666666" width="361" height="64.333333333333343"/>
+                                            <rect key="frame" x="0.0" y="184.66666666666669" width="361" height="64.333333333333314"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Number*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87H-2L-Rn8" customClass="UILocalizableLabel" customModule="SmilesUtilities">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
@@ -102,7 +102,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pws-dh-7St" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
-                                                    <rect key="frame" x="0.0" y="24.333333333333343" width="361" height="40"/>
+                                                    <rect key="frame" x="0.0" y="24.333333333333314" width="361" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="tfy-Js-aNd"/>
                                                     </constraints>
@@ -150,6 +150,7 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedString" value="Who is your favourite Mancity Player?"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2P8-g9-g08">
@@ -194,7 +195,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="uJg-fV-7oq">
-                                            <rect key="frame" x="0.0" y="461.66666666666669" width="361" height="64.333333333333314"/>
+                                            <rect key="frame" x="0.0" y="461.66666666666663" width="361" height="64.333333333333371"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Referral Code ( Optional )" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPJ-sy-Zmu" customClass="UILocalizableLabel" customModule="SmilesUtilities">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="20.333333333333332"/>
@@ -203,10 +204,11 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedString" value="Referral Code(Optional)"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxw-v7-5jn" customClass="TextFieldWithValidation" customModule="SmilesUtilities">
-                                                    <rect key="frame" x="0.0" y="24.333333333333314" width="361" height="40"/>
+                                                    <rect key="frame" x="0.0" y="24.333333333333371" width="361" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Vrw-1J-PsK"/>
                                                     </constraints>
@@ -228,6 +230,7 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedString" value="Have you attended a Man City Football Match?"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="lmJ-Zg-S1S">
@@ -331,6 +334,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="24"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Proceed to Payment"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="proceedPressed:" destination="-1" eventType="touchUpInside" id="uyU-l1-d2K"/>

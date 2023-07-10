@@ -83,6 +83,7 @@ class ManCityUserDetailsViewController: UIViewController {
         input.send(.getPlayersList)
         setupUserData()
         yesLabel.text = SmilesLanguageManager.shared.getLocalizedString(for: "Yes").capitalizingFirstLetter()
+        playerTextField.placeholder = SmilesLanguageManager.shared.getLocalizedString(for: "Pick a player")
         
     }
     
