@@ -52,4 +52,38 @@ extension ManCityHomeViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        var tableViewHeight = contentTableView.frame.height
+        if headerView.alpha == 0 {
+            tableViewHeight -= 153
+        }
+        guard scrollView.contentSize.height > tableViewHeight else { return }
+        var compact: Bool?
+        if scrollView.contentOffset.y > 90 {
+           compact = true
+        } else if scrollView.contentOffset.y < 0 {
+            compact = false
+        }
+        guard let compact, compact != (headerView.alpha == 0) else { return }
+        if compact {
+            self.setUpNavigationBar(isLightContent: false)
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .transitionCrossDissolve, animations: {
+                self.headerView.alpha = 0
+                self.tableViewTopSpaceToHeaderView.priority = .defaultLow
+                self.tableViewTopSpaceToSuperView.priority = .defaultHigh
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            self.setUpNavigationBar()
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .transitionCrossDissolve, animations: {
+                self.headerView.alpha = 1
+                self.tableViewTopSpaceToHeaderView.priority = .defaultHigh
+                self.tableViewTopSpaceToSuperView.priority = .defaultLow
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+    }
+    
 }

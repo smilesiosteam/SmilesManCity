@@ -14,9 +14,9 @@ final class ManCityRouter {
     
     private init() {}
     
-    func pushUserDetailsVC(navVC: UINavigationController, userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel) {
+    func pushUserDetailsVC(navVC: UINavigationController, userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping (() -> Void)) {
         
-        let vc = ManCityUserDetailsViewController(userData: userData, viewModel: viewModel)
+        let vc = ManCityUserDetailsViewController(userData: userData, viewModel: viewModel, proceedToPayment: proceedToPayment)
         navVC.pushViewController(vc, animated: true)
         
     }

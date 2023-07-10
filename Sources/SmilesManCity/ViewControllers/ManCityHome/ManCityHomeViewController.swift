@@ -14,8 +14,10 @@ public class ManCityHomeViewController: UIViewController {
     
     // MARK: - OUTLETS -
     @IBOutlet weak var headerImageView: UIImageView!
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var contentTableView: UITableView!
-    
+    @IBOutlet weak var tableViewTopSpaceToHeaderView: NSLayoutConstraint!
+    @IBOutlet weak var tableViewTopSpaceToSuperView: NSLayoutConstraint!
     
     // MARK: - PROPERTIES -
     var dataSource: SectionedTableViewDataSource?
@@ -30,6 +32,7 @@ public class ManCityHomeViewController: UIViewController {
     var isUserSubscribed: Bool? = nil
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
+    private var proceedToPayment: (() -> Void)?
     
     // MARK: - ACTIONS -
     
@@ -40,9 +43,10 @@ public class ManCityHomeViewController: UIViewController {
         setupViews()
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, proceedToPayment: @escaping (() -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
+        self.proceedToPayment = proceedToPayment
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     
@@ -77,12 +81,12 @@ public class ManCityHomeViewController: UIViewController {
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
         
         manCitySections = sectionsResponse
+        setUpNavigationBar()
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
             self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: sectionDetailsArray.count))
         }
         if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) {
             headerImageView.setImageWithUrlString(topPlaceholderSection.backgroundImage ?? "")
-            setUpNavigationBar(headerData: topPlaceholderSection)
         }
         if let isUserSubscribed {
             if !isUserSubscribed {
@@ -123,19 +127,22 @@ public class ManCityHomeViewController: UIViewController {
         
     }
     
-    private func setUpNavigationBar(headerData: SectionDetailDO) {
+    func setUpNavigationBar(isLightContent: Bool = true) {
         
+        guard let headerData = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) else { return }
         let imageView = UIImageView()
         NSLayoutConstraint.activate([
             imageView.heightAnchor.constraint(equalToConstant: 24),
             imageView.widthAnchor.constraint(equalToConstant: 24)
         ])
-        imageView.setImageWithUrlString(headerData.iconUrl ?? "")
-        imageView.tintColor = .white
+        imageView.tintColor = isLightContent ? .white : .black
+        imageView.sd_setImage(with: URL(string: headerData.iconUrl ?? "")) { image, _, _, _ in
+            imageView.image = image?.withRenderingMode(.alwaysTemplate)
+        }
 
         let locationNavBarTitle = UILabel()
         locationNavBarTitle.text = headerData.title
-        locationNavBarTitle.textColor = .white
+        locationNavBarTitle.textColor = isLightContent ? .white : .black
         locationNavBarTitle.fontTextStyle = .smilesHeadline4
         let hStack = UIStackView(arrangedSubviews: [imageView, locationNavBarTitle])
         hStack.spacing = 4
@@ -143,7 +150,7 @@ public class ManCityHomeViewController: UIViewController {
         self.navigationItem.titleView = hStack
         
         let btnBack: UIButton = UIButton(type: .custom)
-        btnBack.backgroundColor = .white
+        btnBack.backgroundColor = isLightContent ? .white : UIColor(red: 226.0 / 255.0, green: 226.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
         btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_icon_ar" : "back_icon", in: .module, compatibleWith: nil), for: .normal)
         btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
         btnBack.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
@@ -244,7 +251,7 @@ extension ManCityHomeViewController {
         self.subscriptionInfo = response
         dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
             guard let self else {return}
-            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel)
+            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel, proceedToPayment: self.proceedToPayment!)
         })
         configureDataSource()
         

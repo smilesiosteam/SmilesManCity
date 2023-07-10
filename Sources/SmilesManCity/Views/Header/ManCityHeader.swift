@@ -38,7 +38,11 @@ class ManCityHeader: UIView {
     func setupData(title: String?, subTitle: String?, color: UIColor?) {
         titleLabel.localizedString = title ?? ""
         subTitleLabel.localizedString = subTitle ?? ""
-        mainView.backgroundColor = color
+        if let color {
+            mainView.backgroundColor = color
+        } else {
+            mainView.backgroundColor = .white
+        }
         subTitleLabel.isHidden = subTitle == nil
         titleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         subTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight

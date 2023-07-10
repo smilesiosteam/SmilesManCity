@@ -32,6 +32,7 @@ class ManCityUserDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var players: [ManCityPlayer]?
     private var selectedPlayer: ManCityPlayer?
+    private var proceedToPayment: (() -> Void)?
     
     // MARK: - ACTIONS -
     
@@ -46,7 +47,7 @@ class ManCityUserDetailsViewController: UIViewController {
     @IBAction func proceedPressed(_ sender: Any) {
         
         if isDataValid() {
-            print("Data is valid")
+            proceedToPayment?()
         }
         
     }
@@ -61,9 +62,10 @@ class ManCityUserDetailsViewController: UIViewController {
         setupViews()
     }
     
-    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel) {
+    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping (() -> Void)) {
         self.userData = userData
         self.viewModel = viewModel
+        self.proceedToPayment = proceedToPayment
         super.init(nibName: "ManCityUserDetailsViewController", bundle: .module)
     }
     
