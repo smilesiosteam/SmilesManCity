@@ -10,6 +10,7 @@ import NetworkingLayer
 enum ManCityHomeRequestBuilder {
     
     case getSubscriptionInfo(request: SubscriptionInfoRequest)
+    case getQuickAccessList(request: QuickAccessRequestModel)
     
     // gave a default timeout but can be different for each.
     var requestTimeOut: Int {
@@ -20,6 +21,8 @@ enum ManCityHomeRequestBuilder {
     var httpMethod: SmilesHTTPMethod {
         switch self {
         case .getSubscriptionInfo:
+            return .POST
+        case .getQuickAccessList:
             return .POST
         }
     }
@@ -39,6 +42,8 @@ enum ManCityHomeRequestBuilder {
     var requestBody: Encodable? {
         switch self {
         case .getSubscriptionInfo(let request):
+            return request
+        case .getQuickAccessList(let request):
             return request
         }
     }

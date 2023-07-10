@@ -12,6 +12,7 @@ import SmilesUtilities
 
 protocol ManCityHomeServiceable {
     func getSubscriptionInfoService(request: SubscriptionInfoRequest) -> AnyPublisher<SubscriptionInfoResponse, NetworkError>
+    func getQuickAccessListService(request: QuickAccessRequestModel) -> AnyPublisher<QuickAccessResponseModel, NetworkError>
 }
 
 // GetCuisinesRepository
@@ -34,5 +35,10 @@ class ManCityHomeRepository: ManCityHomeServiceable {
         return self.networkRequest.request(request)
         
     }
-  
+    
+    func getQuickAccessListService(request: QuickAccessRequestModel) -> AnyPublisher<QuickAccessResponseModel, NetworkError> {
+        let endPoint = ManCityHomeRequestBuilder.getQuickAccessList(request: request)
+        let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .quickAccessList)
+        return self.networkRequest.request(request)
+    }
 }

@@ -17,6 +17,8 @@ extension ManCityHomeViewModel {
         case getRewardPoints
         case getFAQsDetails(faqId: Int)
         case getPlayersList
+        case getQuickAccessList(categoryId: Int)
+        case configureAboutVideo(videoUrl: String)
     }
     
     enum Output {
@@ -34,6 +36,11 @@ extension ManCityHomeViewModel {
         
         case fetchPlayersDidSucceed(response: ManCityPlayersResponse)
         case fetchPlayersDidFail(error: Error)
+        
+        case fetchQuickAccessListDidSucceed(response: QuickAccessResponseModel)
+        case fetchQuickAccessListDidFail(error: Error)
+        
+        case configureAboutVideoDidSucceed(response: AboutVideo)
     }
     
 }

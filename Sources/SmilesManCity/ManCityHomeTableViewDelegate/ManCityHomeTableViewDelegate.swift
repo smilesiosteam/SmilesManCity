@@ -20,6 +20,26 @@ extension ManCityHomeViewController: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let isUserSubscribed {
+            if !isUserSubscribed {
+                if let faqIndex = getSectionIndex(for: .FAQS), faqIndex == indexPath.section {
+                    return UITableView.automaticDimension
+                }
+            } else {
+                if let sectionData = self.manCitySections?.sectionDetails?[safe: indexPath.section] {
+                    switch sectionData.sectionIdentifier {
+                    case ManCitySectionIdentifier.quickAccess.rawValue:
+                        return 64.0
+                        
+                    case ManCitySectionIdentifier.about.rawValue:
+                        return 242.0
+                    default:
+                        return UITableView.automaticDimension
+                    }
+                }
+            }
+        }
+        
         return UITableView.automaticDimension
     }
     

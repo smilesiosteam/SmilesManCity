@@ -9,6 +9,7 @@ import Foundation
 
 public enum ManCityHomeEndPoints: String, CaseIterable {
     case getSubscriptionInfo
+    case quickAccessList
 }
 
 extension ManCityHomeEndPoints {
@@ -16,6 +17,8 @@ extension ManCityHomeEndPoints {
         switch self {
         case .getSubscriptionInfo:
             return "mancity/subscription"
+        case .quickAccessList:
+            return "mancity/quick-access"
         }
     }
 }

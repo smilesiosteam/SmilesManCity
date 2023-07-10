@@ -40,3 +40,36 @@ extension TableViewDataSource where Model == FaqsDetail {
         }
     }
 }
+
+extension TableViewDataSource where Model == QuickAccessResponseModel {
+    static func make(forQuickAccess quickAccess: QuickAccessResponseModel,
+                     reuseIdentifier: String = "QuickAccessTableViewCell", data: String, isDummy: Bool = false, completion: ((QuickAccessLink) -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: [quickAccess],
+            reuseIdentifier: reuseIdentifier,
+            data: data,
+            isDummy: isDummy
+        ) { (quickAccess, cell, data, indexPath) in
+            guard let cell = cell as? QuickAccessTableViewCell else { return }
+            cell.collectionsData = quickAccess.quickAccess?.links
+            cell.didTapCell = { quickAccessLink in
+                completion?(quickAccessLink)
+            }
+        }
+    }
+}
+
+extension TableViewDataSource where Model == AboutVideo {
+    static func make(forAboutVideo aboutVideo: AboutVideo,
+                     reuseIdentifier: String = "ManCityVideoTableViewCell", data: String, isDummy: Bool = false, completion: ((String) -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: [aboutVideo],
+            reuseIdentifier: reuseIdentifier,
+            data: data,
+            isDummy: isDummy
+        ) { (aboutVideo, cell, data, indexPath) in
+            guard let cell = cell as? ManCityVideoTableViewCell else { return }
+            cell.setupCell(videoUrl: aboutVideo.videoUrl)
+        }
+    }
+}
