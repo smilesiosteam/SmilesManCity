@@ -12,6 +12,7 @@ import SmilesSharedServices
 import Combine
 import SmilesFontsManager
 import SmilesLoader
+import PhoneNumberKit
 
 class ManCityUserDetailsViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class ManCityUserDetailsViewController: UIViewController {
     @IBOutlet weak var referralTextField: TextFieldWithValidation!
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
+    @IBOutlet weak var yesLabel: UILocalizableLabel!
     
     // MARK: - PROPERTIES -
     private var userData: RewardPointsResponseModel?
@@ -77,10 +79,10 @@ class ManCityUserDetailsViewController: UIViewController {
         
         setUpNavigationBar()
         bind(to: viewModel)
-        setupTextFields()
         SmilesLoader.show(on: self.view)
         input.send(.getPlayersList)
         setupUserData()
+        yesLabel.text = SmilesLanguageManager.shared.getLocalizedString(for: "Yes").capitalizingFirstLetter()
         
     }
     
@@ -89,18 +91,19 @@ class ManCityUserDetailsViewController: UIViewController {
         if let userData {
             firstNameTextField.text = userData.name?.components(separatedBy: " ").first ?? ""
             lastNameTextField.text = userData.name?.components(separatedBy: " ").last ?? ""
-            mobileTextField.text = userData.phoneNumber
+            if var phoneNumber = userData.phoneNumber {
+                let firstChar = phoneNumber.prefix(1)
+                if firstChar == "0" {
+                    phoneNumber.replacingCharacter(value: "0", startIndexOffsetBy: 0, endIndexOffsetBy: 1, replaceWith: "971")
+                }
+                phoneNumber = PartialFormatter().formatPartial("+" + phoneNumber)
+                mobileTextField.text = phoneNumber
+            }
             emailTextField.text = userData.emailAddress
         } else {
             SmilesLoader.show(on: self.view)
             input.send(.getRewardPoints)
         }
-        
-    }
-    
-    private func setupTextFields() {
-        
-        
         
     }
     
@@ -129,14 +132,14 @@ class ManCityUserDetailsViewController: UIViewController {
     
     private func setUpNavigationBar() {
         
-        navigationItem.title = "Your details"
+        navigationItem.title = SmilesLanguageManager.shared.getLocalizedString(for: "Your details")
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.backgroundColor = .clear
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.white, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
             appearance.shadowColor = .clear
             appearance.shadowImage = UIImage()
-            
+            appearance.configureWithTransparentBackground()
             UINavigationBar.appearance().tintColor = .clear
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().compactAppearance = appearance
@@ -145,9 +148,11 @@ class ManCityUserDetailsViewController: UIViewController {
             self.navigationController?.navigationItem.largeTitleDisplayMode = .never
             
         } else {
+            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+            UINavigationBar.appearance().shadowImage = UIImage()
             UINavigationBar.appearance().tintColor = .clear
             UINavigationBar.appearance().barTintColor = .clear
-            UINavigationBar.appearance().isTranslucent = false
+            UINavigationBar.appearance().isTranslucent = true
         }
         let btnBack: UIButton = UIButton(type: .custom)
         btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)

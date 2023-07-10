@@ -24,7 +24,8 @@ let package = Package(
         .package(url: "https://github.com/smilesiosteam/SmilesLocationHandler.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", branch: "main"),
-        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", branch: "main")
+        .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", branch: "main"),
+        .package(url: "https://github.com/marmelroy/PhoneNumberKit", from: "3.6.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -39,7 +40,8 @@ let package = Package(
                 .product(name: "SmilesLocationHandler", package: "SmilesLocationHandler"),
                 .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager"),
                 .product(name: "SmilesLoader", package: "SmilesLoader"),
-                .product(name: "SmilesBaseMainRequestManager", package: "SmilesBaseMainRequest")
+                .product(name: "SmilesBaseMainRequestManager", package: "SmilesBaseMainRequest"),
+                .product(name: "PhoneNumberKit", package: "PhoneNumberKit")
             ],
             resources: [
                 .process("Resources")

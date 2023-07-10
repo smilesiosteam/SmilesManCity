@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "phonenumberkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marmelroy/PhoneNumberKit",
+      "state" : {
+        "revision" : "7147f6126e24ebf65f8c65e64afce5915c178c42",
+        "version" : "3.6.5"
+      }
+    },
+    {
       "identity" : "sdwebimage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
@@ -87,7 +96,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesFontsManager.git",
       "state" : {
         "branch" : "main",
-        "revision" : "e3f7b642d336d8f6feac7877854676f1c44ac3e5"
+        "revision" : "1a7068cb5a728cb7761aceb44d1c1ab2e88eba74"
       }
     },
     {
@@ -142,6 +151,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "06350bf34d3e91d6691a3c9d1d2667ff4738e7f4"
+      }
+    },
+    {
+      "identity" : "youtube-ios-player-helper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/youtube/youtube-ios-player-helper.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "f57129cd4380ec0a74dd3a59da3270a1d653d59b"
       }
     }
   ],

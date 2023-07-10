@@ -158,6 +158,11 @@ public class ManCityHomeViewController: UIViewController {
         btnBack.clipsToBounds = true
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
     }
