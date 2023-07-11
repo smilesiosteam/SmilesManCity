@@ -7,6 +7,7 @@
 
 import UIKit
 import SmilesSharedServices
+import SmilesUtilities
 
 final class ManCityRouter {
     
@@ -14,7 +15,7 @@ final class ManCityRouter {
     
     private init() {}
     
-    func pushUserDetailsVC(navVC: UINavigationController, userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping (() -> Void)) {
+    func pushUserDetailsVC(navVC: UINavigationController, userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String) -> Void)) {
         
         let vc = ManCityUserDetailsViewController(userData: userData, viewModel: viewModel, proceedToPayment: proceedToPayment)
         navVC.pushViewController(vc, animated: true)

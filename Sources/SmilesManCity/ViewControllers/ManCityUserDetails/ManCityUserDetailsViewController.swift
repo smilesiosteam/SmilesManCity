@@ -34,7 +34,7 @@ class ManCityUserDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var players: [ManCityPlayer]?
     private var selectedPlayer: ManCityPlayer?
-    private var proceedToPayment: (() -> Void)?
+    private var proceedToPayment: ((String, String) -> Void)?
     
     // MARK: - ACTIONS -
     
@@ -49,7 +49,9 @@ class ManCityUserDetailsViewController: UIViewController {
     @IBAction func proceedPressed(_ sender: Any) {
         
         if isDataValid() {
-            proceedToPayment?()
+            if let playerId = selectedPlayer?.playerID {
+                proceedToPayment?(playerId, referralTextField.text ?? "")
+            }
         }
         
     }
@@ -64,7 +66,12 @@ class ManCityUserDetailsViewController: UIViewController {
         setupViews()
     }
     
-    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping (() -> Void)) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpNavigationBar()
+    }
+    
+    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String) -> Void)) {
         self.userData = userData
         self.viewModel = viewModel
         self.proceedToPayment = proceedToPayment
@@ -77,13 +84,19 @@ class ManCityUserDetailsViewController: UIViewController {
     
     private func setupViews() {
         
-        setUpNavigationBar()
         bind(to: viewModel)
         SmilesLoader.show(on: self.view)
         input.send(.getPlayersList)
         setupUserData()
         yesLabel.text = SmilesLanguageManager.shared.getLocalizedString(for: "Yes").capitalizingFirstLetter()
+        setupTextFields()
+        
+    }
+    
+    private func setupTextFields() {
+        
         playerTextField.placeholder = SmilesLanguageManager.shared.getLocalizedString(for: "Pick a player")
+        playerTextField.validationType = [.requiredField(errorMessage: "Please pick a player")]
         
     }
     
