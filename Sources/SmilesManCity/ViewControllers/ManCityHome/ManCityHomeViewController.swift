@@ -79,7 +79,7 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
-        
+        self.isUserSubscribed = true
         manCitySections = sectionsResponse
         setUpNavigationBar()
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
@@ -88,11 +88,12 @@ public class ManCityHomeViewController: UIViewController {
         if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) {
             headerImageView.setImageWithUrlString(topPlaceholderSection.backgroundImage ?? "")
         }
+    
         if let isUserSubscribed {
             if !isUserSubscribed {
                 setupPreEnrollmentUI()
             } else {
-                
+                setupPostEnrollmentUI()
             }
         } else {
             self.input.send(.getRewardPoints)
@@ -123,7 +124,8 @@ public class ManCityHomeViewController: UIViewController {
     
     private func setupPostEnrollmentUI() {
         
-        
+        self.sections.removeAll()
+        self.manCityHomeAPICalls()
         
     }
     
@@ -184,24 +186,41 @@ extension ManCityHomeViewController {
                 switch event {
                 case .fetchSectionsDidSucceed(let sectionsResponse):
                     self?.configureSectionsData(with: sectionsResponse)
+                    
                 case .fetchSectionsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
+                    
                 case .fetchSubscriptionInfoDidSucceed(response: let response):
                     self?.configureEnrollment(with: response)
+                    
                 case .fetchSubscriptionInfoDidFail(error: let error):
                     debugPrint(error.localizedDescription)
+                    
                 case .fetchRewardPointsDidSucceed(response: let response, _):
                     if response.mcfcSubscriptionStatus ?? false {
                         self?.setupPostEnrollmentUI()
                     } else {
                         self?.setupPreEnrollmentUI()
                     }
+                    
                 case .fetchRewardPointsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
+                    
                 case .fetchFAQsDidSucceed(response: let response):
                     self?.configureFAQsDetails(with: response)
+                    
                 case .fetchFAQsDidFail(error: let error):
                     debugPrint(error.localizedDescription)
+                    
+                case .fetchQuickAccessListDidSucceed(let response):
+                    self?.configureQuickAccessList(with: response)
+                    
+                case .fetchQuickAccessListDidFail(let error):
+                    debugPrint(error.localizedDescription)
+                    
+                case .configureAboutVideoDidSucceed(let response):
+                    self?.configureAboutVideo(with: response)
+                    
                 default: break
                 }
             }.store(in: &cancellables)
@@ -233,12 +252,14 @@ extension ManCityHomeViewController {
                 }
                 switch ManCitySectionIdentifier(rawValue: sectionIdentifier) {
                 case .quickAccess:
-                    
-                    break
+                    self.input.send(.getQuickAccessList(categoryId: self.categoryId))
+
                 case .offerListing:
                     break
+                    
                 case .about:
-                    break
+                    self.input.send(.configureAboutVideo(videoUrl: "https://youtu.be/5rgkxawbl9g"))
+                    
                 default: break
                 }
             }
@@ -272,4 +293,23 @@ extension ManCityHomeViewController {
         
     }
     
+    private func configureQuickAccessList(with response: QuickAccessResponseModel) {
+        if let quickAccessIndex = getSectionIndex(for: .quickAccess) {
+            dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: response, data: "#FFFFFF", completion: { quickAccessLink in
+                debugPrint(quickAccessLink.redirectionUrl)
+            })
+            
+            configureDataSource()
+        }
+    }
+    
+    private func configureAboutVideo(with response: AboutVideo) {
+        if let aboutVideoIndex = getSectionIndex(for: .about) {
+            dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: response, data: "#FFFFFF", completion: { _ in
+                debugPrint("About video tapped")
+            })
+            
+            configureDataSource()
+        }
+    }
 }

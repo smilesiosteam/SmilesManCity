@@ -22,9 +22,12 @@ class ManCityHomeViewModel: NSObject {
     private let sectionsViewModel = SectionsViewModel()
     private let rewardPointsViewModel = RewardPointsViewModel()
     private let faqsViewModel = FAQsViewModel()
+    private let quickAccessViewModel = QuickAccessViewModel()
+    
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var rewardPointsUseCaseInput: PassthroughSubject<RewardPointsViewModel.Input, Never> = .init()
     private var faqsUseCaseInput: PassthroughSubject<FAQsViewModel.Input, Never> = .init()
+    private var quickAccessUseCaseInput: PassthroughSubject<QuickAccessViewModel.Input, Never> = .init()
     
     // MARK: - METHODS -
     private func logoutUser() {
@@ -47,16 +50,28 @@ extension ManCityHomeViewModel {
             case .getSections(categoryID: let categoryID):
                 self?.bind(to: self?.sectionsViewModel ?? SectionsViewModel())
                 self?.sectionsUseCaseInput.send(.getSections(categoryID: categoryID, baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser))
+                
             case .getSubscriptionInfo:
                 self?.getSubscriptionInfo()
+                
             case .getRewardPoints:
                 self?.bind(to: self?.rewardPointsViewModel ?? RewardPointsViewModel())
                 self?.rewardPointsUseCaseInput.send(.getRewardPoints(baseUrl: AppCommonMethods.serviceBaseUrl))
+                
             case .getFAQsDetails(faqId: let faqId):
                 self?.bind(to: self?.faqsViewModel ?? FAQsViewModel())
                 self?.faqsUseCaseInput.send(.getFAQsDetails(faqId: faqId, baseUrl: AppCommonMethods.serviceBaseUrl))
+                
             case .getPlayersList:
                 self?.getPlayersList()
+                
+            case .getQuickAccessList(let categoryId):
+                self?.bind(to: self?.quickAccessViewModel ?? QuickAccessViewModel())
+                self?.quickAccessUseCaseInput.send(.getQuickAccessList(categoryId: categoryId))
+                
+            case .configureAboutVideo(let videoUrl):
+                let aboutVideo = AboutVideo(videoUrl: videoUrl)
+                self?.output.send(.configureAboutVideoDidSucceed(response: aboutVideo))
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -112,6 +127,21 @@ extension ManCityHomeViewModel {
                     self?.output.send(.fetchFAQsDidFail(error: error))
                 }
             }.store(in: &cancellables)
+    }
+    
+    func bind(to quickAccessViewModel: QuickAccessViewModel) {
+        quickAccessUseCaseInput = PassthroughSubject<QuickAccessViewModel.Input, Never>()
+        let output = quickAccessViewModel.transform(input: quickAccessUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchQuickAccessListDidSucceed(let response):
+                    self?.output.send(.fetchQuickAccessListDidSucceed(response: response))
+                    
+                case .fetchQuickAccessListDidFail(let error):
+                    self?.output.send(.fetchQuickAccessListDidFail(error: error))
+                }
+        }.store(in: &cancellables)
     }
     
 }

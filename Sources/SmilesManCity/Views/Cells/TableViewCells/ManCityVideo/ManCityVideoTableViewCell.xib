@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="224"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MX3-ox-czH">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="224"/>
+                                <rect key="frame" x="16" y="0.0" width="361" height="224"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udr-RE-DXX">
                                 <rect key="frame" x="164.66666666666666" y="80" width="64" height="64"/>
@@ -39,8 +39,8 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="MX3-ox-czH" secondAttribute="bottom" id="Dip-dG-d5E"/>
                             <constraint firstItem="MX3-ox-czH" firstAttribute="top" secondItem="vxZ-RM-4dC" secondAttribute="top" id="IMF-v2-ciV"/>
-                            <constraint firstAttribute="trailing" secondItem="MX3-ox-czH" secondAttribute="trailing" id="O4C-GF-TPs"/>
-                            <constraint firstItem="MX3-ox-czH" firstAttribute="leading" secondItem="vxZ-RM-4dC" secondAttribute="leading" id="UMR-3q-YGe"/>
+                            <constraint firstAttribute="trailing" secondItem="MX3-ox-czH" secondAttribute="trailing" constant="16" id="O4C-GF-TPs"/>
+                            <constraint firstItem="MX3-ox-czH" firstAttribute="leading" secondItem="vxZ-RM-4dC" secondAttribute="leading" constant="16" id="UMR-3q-YGe"/>
                             <constraint firstItem="udr-RE-DXX" firstAttribute="centerY" secondItem="vxZ-RM-4dC" secondAttribute="centerY" id="W69-ZY-vm0"/>
                             <constraint firstItem="udr-RE-DXX" firstAttribute="centerX" secondItem="vxZ-RM-4dC" secondAttribute="centerX" id="r9V-x5-uQQ"/>
                         </constraints>

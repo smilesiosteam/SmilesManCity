@@ -14,7 +14,6 @@ class QuickAccessCollectionViewCell: UICollectionViewCell {
     // MARK: - OUTLETS -
     
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var iconBackgroundView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var title: UILabel!
     
@@ -27,7 +26,20 @@ class QuickAccessCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        title.font = SmilesFonts.circular.getFont(style: .medium, size: 12.0)
+        mainView.backgroundColor = .appRevampFilterCountBGColor.withAlphaComponent(0.2)
+        mainView.addMaskedCorner(withMaskedCorner: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner], cornerRadius: 8.0)
+        
+        title.fontTextStyle = .smilesTitle3
         title.textColor = .appRevampCollectionsTitleColor
+    }
+    
+    func configureCell(with quickAccessLink: QuickAccessLink) {
+        iconImageView.setImageWithUrlString(quickAccessLink.linkIconUrl ?? "") { image in
+            if let image {
+                self.iconImageView.image = image
+            }
+        }
+        
+        title.text = quickAccessLink.linkText
     }
 }
