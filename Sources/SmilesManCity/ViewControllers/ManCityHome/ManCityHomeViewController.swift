@@ -30,6 +30,7 @@ public class ManCityHomeViewController: UIViewController {
     var manCitySections: GetSectionsResponseModel?
     var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
+    var aboutVideoUrl: String?
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
     private var proceedToPayment: ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)?
@@ -43,10 +44,11 @@ public class ManCityHomeViewController: UIViewController {
         setupViews()
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, proceedToPayment: @escaping ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
+        self.aboutVideoUrl = aboutVideoUrl
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     
@@ -79,7 +81,6 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
-        self.isUserSubscribed = true
         manCitySections = sectionsResponse
         setUpNavigationBar()
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
@@ -98,8 +99,6 @@ public class ManCityHomeViewController: UIViewController {
         } else {
             self.input.send(.getRewardPoints)
         }
-//        configureDataSource()
-//        manCityHomeAPICalls()
         
     }
     
@@ -197,6 +196,7 @@ extension ManCityHomeViewController {
                     debugPrint(error.localizedDescription)
                     
                 case .fetchRewardPointsDidSucceed(response: let response, _):
+                    self?.aboutVideoUrl = response.mcfcWelcomeVideoUrl
                     if response.mcfcSubscriptionStatus ?? false {
                         self?.setupPostEnrollmentUI()
                     } else {
@@ -235,10 +235,6 @@ extension ManCityHomeViewController {
         self.input.send(.getSections(categoryID: categoryId))
     }
     
-    private func getSubscriptionInfo() {
-        self.input.send(.getSubscriptionInfo)
-    }
-    
     private func manCityHomeAPICalls() {
         
         if let sectionDetails = self.manCitySections?.sectionDetails, !sectionDetails.isEmpty {
@@ -258,8 +254,9 @@ extension ManCityHomeViewController {
                     break
                     
                 case .about:
-                    self.input.send(.configureAboutVideo(videoUrl: "https://youtu.be/5rgkxawbl9g"))
-                    
+                    if let aboutVideoUrl {
+                        configureAboutVideo(with: AboutVideo(videoUrl: aboutVideoUrl))
+                    }
                 default: break
                 }
             }
