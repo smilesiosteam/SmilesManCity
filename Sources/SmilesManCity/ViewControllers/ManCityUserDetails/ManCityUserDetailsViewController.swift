@@ -26,6 +26,7 @@ class ManCityUserDetailsViewController: UIViewController {
     @IBOutlet weak var yesButton: UIButton!
     @IBOutlet weak var noButton: UIButton!
     @IBOutlet weak var yesLabel: UILocalizableLabel!
+    @IBOutlet weak var proceedButton: UICustomButton!
     
     // MARK: - PROPERTIES -
     private var userData: RewardPointsResponseModel?
@@ -34,6 +35,7 @@ class ManCityUserDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var players: [ManCityPlayer]?
     private var selectedPlayer: ManCityPlayer?
+    private var isAttendedMatch: Bool?
     private var proceedToPayment: ((String, String) -> Void)?
     
     // MARK: - ACTIONS -
@@ -129,18 +131,22 @@ class ManCityUserDetailsViewController: UIViewController {
         let unAttendedImage = UIImage(systemName: "circle")
         yesButton.setImage(isAttended ? attendedImage : unAttendedImage, for: .normal)
         noButton.setImage(isAttended ? unAttendedImage : attendedImage, for: .normal)
+        isAttendedMatch = isAttended
+        setProceedButtonEnabled()
         
     }
     
     private func isDataValid() -> Bool {
         
+        var isValid = true
         let fields = [firstNameTextField, lastNameTextField, mobileTextField, emailTextField, playerTextField]
         for field in fields {
             if !field!.isDataValid {
                 return false
             }
         }
-        return true
+        isValid = isAttendedMatch != nil
+        return isValid
         
     }
     
@@ -182,6 +188,13 @@ class ManCityUserDetailsViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    private func setProceedButtonEnabled() {
+        
+        self.proceedButton.isEnabled = isDataValid()
+        self.proceedButton.alpha = isDataValid() ? 1 : 0.5
+        
+    }
+    
     private func presentPlayersList() {
         
         guard let players else { return }
@@ -193,6 +206,7 @@ class ManCityUserDetailsViewController: UIViewController {
             guard let self else { return }
             self.selectedPlayer = players[index]
             self.playerTextField.text = self.selectedPlayer!.playerName
+            self.setProceedButtonEnabled()
         }
         
     }

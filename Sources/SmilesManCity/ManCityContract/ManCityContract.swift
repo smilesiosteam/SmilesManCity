@@ -18,7 +18,6 @@ extension ManCityHomeViewModel {
         case getFAQsDetails(faqId: Int)
         case getPlayersList
         case getQuickAccessList(categoryId: Int)
-        case configureAboutVideo(videoUrl: String)
         case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String = "1", subCategoryTypeIdsList: [String]?)
     }
     
@@ -40,8 +39,6 @@ extension ManCityHomeViewModel {
         
         case fetchQuickAccessListDidSucceed(response: QuickAccessResponseModel)
         case fetchQuickAccessListDidFail(error: Error)
-        
-        case configureAboutVideoDidSucceed(response: AboutVideo)
         
         case fetchOffersCategoryListDidSucceed(response: OffersCategoryResponseModel)
         case fetchOffersCategoryListDidFail(error: Error)

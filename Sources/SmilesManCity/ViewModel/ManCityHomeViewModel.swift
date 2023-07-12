@@ -71,10 +71,6 @@ extension ManCityHomeViewModel {
                 self?.bind(to: self?.quickAccessViewModel ?? QuickAccessViewModel())
                 self?.quickAccessUseCaseInput.send(.getQuickAccessList(categoryId: categoryId))
                 
-            case .configureAboutVideo(let videoUrl):
-                let aboutVideo = AboutVideo(videoUrl: videoUrl)
-                self?.output.send(.configureAboutVideoDidSucceed(response: aboutVideo))
-                
             case .getOffersCategoryList(let pageNo, let categoryId, let searchByLocation, let sortingType, let subCategoryId, let subCategoryTypeIdsList):
                 self?.bind(to: self?.offersCategoryListViewModel ?? OffersCategoryListViewModel())
                 self?.offersCategoryListUseCaseInput.send(.getOffersCategoryList(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation, sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList))

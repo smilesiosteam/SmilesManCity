@@ -221,9 +221,6 @@ extension ManCityHomeViewController {
                 case .fetchQuickAccessListDidFail(let error):
                     debugPrint(error.localizedDescription)
                     
-                case .configureAboutVideoDidSucceed(let response):
-                    self?.configureAboutVideo(with: response)
-                    
                 case .fetchOffersCategoryListDidSucceed(let response):
                     self?.configureManCityOffers(with: response)
                     
