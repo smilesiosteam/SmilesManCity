@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="D2Y-Zf-zsy">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,7 +34,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                                 <connections>
-                                    <action selector="playButtonTapped:" destination="D2Y-Zf-zsy" eventType="touchUpInside" id="rex-g2-n0I"/>
+                                    <action selector="playButtonTapped:" destination="D2Y-Zf-zsy" eventType="touchUpInside" id="Otn-tT-wqS"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome, User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EjE-kW-B0s">
@@ -62,10 +63,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="playButton" destination="9wO-8u-gYx" id="T1S-I3-Mp5"/>
-                        <outlet property="thumbnailImageView" destination="BS7-yR-mPi" id="5id-Rn-Tw7"/>
-                        <outlet property="welcomeTitleLabel" destination="EjE-kW-B0s" id="aUc-zX-ZCt"/>
-                        <outlet property="youtubePlayerView" destination="2hj-pZ-cbx" id="uGU-Ch-C8s"/>
+                        <outlet property="playButton" destination="9wO-8u-gYx" id="kbl-BM-Tko"/>
+                        <outlet property="thumbnailImageView" destination="BS7-yR-mPi" id="iBZ-M6-6RB"/>
+                        <outlet property="welcomeTitleLabel" destination="EjE-kW-B0s" id="Xw1-Hd-rvA"/>
+                        <outlet property="youtubePlayerView" destination="2hj-pZ-cbx" id="6kK-uu-8Ow"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8wA-AN-hqk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

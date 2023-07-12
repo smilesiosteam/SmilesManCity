@@ -12,6 +12,9 @@ class QuickAccessTableViewCell: UITableViewCell {
     // MARK: - OUTLETS -
     
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var manCityLogoImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - PROPERTIES -
@@ -27,7 +30,16 @@ class QuickAccessTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUI()
         setupCollectionView()
+    }
+    
+    private func setupUI() {
+        titleLabel.fontTextStyle = .smilesHeadline2
+        titleLabel.textColor = .black
+        
+        descriptionLabel.fontTextStyle = .smilesBody3
+        descriptionLabel.textColor = .black.withAlphaComponent(0.6)
     }
     
     private func setupCollectionView() {
@@ -50,6 +62,11 @@ class QuickAccessTableViewCell: UITableViewCell {
         }
         
         return layout
+    }
+    
+    func configureCell(with quickAccessResponse: QuickAccessResponseModel) {
+        titleLabel.text = quickAccessResponse.quickAccess?.title
+        descriptionLabel.text = quickAccessResponse.quickAccess?.subTitle
     }
 }
 

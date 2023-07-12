@@ -47,7 +47,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
     // MARK: - METHODS -
     func initialSetup() {
         let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: self.videoUrl ?? "")
-        thumbnailImageView.setImageWithUrlString(thumbnailUrl, backgroundColor: .systemGray5) { image in
+        thumbnailImageView.setImageWithUrlString(thumbnailUrl) { image in
             if let image {
                 self.thumbnailImageView.image = image
             }

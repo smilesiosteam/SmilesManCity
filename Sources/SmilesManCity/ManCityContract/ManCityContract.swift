@@ -19,6 +19,7 @@ extension ManCityHomeViewModel {
         case getPlayersList
         case getQuickAccessList(categoryId: Int)
         case configureAboutVideo(videoUrl: String)
+        case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String = "1", subCategoryTypeIdsList: [String]?)
     }
     
     enum Output {
@@ -41,6 +42,9 @@ extension ManCityHomeViewModel {
         case fetchQuickAccessListDidFail(error: Error)
         
         case configureAboutVideoDidSucceed(response: AboutVideo)
+        
+        case fetchOffersCategoryListDidSucceed(response: OffersCategoryResponseModel)
+        case fetchOffersCategoryListDidFail(error: Error)
     }
     
 }
