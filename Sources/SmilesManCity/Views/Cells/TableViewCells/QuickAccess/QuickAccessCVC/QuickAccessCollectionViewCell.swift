@@ -34,7 +34,7 @@ class QuickAccessCollectionViewCell: UICollectionViewCell {
     }
     
     func configureCell(with quickAccessLink: QuickAccessLink) {
-        iconImageView.setImageWithUrlString(quickAccessLink.linkIconUrl ?? "") { image in
+        iconImageView.setImageWithUrlString(quickAccessLink.linkIconUrl ?? "", backgroundColor: .clear) { image in
             if let image {
                 self.iconImageView.image = image
             }

@@ -52,12 +52,14 @@ class QuickAccessTableViewCell: UITableViewCell {
     func setupCollectionViewLayout() ->  UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(187), heightDimension: .fractionalHeight(1)))
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .absolute(187), heightDimension: .fractionalHeight(1)), subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1)), subitems: [item])
+            let outerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: [group])
+            outerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0)
+            let section = NSCollectionLayoutSection(group: outerGroup)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets.leading = 16
+            
             return section
         }
         

@@ -84,6 +84,7 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
+        self.isUserSubscribed = true
         manCitySections = sectionsResponse
         setUpNavigationBar()
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {

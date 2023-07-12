@@ -35,7 +35,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: indexPath.section] {
                     switch sectionData.sectionIdentifier {
                     case ManCitySectionIdentifier.quickAccess.rawValue:
-                        return 236.0
+                        return 220.0
                         
                     case ManCitySectionIdentifier.about.rawValue:
                         return 242.0
