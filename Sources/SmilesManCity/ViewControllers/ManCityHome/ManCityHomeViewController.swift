@@ -84,7 +84,6 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
-        self.isUserSubscribed = true
         manCitySections = sectionsResponse
         setUpNavigationBar()
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
@@ -258,9 +257,15 @@ extension ManCityHomeViewController {
                     self.input.send(.getQuickAccessList(categoryId: self.categoryId))
 
                 case .offerListing:
+                    if let offersCategory = OffersCategoryResponseModel.fromFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forNearbyOffers: offersCategory.offers ?? [], data: "#FFFFFF", isDummy: true, completion: nil)
+                        configureDataSource()
+                    }
                     self.input.send(.getOffersCategoryList(pageNo: self.offersPage, categoryId: "\(self.categoryId)", searchByLocation: false, sortingType: "", subCategoryId: "", subCategoryTypeIdsList: []))
                     
                 case .about:
+                    self.dataSource?.dataSources?[index] = TableViewDataSource.make(forAboutVideo: AboutVideo(videoUrl: ""), data: "#FFFFFF", isDummy: true)
+                    configureDataSource()
                     if let aboutVideoUrl {
                         configureAboutVideo(with: AboutVideo(videoUrl: aboutVideoUrl))
                     }
