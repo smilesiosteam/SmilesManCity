@@ -16,6 +16,7 @@
                 <outlet property="mobileTextField" destination="Pws-dh-7St" id="Uua-E3-1fR"/>
                 <outlet property="noButton" destination="l6F-mS-FOM" id="0Zx-We-41q"/>
                 <outlet property="playerTextField" destination="q34-zq-i9v" id="e4t-Ko-pcH"/>
+                <outlet property="proceedButton" destination="a95-gQ-GPU" id="eMd-jw-tpb"/>
                 <outlet property="referralTextField" destination="wxw-v7-5jn" id="Gnb-wm-6Lz"/>
                 <outlet property="view" destination="0fb-Uy-Ik4" id="KLI-tW-np6"/>
                 <outlet property="yesButton" destination="SjY-az-eiq" id="K3c-7f-8LN"/>
@@ -319,7 +320,7 @@
                                         </stackView>
                                     </subviews>
                                 </stackView>
-                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a95-gQ-GPU" customClass="UICustomButton" customModule="SmilesUtilities">
+                                <button opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a95-gQ-GPU" customClass="UICustomButton" customModule="SmilesUtilities">
                                     <rect key="frame" x="16" y="691.33333333333337" width="361" height="48"/>
                                     <color key="backgroundColor" red="0.45882352941176469" green="0.25882352941176467" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>

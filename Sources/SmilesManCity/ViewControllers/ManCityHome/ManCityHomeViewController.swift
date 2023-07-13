@@ -30,9 +30,13 @@ public class ManCityHomeViewController: UIViewController {
     var manCitySections: GetSectionsResponseModel?
     var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
+    var aboutVideoUrl: String?
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
     private var proceedToPayment: ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)?
+    private var selectedIndexPath: IndexPath?
+    private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
+    var offersPage = 1 // For offers list pagination
     
     // MARK: - ACTIONS -
     
@@ -43,10 +47,11 @@ public class ManCityHomeViewController: UIViewController {
         setupViews()
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
+        self.aboutVideoUrl = aboutVideoUrl
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     
@@ -97,8 +102,6 @@ public class ManCityHomeViewController: UIViewController {
         } else {
             self.input.send(.getRewardPoints)
         }
-//        configureDataSource()
-//        manCityHomeAPICalls()
         
     }
     
@@ -122,10 +125,10 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func setupPostEnrollmentUI() {
-        
+        self.contentTableView.addMaskedCorner(withMaskedCorner: [.layerMinXMinYCorner, .layerMaxXMinYCorner], cornerRadius: 20.0)
+        self.contentTableView.backgroundColor = .white
         self.sections.removeAll()
         self.manCityHomeAPICalls()
-        
     }
     
     func setUpNavigationBar(isLightContent: Bool = true) {
@@ -196,6 +199,7 @@ extension ManCityHomeViewController {
                     debugPrint(error.localizedDescription)
                     
                 case .fetchRewardPointsDidSucceed(response: let response, _):
+                    self?.aboutVideoUrl = response.mcfcWelcomeVideoUrl
                     if response.mcfcSubscriptionStatus ?? false {
                         self?.setupPostEnrollmentUI()
                     } else {
@@ -217,8 +221,11 @@ extension ManCityHomeViewController {
                 case .fetchQuickAccessListDidFail(let error):
                     debugPrint(error.localizedDescription)
                     
-                case .configureAboutVideoDidSucceed(let response):
-                    self?.configureAboutVideo(with: response)
+                case .fetchOffersCategoryListDidSucceed(let response):
+                    self?.configureManCityOffers(with: response)
+                    
+                case .fetchOffersCategoryListDidFail(let error):
+                    debugPrint(error.localizedDescription)
                     
                 default: break
                 }
@@ -232,10 +239,6 @@ extension ManCityHomeViewController {
     
     private func getSections() {
         self.input.send(.getSections(categoryID: categoryId))
-    }
-    
-    private func getSubscriptionInfo() {
-        self.input.send(.getSubscriptionInfo)
     }
     
     private func manCityHomeAPICalls() {
@@ -254,11 +257,18 @@ extension ManCityHomeViewController {
                     self.input.send(.getQuickAccessList(categoryId: self.categoryId))
 
                 case .offerListing:
-                    break
+                    if let offersCategory = OffersCategoryResponseModel.fromFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forNearbyOffers: offersCategory.offers ?? [], data: "#FFFFFF", isDummy: true, completion: nil)
+                        configureDataSource()
+                    }
+                    self.input.send(.getOffersCategoryList(pageNo: self.offersPage, categoryId: "\(self.categoryId)", searchByLocation: false, sortingType: "", subCategoryId: "", subCategoryTypeIdsList: []))
                     
                 case .about:
-                    self.input.send(.configureAboutVideo(videoUrl: "https://youtu.be/5rgkxawbl9g"))
-                    
+                    self.dataSource?.dataSources?[index] = TableViewDataSource.make(forAboutVideo: AboutVideo(videoUrl: ""), data: "#FFFFFF", isDummy: true)
+                    configureDataSource()
+                    if let aboutVideoUrl {
+                        configureAboutVideo(with: AboutVideo(videoUrl: aboutVideoUrl))
+                    }
                 default: break
                 }
             }
@@ -304,11 +314,66 @@ extension ManCityHomeViewController {
     
     private func configureAboutVideo(with response: AboutVideo) {
         if let aboutVideoIndex = getSectionIndex(for: .about) {
-            dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: response, data: "#FFFFFF", completion: { _ in
-                debugPrint("About video tapped")
-            })
-            
+            dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: response, data: "#FFFFFF")
             configureDataSource()
         }
+    }
+    
+    private func configureManCityOffers(with response: OffersCategoryResponseModel) {
+        let offers = getAllOffers(offersCategoryListResponse: response)
+        if !offers.isEmpty {
+            if let manCityOffersIndex = getSectionIndex(for: .offerListing) {
+                self.dataSource?.dataSources?[manCityOffersIndex] = TableViewDataSource.make(forNearbyOffers: offers, offerCellType: .categoryDetails, data: self.manCitySections?.sectionDetails?[manCityOffersIndex].backgroundColor ?? "#FFFFFF"
+                ) { [weak self] isFavorite, offerId, indexPath in
+                    self?.selectedIndexPath = indexPath
+//                    if !isGuestUser {
+//                        self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
+//                    } else {
+//                        let guestVC = GuestUserLoginPopupRouter.setupModule()
+//                        guestVC.prevNavigation = self?.navigationController
+//                        guestVC.modalPresentationStyle = .overFullScreen
+//                        self?.navigationController?.present(guestVC, animated: true)
+//                    }
+                    
+                    self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
+                }
+                self.configureDataSource()
+            }
+        } else {
+            if offers.isEmpty {
+                self.configureHideSection(for: .offerListing, dataSource: OfferDO.self)
+            }
+        }
+    }
+    
+    private func getAllOffers(offersCategoryListResponse: OffersCategoryResponseModel) -> [OfferDO] {
+        
+        let featuredOffers = offersCategoryListResponse.featuredOffers?.map({ offer in
+            var _offer = offer
+            _offer.isFeatured = true
+            return _offer
+        })
+        var offers = [OfferDO]()
+        if self.offersPage == 1 {
+            offers.append(contentsOf: featuredOffers ?? [])
+        }
+        offers.append(contentsOf: offersCategoryListResponse.offers ?? [])
+        return offers
+        
+    }
+    
+    fileprivate func configureHideSection<T>(for section: ManCitySectionIdentifier, dataSource: T.Type) {
+        if let index = getSectionIndex(for: section) {
+            (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
+            (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false
+//            self.mutatingSectionDetails.removeAll(where: { $0.sectionIdentifier == section.rawValue })
+            
+            self.configureDataSource()
+        }
+    }
+    
+    func updateOfferWishlistStatus(isFavorite: Bool, offerId: String) {
+        offerFavoriteOperation = isFavorite ? 1 : 2
+//        input.send(.updateOfferWishlistStatus(operation: offerFavoriteOperation, offerId: offerId))
     }
 }

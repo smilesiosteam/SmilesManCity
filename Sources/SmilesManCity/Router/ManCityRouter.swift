@@ -22,4 +22,12 @@ final class ManCityRouter {
         
     }
     
+    func pushManCityVideoPlayerVC(navVC: UINavigationController, videoUrl: String, welcomeTitle: String) {
+        if let vc = UIStoryboard(name: "ManCityVideoPlayer", bundle: .module).instantiateViewController(withIdentifier: "ManCityVideoPlayerViewController") as? ManCityVideoPlayerViewController {
+            vc.videoUrl = videoUrl
+            vc.welcomeTitle = welcomeTitle
+            
+            navVC.pushViewController(viewController: vc)
+        }
+    }
 }

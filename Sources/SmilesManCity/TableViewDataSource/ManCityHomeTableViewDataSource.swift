@@ -8,6 +8,7 @@
 import Foundation
 import SmilesUtilities
 import SmilesSharedServices
+import UIKit
 
 extension TableViewDataSource where Model == SubscriptionInfoResponse {
     static func make(forEnrollment  subscriptionInfo: SubscriptionInfoResponse,
@@ -51,6 +52,7 @@ extension TableViewDataSource where Model == QuickAccessResponseModel {
             isDummy: isDummy
         ) { (quickAccess, cell, data, indexPath) in
             guard let cell = cell as? QuickAccessTableViewCell else { return }
+            cell.configureCell(with: quickAccess)
             cell.collectionsData = quickAccess.quickAccess?.links
             cell.didTapCell = { quickAccessLink in
                 completion?(quickAccessLink)
@@ -61,7 +63,7 @@ extension TableViewDataSource where Model == QuickAccessResponseModel {
 
 extension TableViewDataSource where Model == AboutVideo {
     static func make(forAboutVideo aboutVideo: AboutVideo,
-                     reuseIdentifier: String = "ManCityVideoTableViewCell", data: String, isDummy: Bool = false, completion: ((String) -> ())?) -> TableViewDataSource {
+                     reuseIdentifier: String = "ManCityVideoTableViewCell", data: String, isDummy: Bool = false) -> TableViewDataSource {
         return TableViewDataSource(
             models: [aboutVideo],
             reuseIdentifier: reuseIdentifier,
@@ -70,6 +72,26 @@ extension TableViewDataSource where Model == AboutVideo {
         ) { (aboutVideo, cell, data, indexPath) in
             guard let cell = cell as? ManCityVideoTableViewCell else { return }
             cell.setupCell(videoUrl: aboutVideo.videoUrl)
+        }
+    }
+}
+
+extension TableViewDataSource where Model == OfferDO {
+    static func make(forNearbyOffers nearbyOffersObjects: [OfferDO], offerCellType: RestaurantsRevampTableViewCell.OfferCellType = .home,
+                     reuseIdentifier: String = "RestaurantsRevampTableViewCell", data: String, isDummy: Bool = false, completion: ((Bool, String, IndexPath?) -> ())?) -> TableViewDataSource {
+        return TableViewDataSource(
+            models: nearbyOffersObjects,
+            reuseIdentifier: reuseIdentifier,
+            data: data,
+            isDummy: isDummy
+        ) { (offer, cell, data, indexPath) in
+            guard let cell = cell as? RestaurantsRevampTableViewCell else { return }
+            cell.configureCell(with: offer)
+            cell.offerCellType = offerCellType
+            cell.setBackGroundColor(color: UIColor(hexString: data))
+            cell.favoriteCallback = { isFavorite, offerId in
+                completion?(isFavorite, offerId, indexPath)
+            }
         }
     }
 }

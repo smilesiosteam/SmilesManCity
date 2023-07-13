@@ -12,6 +12,9 @@ class QuickAccessTableViewCell: UITableViewCell {
     // MARK: - OUTLETS -
     
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var manCityLogoImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - PROPERTIES -
@@ -27,7 +30,16 @@ class QuickAccessTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUI()
         setupCollectionView()
+    }
+    
+    private func setupUI() {
+        titleLabel.fontTextStyle = .smilesHeadline2
+        titleLabel.textColor = .black
+        
+        descriptionLabel.fontTextStyle = .smilesBody3
+        descriptionLabel.textColor = .black.withAlphaComponent(0.6)
     }
     
     private func setupCollectionView() {
@@ -40,16 +52,23 @@ class QuickAccessTableViewCell: UITableViewCell {
     func setupCollectionViewLayout() ->  UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionNumber, env) -> NSCollectionLayoutSection? in
             
-            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .absolute(187), heightDimension: .fractionalHeight(1)))
+            let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 16)
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .absolute(187), heightDimension: .fractionalHeight(1)), subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalHeight(1)), subitems: [item])
+            let outerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: [group])
+            outerGroup.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0)
+            let section = NSCollectionLayoutSection(group: outerGroup)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets.leading = 16
+            
             return section
         }
         
         return layout
+    }
+    
+    func configureCell(with quickAccessResponse: QuickAccessResponseModel) {
+        titleLabel.text = quickAccessResponse.quickAccess?.title
+        descriptionLabel.text = quickAccessResponse.quickAccess?.subTitle
     }
 }
 

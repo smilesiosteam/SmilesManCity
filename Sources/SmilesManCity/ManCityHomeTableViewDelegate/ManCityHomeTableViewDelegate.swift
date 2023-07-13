@@ -16,6 +16,12 @@ extension ManCityHomeViewController: UITableViewDelegate {
             let faqDetail = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<FaqsDetail>)?.models?[safe: indexPath.row] as? FaqsDetail)
             faqDetail?.isHidden = !(faqDetail?.isHidden ?? true)
             tableView.reloadRows(at: [indexPath], with: .automatic)
+        } else if let aboutVideoIndex = getSectionIndex(for: .about), aboutVideoIndex == indexPath.section {
+            let aboutVideo = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<AboutVideo
+                               >)?.models?[safe: indexPath.row] as? AboutVideo)
+            if let navigationController {
+                ManCityRouter.shared.pushManCityVideoPlayerVC(navVC: navigationController, videoUrl: aboutVideo?.videoUrl ?? "", welcomeTitle: "Welcome, User")
+            }
         }
     }
     
@@ -29,7 +35,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: indexPath.section] {
                     switch sectionData.sectionIdentifier {
                     case ManCitySectionIdentifier.quickAccess.rawValue:
-                        return 64.0
+                        return 220.0
                         
                     case ManCitySectionIdentifier.about.rawValue:
                         return 242.0
@@ -54,14 +60,16 @@ extension ManCityHomeViewController: UITableViewDelegate {
                 }
             } else {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
-                    let header = ManCityHeader()
-                    header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
-                    return header
+                    if sectionData.sectionIdentifier != ManCitySectionIdentifier.quickAccess.rawValue && sectionData.sectionIdentifier != ManCitySectionIdentifier.topPlaceholder.rawValue {
+                        let header = ManCityHeader()
+                        header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
+                        return header
+                    }
                 }
             }
         }
-        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0))
         
+        return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 0))
     }
     
     public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -69,6 +77,13 @@ extension ManCityHomeViewController: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
+            if sectionData.sectionIdentifier == ManCitySectionIdentifier.quickAccess.rawValue || sectionData.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue {
+                return CGFloat.leastNormalMagnitude
+            } else {
+                return UITableView.automaticDimension
+            }
+        }
         return UITableView.automaticDimension
     }
     

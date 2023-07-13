@@ -23,11 +23,13 @@ class ManCityHomeViewModel: NSObject {
     private let rewardPointsViewModel = RewardPointsViewModel()
     private let faqsViewModel = FAQsViewModel()
     private let quickAccessViewModel = QuickAccessViewModel()
+    private let offersCategoryListViewModel = OffersCategoryListViewModel()
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var rewardPointsUseCaseInput: PassthroughSubject<RewardPointsViewModel.Input, Never> = .init()
     private var faqsUseCaseInput: PassthroughSubject<FAQsViewModel.Input, Never> = .init()
     private var quickAccessUseCaseInput: PassthroughSubject<QuickAccessViewModel.Input, Never> = .init()
+    private var offersCategoryListUseCaseInput: PassthroughSubject<OffersCategoryListViewModel.Input, Never> = .init()
     
     // MARK: - METHODS -
     private func logoutUser() {
@@ -69,9 +71,9 @@ extension ManCityHomeViewModel {
                 self?.bind(to: self?.quickAccessViewModel ?? QuickAccessViewModel())
                 self?.quickAccessUseCaseInput.send(.getQuickAccessList(categoryId: categoryId))
                 
-            case .configureAboutVideo(let videoUrl):
-                let aboutVideo = AboutVideo(videoUrl: videoUrl)
-                self?.output.send(.configureAboutVideoDidSucceed(response: aboutVideo))
+            case .getOffersCategoryList(let pageNo, let categoryId, let searchByLocation, let sortingType, let subCategoryId, let subCategoryTypeIdsList):
+                self?.bind(to: self?.offersCategoryListViewModel ?? OffersCategoryListViewModel())
+                self?.offersCategoryListUseCaseInput.send(.getOffersCategoryList(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation, sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList))
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -144,6 +146,20 @@ extension ManCityHomeViewModel {
         }.store(in: &cancellables)
     }
     
+    // OffersCategoryList ViewModel Binding
+    func bind(to offersCategoryListViewModel: OffersCategoryListViewModel) {
+        offersCategoryListUseCaseInput = PassthroughSubject<OffersCategoryListViewModel.Input, Never>()
+        let output = offersCategoryListViewModel.transform(input: offersCategoryListUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchOffersCategoryListDidSucceed(let offersCategoryListResponse):
+                    self?.output.send(.fetchOffersCategoryListDidSucceed(response: offersCategoryListResponse))
+                case .fetchOffersCategoryListDidFail(let error):
+                    self?.output.send(.fetchOffersCategoryListDidFail(error: error))
+            }
+        }.store(in: &cancellables)
+    }
 }
 
 // MARK: - API CALLS -

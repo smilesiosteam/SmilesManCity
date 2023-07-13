@@ -31,8 +31,4 @@ class ManCityVideoTableViewCell: UITableViewCell {
             }
         }
     }
-    
-    @IBAction func playButtonTapped(_ sender: UIButton) {
-        
-    }
 }
