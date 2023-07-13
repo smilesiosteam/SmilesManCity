@@ -32,7 +32,7 @@ public class ManCityHomeViewController: UIViewController {
     var isUserSubscribed: Bool? = nil
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
-    private var proceedToPayment: ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)?
+    private var proceedToPayment: ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)?
     
     // MARK: - ACTIONS -
     
@@ -43,7 +43,7 @@ public class ManCityHomeViewController: UIViewController {
         setupViews()
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, proceedToPayment: @escaping ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
@@ -79,7 +79,6 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func configureSectionsData(with sectionsResponse: GetSectionsResponseModel) {
-        self.isUserSubscribed = true
         manCitySections = sectionsResponse
         setUpNavigationBar()
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
@@ -277,9 +276,9 @@ extension ManCityHomeViewController {
         self.subscriptionInfo = response
         dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
             guard let self else {return}
-            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode) in
+            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
                 guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
-                self.proceedToPayment?(offer, playerId, referralCode)
+                self.proceedToPayment?(offer,playerId, referralCode, hasAttendedManCityGame, nil, nil, nil, false, false)
             }
         })
         configureDataSource()

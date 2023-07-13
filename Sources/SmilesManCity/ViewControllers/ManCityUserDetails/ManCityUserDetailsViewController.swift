@@ -34,23 +34,25 @@ class ManCityUserDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var players: [ManCityPlayer]?
     private var selectedPlayer: ManCityPlayer?
-    private var proceedToPayment: ((String, String) -> Void)?
-    
+    private var proceedToPayment: ((String, String, Bool) -> Void)?
+    private var hasAttendedManCityGame = false
     // MARK: - ACTIONS -
     
     @IBAction func yesPressed(_ sender: Any) {
         configureMatchSelection(isAttended: true)
+        hasAttendedManCityGame = true
     }
     
     @IBAction func noPressed(_ sender: Any) {
         configureMatchSelection(isAttended: false)
+        hasAttendedManCityGame = false
     }
     
     @IBAction func proceedPressed(_ sender: Any) {
         
         if isDataValid() {
             if let playerId = selectedPlayer?.playerID {
-                proceedToPayment?(playerId, referralTextField.text ?? "")
+                proceedToPayment?(playerId, referralTextField.text ?? "", hasAttendedManCityGame)
             }
         }
         
@@ -71,7 +73,7 @@ class ManCityUserDetailsViewController: UIViewController {
         setUpNavigationBar()
     }
     
-    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String) -> Void)) {
+    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String, Bool) -> Void)) {
         self.userData = userData
         self.viewModel = viewModel
         self.proceedToPayment = proceedToPayment
