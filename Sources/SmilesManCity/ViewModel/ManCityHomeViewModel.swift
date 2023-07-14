@@ -11,6 +11,7 @@ import SmilesSharedServices
 import SmilesUtilities
 import NetworkingLayer
 import SmilesLocationHandler
+import SmilesOffers
 
 class ManCityHomeViewModel: NSObject {
     

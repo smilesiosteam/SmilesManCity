@@ -9,6 +9,7 @@ import UIKit
 import SmilesUtilities
 import SmilesSharedServices
 import Combine
+import SmilesOffers
 
 public class ManCityHomeViewController: UIViewController {
     
@@ -346,8 +347,12 @@ extension ManCityHomeViewController {
     
     private func configureQuickAccessList(with response: QuickAccessResponseModel) {
         if let quickAccessLinks = response.quickAccess?.links, !quickAccessLinks.isEmpty {
+            var quickAccessResponse = response
+            if let quickAccessSection = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.quickAccess.rawValue }) {
+                quickAccessResponse.quickAccess?.iconUrl = quickAccessSection.iconUrl
+            }
             if let quickAccessIndex = getSectionIndex(for: .quickAccess) {
-                dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: response, data: "#FFFFFF", completion: { quickAccessLink in
+                dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: quickAccessResponse, data: "#FFFFFF", completion: { quickAccessLink in
                     debugPrint(quickAccessLink.redirectionUrl)
                 })
                 
@@ -362,7 +367,7 @@ extension ManCityHomeViewController {
         if !url.isEmpty {
             if let aboutVideoIndex = getSectionIndex(for: .about) {
                 let aboutVideo = AboutVideo(videoUrl: url)
-                dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: aboutVideo, data: "#FFFFFF")
+                dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: aboutVideo, data: manCitySections?.sectionDetails?[aboutVideoIndex].backgroundColor ?? "#FFFFFF")
                 configureDataSource()
             }
         } else {

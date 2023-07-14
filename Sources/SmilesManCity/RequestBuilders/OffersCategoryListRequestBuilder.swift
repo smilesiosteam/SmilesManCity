@@ -8,6 +8,7 @@
 import Foundation
 import NetworkingLayer
 import SmilesUtilities
+import SmilesOffers
 
 // if you wish you can have multiple services like this in a project
 enum OffersCategoryListRequestBuilder {
