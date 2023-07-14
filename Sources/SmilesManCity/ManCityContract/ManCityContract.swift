@@ -19,6 +19,13 @@ extension ManCityHomeViewModel {
         case getPlayersList
         case getQuickAccessList(categoryId: Int)
         case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String = "1", subCategoryTypeIdsList: [String]?)
+        case getFiltersData(filtersSavedList: [RestaurantRequestWithNameFilter]?, isFilterAllowed: Int?, isSortAllowed: Int?)
+        case removeAndSaveFilters(filter: FiltersCollectionViewCellRevampModel)
+        case getSortingList
+        case generateActionContentForSortingItems(sortingModel: GetSortingListResponseModel?)
+        case setFiltersSavedList(filtersSavedList: [RestaurantRequestWithNameFilter]?, filtersList: [RestaurantRequestFilter]?)
+        case setSelectedSort(sortTitle: String?)
+        case emptyOffersList
     }
     
     enum Output {
@@ -42,6 +49,16 @@ extension ManCityHomeViewModel {
         
         case fetchOffersCategoryListDidSucceed(response: OffersCategoryResponseModel)
         case fetchOffersCategoryListDidFail(error: Error)
+        
+        case fetchFiltersDataSuccess(filters: [FiltersCollectionViewCellRevampModel], selectedSortingTableViewCellModel: FilterDO?)
+        case fetchAllSavedFiltersSuccess(filtersList: [RestaurantRequestFilter], filtersSavedList: [RestaurantRequestWithNameFilter])
+        
+        case fetchSavedFiltersAfterSuccess(filtersSavedList: [RestaurantRequestWithNameFilter])
+        case fetchContentForSortingItems(baseRowModels: [BaseRowModel])
+        
+        case fetchSortingListDidSucceed
+        
+        case emptyOffersListDidSucceed
     }
     
 }

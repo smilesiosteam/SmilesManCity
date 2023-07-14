@@ -17,10 +17,14 @@ extension ManCityHomeViewController: UITableViewDelegate {
             faqDetail?.isHidden = !(faqDetail?.isHidden ?? true)
             tableView.reloadRows(at: [indexPath], with: .automatic)
         } else if let aboutVideoIndex = getSectionIndex(for: .about), aboutVideoIndex == indexPath.section {
-            let aboutVideo = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<AboutVideo
-                               >)?.models?[safe: indexPath.row] as? AboutVideo)
-            if let navigationController {
-                ManCityRouter.shared.pushManCityVideoPlayerVC(navVC: navigationController, videoUrl: aboutVideo?.videoUrl ?? "", welcomeTitle: "Welcome, User")
+            if let dataSource = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<AboutVideo
+                                  >)) {
+                if !dataSource.isDummy {
+                    let aboutVideo = dataSource.models?[safe: indexPath.row] as? AboutVideo
+                    if let navigationController {
+                        ManCityRouter.shared.pushManCityVideoPlayerVC(navVC: navigationController, videoUrl: aboutVideo?.videoUrl ?? "", welcomeTitle: "Welcome, User")
+                    }
+                }
             }
         }
     }
@@ -51,6 +55,10 @@ extension ManCityHomeViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
+        if self.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
+            return nil
+        }
+        
         if let isUserSubscribed {
             if !isUserSubscribed {
                 if let faqIndex = getSectionIndex(for: .FAQS), faqIndex == section {
@@ -63,6 +71,8 @@ extension ManCityHomeViewController: UITableViewDelegate {
                     if sectionData.sectionIdentifier != ManCitySectionIdentifier.quickAccess.rawValue && sectionData.sectionIdentifier != ManCitySectionIdentifier.topPlaceholder.rawValue {
                         let header = ManCityHeader()
                         header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
+                        
+                        configureHeaderForShimmer(section: section, headerView: header)
                         return header
                     }
                 }
@@ -85,6 +95,35 @@ extension ManCityHomeViewController: UITableViewDelegate {
             }
         }
         return UITableView.automaticDimension
+    }
+    
+    func configureHeaderForShimmer(section: Int, headerView: UIView) {
+        func showHide(isDummy: Bool) {
+            if isDummy {
+                headerView.enableSkeleton()
+                headerView.showAnimatedGradientSkeleton()
+            } else {
+                headerView.hideSkeleton()
+            }
+        }
+        
+        if let quickAccessSectionIndex = getSectionIndex(for: .quickAccess), quickAccessSectionIndex == section {
+            if let dataSource = self.dataSource?.dataSources?[safe: quickAccessSectionIndex] as? TableViewDataSource<QuickAccessResponseModel> {
+                showHide(isDummy: dataSource.isDummy)
+            }
+        }
+        
+        if let offerListingSectionIndex = getSectionIndex(for: .offerListing), offerListingSectionIndex == section {
+            if let dataSource = (self.dataSource?.dataSources?[safe: offerListingSectionIndex] as? TableViewDataSource<OfferDO>) {
+                showHide(isDummy: dataSource.isDummy)
+            }
+        }
+        
+        if let aboutSectionIndex = getSectionIndex(for: .about), aboutSectionIndex == section {
+            if let dataSource = (self.dataSource?.dataSources?[safe: aboutSectionIndex] as? TableViewDataSource<AboutVideo>) {
+                showHide(isDummy: dataSource.isDummy)
+            }
+        }
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {

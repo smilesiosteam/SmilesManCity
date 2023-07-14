@@ -134,17 +134,17 @@ class RestaurantsRevampTableViewCell: UITableViewCell {
     }
     
     private func setupFonts() {
-        offerLabel.font = .circularXXTTBookFont(size: 12)
-        restaurantStatusLabel.font = .circularXXTTBoldFont(size: 16)
-        ratingLabel.font = .circularXXTTBookFont(size: 12)
-        locationLabel.font = .circularXXTTBookFont(size: 12)
-        closingTimeLabel.font = .circularXXTTBookFont(size: 12)
-        cuisinesLabel.font = .circularXXTTBookFont(size: 14)
-        restaurantTitleLabel.font = .circularXXTTMediumFont(size: 18)
-        minimumOrderPriceLabel.font = .circularXXTTBookFont(size: 14)
-        minimumOrderTitleLabel.font = .circularXXTTBookFont(size: 14)
-        deliveryChargesPriceLabel.font = .circularXXTTBookFont(size: 14)
-        deliveryChargesTitleLabel.font = .circularXXTTBookFont(size: 14)
+        offerLabel.fontTextStyle = .smilesBody4
+        restaurantStatusLabel.fontTextStyle = .smilesTitle1
+        ratingLabel.fontTextStyle = .smilesBody4
+        locationLabel.fontTextStyle = .smilesBody4
+        closingTimeLabel.fontTextStyle = .smilesBody4
+        cuisinesLabel.fontTextStyle = .smilesBody3
+        restaurantTitleLabel.fontTextStyle = .smilesHeadline3
+        minimumOrderPriceLabel.fontTextStyle = .smilesBody3
+        minimumOrderTitleLabel.fontTextStyle = .smilesBody3
+        deliveryChargesPriceLabel.fontTextStyle = .smilesBody3
+        deliveryChargesTitleLabel.fontTextStyle = .smilesBody3
     }
     
     @objc private func setupFavoriteGesture() {
@@ -378,6 +378,7 @@ class RestaurantsRevampTableViewCell: UITableViewCell {
         closingTimeView.isHidden = true
         restaurantDistanceView.isHidden = true
         partnerImageView.isHidden = false
+        notEligibleView.isHidden = true
         
         ribbonImageView.isHidden = !nearbyOffer.isFeatured
         offerViewTrailingSpaceFromRibbon.priority = nearbyOffer.isFeatured ? .defaultHigh : .defaultLow
