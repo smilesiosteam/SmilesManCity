@@ -98,7 +98,7 @@ class ManCityUserDetailsViewController: UIViewController {
     private func setupTextFields() {
         
         playerTextField.placeholder = SmilesLanguageManager.shared.getLocalizedString(for: "Pick a player")
-        playerTextField.validationType = [.requiredField(errorMessage: "Please pick a player")]
+        playerTextField.validationType = [.requiredField(errorMessage: SmilesLanguageManager.shared.getLocalizedString(for: "Please pick a player"))]
         
     }
     
