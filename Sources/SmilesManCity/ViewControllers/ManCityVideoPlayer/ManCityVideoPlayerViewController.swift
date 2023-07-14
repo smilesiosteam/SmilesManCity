@@ -26,13 +26,12 @@ public class ManCityVideoPlayerViewController: UIViewController {
     // MARK: - LIFECYCLE -
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.initialSetup()
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         youtubePlayerView.stopVideo()
         youtubePlayerView = nil
     }
@@ -46,6 +45,8 @@ public class ManCityVideoPlayerViewController: UIViewController {
     
     // MARK: - METHODS -
     func initialSetup() {
+        setupNavigationBar(isLightContent: false)
+        
         let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: self.videoUrl ?? "")
         thumbnailImageView.setImageWithUrlString(thumbnailUrl) { image in
             if let image {
@@ -53,7 +54,33 @@ public class ManCityVideoPlayerViewController: UIViewController {
             }
         }
         
+        self.welcomeTitleLabel.fontTextStyle = .smilesTitle1
         self.welcomeTitleLabel.text = welcomeTitle
+    }
+    
+    func setupNavigationBar(isLightContent: Bool = true) {
+        let navBarTitle = UILabel()
+        navBarTitle.text = "Manchester City Fan Club"
+        navBarTitle.textColor = isLightContent ? .white : .black
+        navBarTitle.fontTextStyle = .smilesHeadline4
+        self.navigationItem.titleView = navBarTitle
+        
+        let btnBack: UIButton = UIButton(type: .custom)
+        btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
+        btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
+        btnBack.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+
+        let barButton = UIBarButtonItem(customView: btnBack)
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+    }
+    
+    @objc func onClickBack() {
+        self.navigationController?.popViewController()
     }
     
     func playVideo() {

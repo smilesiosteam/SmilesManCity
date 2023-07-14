@@ -37,6 +37,22 @@ public class ManCityHomeViewController: UIViewController {
     private var selectedIndexPath: IndexPath?
     private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     var offersPage = 1 // For offers list pagination
+    var offers = [OfferDO]()
+    
+    var sortOfferBy: String?
+    var sortingType: String?
+    var lastSortCriteria: String?
+    var arraySelectedSubCategoryPaths: [IndexPath] = []
+    var arraySelectedSubCategoryTypes: [String] = []
+    
+    var filtersSavedList: [RestaurantRequestWithNameFilter]?
+    var savedFilters: [RestaurantRequestFilter]?
+    var filtersData: [FiltersCollectionViewCellRevampModel]?
+    var selectedSortingTableViewCellModel: FilterDO?
+    var sortingListRowModels: [BaseRowModel]?
+    
+    var selectedSortTypeIndex: Int?
+    var didSelectFilterOrSort = false
     
     // MARK: - ACTIONS -
     
@@ -45,6 +61,10 @@ public class ManCityHomeViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        if let sortBy = self.sortOfferBy, !sortBy.isEmpty {
+            self.sortingType = sortBy
+        }
     }
     
     public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
@@ -227,6 +247,31 @@ extension ManCityHomeViewController {
                 case .fetchOffersCategoryListDidFail(let error):
                     debugPrint(error.localizedDescription)
                     
+                case .fetchFiltersDataSuccess(let filters, let selectedSortingTableViewCellModel):
+                    self?.filtersData = filters
+                    self?.selectedSortingTableViewCellModel = selectedSortingTableViewCellModel
+                    
+                case .fetchAllSavedFiltersSuccess(let filtersList, let savedFilters):
+                    self?.savedFilters = filtersList
+                    self?.filtersSavedList = savedFilters
+                    self?.offers.removeAll()
+                    self?.configureDataSource()
+                    self?.configureFiltersData()
+                    
+                case .fetchSavedFiltersAfterSuccess(let filtersSavedList):
+                    self?.filtersSavedList = filtersSavedList
+                    
+                case .fetchSortingListDidSucceed:
+                    self?.configureSortingData()
+                    
+                case .fetchContentForSortingItems(let baseRowModels):
+                    self?.sortingListRowModels = baseRowModels
+                    
+                case .emptyOffersListDidSucceed:
+                    self?.offersPage = 1
+                    self?.offers.removeAll()
+                    self?.configureDataSource()
+                    
                 default: break
                 }
             }.store(in: &cancellables)
@@ -259,23 +304,20 @@ extension ManCityHomeViewController {
                 case .offerListing:
                     if let offersCategory = OffersCategoryResponseModel.fromFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forNearbyOffers: offersCategory.offers ?? [], data: "#FFFFFF", isDummy: true, completion: nil)
-                        configureDataSource()
                     }
-                    self.input.send(.getOffersCategoryList(pageNo: self.offersPage, categoryId: "\(self.categoryId)", searchByLocation: false, sortingType: "", subCategoryId: "", subCategoryTypeIdsList: []))
                     
+                    self.input.send(.getOffersCategoryList(pageNo: self.offersPage, categoryId: "\(self.categoryId)", searchByLocation: false, sortingType: "", subCategoryId: "", subCategoryTypeIdsList: []))
                 case .about:
-                    self.dataSource?.dataSources?[index] = TableViewDataSource.make(forAboutVideo: AboutVideo(videoUrl: ""), data: "#FFFFFF", isDummy: true)
-                    configureDataSource()
-                    if let aboutVideoUrl {
-                        configureAboutVideo(with: AboutVideo(videoUrl: aboutVideoUrl))
+                    if let aboutVideo = AboutVideo.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forAboutVideo: aboutVideo, data: "#FFFFFF", isDummy: true)
                     }
+                    
+                    self.configureAboutVideo(with: self.aboutVideoUrl ?? "")
                 default: break
                 }
             }
         }
-        
     }
-    
 }
 
 // MARK: - TABLEVIEW DATASOURCE CONFIGURATION -
@@ -303,19 +345,28 @@ extension ManCityHomeViewController {
     }
     
     private func configureQuickAccessList(with response: QuickAccessResponseModel) {
-        if let quickAccessIndex = getSectionIndex(for: .quickAccess) {
-            dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: response, data: "#FFFFFF", completion: { quickAccessLink in
-                debugPrint(quickAccessLink.redirectionUrl)
-            })
-            
-            configureDataSource()
+        if let quickAccessLinks = response.quickAccess?.links, !quickAccessLinks.isEmpty {
+            if let quickAccessIndex = getSectionIndex(for: .quickAccess) {
+                dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: response, data: "#FFFFFF", completion: { quickAccessLink in
+                    debugPrint(quickAccessLink.redirectionUrl)
+                })
+                
+                configureDataSource()
+            }
+        } else {
+            configureHideSection(for: .quickAccess, dataSource: QuickAccessResponseModel.self)
         }
     }
     
-    private func configureAboutVideo(with response: AboutVideo) {
-        if let aboutVideoIndex = getSectionIndex(for: .about) {
-            dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: response, data: "#FFFFFF")
-            configureDataSource()
+    private func configureAboutVideo(with url: String) {
+        if !url.isEmpty {
+            if let aboutVideoIndex = getSectionIndex(for: .about) {
+                let aboutVideo = AboutVideo(videoUrl: url)
+                dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: aboutVideo, data: "#FFFFFF")
+                configureDataSource()
+            }
+        } else {
+            configureHideSection(for: .about, dataSource: AboutVideo.self)
         }
     }
     
@@ -325,16 +376,8 @@ extension ManCityHomeViewController {
             if let manCityOffersIndex = getSectionIndex(for: .offerListing) {
                 self.dataSource?.dataSources?[manCityOffersIndex] = TableViewDataSource.make(forNearbyOffers: offers, offerCellType: .categoryDetails, data: self.manCitySections?.sectionDetails?[manCityOffersIndex].backgroundColor ?? "#FFFFFF"
                 ) { [weak self] isFavorite, offerId, indexPath in
-                    self?.selectedIndexPath = indexPath
-//                    if !isGuestUser {
-//                        self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
-//                    } else {
-//                        let guestVC = GuestUserLoginPopupRouter.setupModule()
-//                        guestVC.prevNavigation = self?.navigationController
-//                        guestVC.modalPresentationStyle = .overFullScreen
-//                        self?.navigationController?.present(guestVC, animated: true)
-//                    }
                     
+                    self?.selectedIndexPath = indexPath
                     self?.updateOfferWishlistStatus(isFavorite: isFavorite, offerId: offerId)
                 }
                 self.configureDataSource()
@@ -366,7 +409,6 @@ extension ManCityHomeViewController {
         if let index = getSectionIndex(for: section) {
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false
-//            self.mutatingSectionDetails.removeAll(where: { $0.sectionIdentifier == section.rawValue })
             
             self.configureDataSource()
         }
@@ -375,5 +417,35 @@ extension ManCityHomeViewController {
     func updateOfferWishlistStatus(isFavorite: Bool, offerId: String) {
         offerFavoriteOperation = isFavorite ? 1 : 2
 //        input.send(.updateOfferWishlistStatus(operation: offerFavoriteOperation, offerId: offerId))
+    }
+    
+    fileprivate func configureFiltersData() {
+        if let filtersSavedList = self.filtersSavedList {
+            arraySelectedSubCategoryTypes = []
+            arraySelectedSubCategoryPaths = []
+
+            for filter in filtersSavedList {
+                arraySelectedSubCategoryTypes.append(filter.filterValue ?? "")
+                arraySelectedSubCategoryPaths.append(filter.indexPath ?? IndexPath())
+            }
+        }
+
+        self.input.send(.getOffersCategoryList(pageNo: 1, categoryId: "\(self.categoryId)", searchByLocation: false, sortingType: sortingType, subCategoryTypeIdsList: arraySelectedSubCategoryTypes))
+    }
+    
+    fileprivate func configureSortingData() {
+        guard let sortData = AppCommonMethods.getLocalizedArray(forKey: "ViewAllSortCriteria") as? [String] else { return }
+        var filterDO = [FilterDO]()
+
+        sortData.forEach {
+            let filter = FilterDO()
+            filter.name = $0
+            filter.filterKey = "order_sort"
+            
+            filterDO.append(filter)
+        }
+        
+        let sortingModel = GetSortingListResponseModel(sortingList: filterDO)
+        self.input.send(.generateActionContentForSortingItems(sortingModel: sortingModel))
     }
 }

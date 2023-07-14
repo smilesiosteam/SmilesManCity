@@ -65,7 +65,7 @@ extension TableViewDataSource where Model == AboutVideo {
     static func make(forAboutVideo aboutVideo: AboutVideo,
                      reuseIdentifier: String = "ManCityVideoTableViewCell", data: String, isDummy: Bool = false) -> TableViewDataSource {
         return TableViewDataSource(
-            models: [aboutVideo],
+            models: [aboutVideo].filter { !($0.videoUrl?.isEmpty ?? false) },
             reuseIdentifier: reuseIdentifier,
             data: data,
             isDummy: isDummy
