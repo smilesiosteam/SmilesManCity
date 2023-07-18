@@ -34,7 +34,7 @@ public class ManCityHomeViewController: UIViewController {
     var aboutVideoUrl: String?
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
-    private var proceedToPayment: ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)?
+    private var proceedToPayment: ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)?
     private var selectedIndexPath: IndexPath?
     private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     var offersPage = 1 // For offers list pagination
@@ -68,7 +68,7 @@ public class ManCityHomeViewController: UIViewController {
         }
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
@@ -329,9 +329,9 @@ extension ManCityHomeViewController {
         self.subscriptionInfo = response
         dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
             guard let self else {return}
-            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode) in
+            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
                 guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
-                self.proceedToPayment?(offer, playerId, referralCode)
+                self.proceedToPayment?(offer,playerId, referralCode, hasAttendedManCityGame, nil, nil, nil, false, false)
             }
         })
         configureDataSource()

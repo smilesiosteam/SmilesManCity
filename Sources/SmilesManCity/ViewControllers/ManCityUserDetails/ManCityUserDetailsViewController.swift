@@ -35,9 +35,8 @@ class ManCityUserDetailsViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var players: [ManCityPlayer]?
     private var selectedPlayer: ManCityPlayer?
+    private var proceedToPayment: ((String, String, Bool) -> Void)?
     private var isAttendedMatch: Bool?
-    private var proceedToPayment: ((String, String) -> Void)?
-    
     // MARK: - ACTIONS -
     
     @IBAction func yesPressed(_ sender: Any) {
@@ -52,7 +51,7 @@ class ManCityUserDetailsViewController: UIViewController {
         
         if isDataValid() {
             if let playerId = selectedPlayer?.playerID {
-                proceedToPayment?(playerId, referralTextField.text ?? "")
+                proceedToPayment?(playerId, referralTextField.text ?? "", isAttendedMatch ?? false)
             }
         }
         
@@ -73,7 +72,7 @@ class ManCityUserDetailsViewController: UIViewController {
         setUpNavigationBar()
     }
     
-    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String) -> Void)) {
+    init(userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String, Bool) -> Void)) {
         self.userData = userData
         self.viewModel = viewModel
         self.proceedToPayment = proceedToPayment

@@ -29,7 +29,7 @@ class SubscriptionInfoResponse: BaseMainResponse {
     
 }
 
-class ThemeResources: Codable {
+public class ThemeResources: Codable {
     
     var mancityImageURL: String?
     var welcomeTitle, welcomeSubTitle, mancitySubBgColor, mancitySubButtonText, mancitySubBgColorDirection: String?
