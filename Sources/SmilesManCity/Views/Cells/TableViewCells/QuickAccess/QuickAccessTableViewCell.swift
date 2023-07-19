@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SmilesUtilities
 
 class QuickAccessTableViewCell: UITableViewCell {
     
@@ -69,6 +70,9 @@ class QuickAccessTableViewCell: UITableViewCell {
     func configureCell(with quickAccessResponse: QuickAccessResponseModel) {
         titleLabel.text = quickAccessResponse.quickAccess?.title
         descriptionLabel.text = quickAccessResponse.quickAccess?.subTitle
+        if let image = quickAccessResponse.quickAccess?.iconUrl {
+            manCityLogoImageView.setImageWithUrlString(image)
+        }
     }
 }
 

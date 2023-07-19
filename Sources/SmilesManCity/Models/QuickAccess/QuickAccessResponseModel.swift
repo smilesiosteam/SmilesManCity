@@ -8,12 +8,13 @@
 import Foundation
 
 struct QuickAccessResponseModel: Codable {
-    let quickAccess: QuickAccessItem?
+    var quickAccess: QuickAccessItem?
 }
 
 struct QuickAccessItem: Codable {
     let title: String?
     let subTitle: String?
+    var iconUrl: String?
     let links: [QuickAccessLink]?
 }
 

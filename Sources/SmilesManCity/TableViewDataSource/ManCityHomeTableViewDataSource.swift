@@ -9,6 +9,7 @@ import Foundation
 import SmilesUtilities
 import SmilesSharedServices
 import UIKit
+import SmilesOffers
 
 extension TableViewDataSource where Model == SubscriptionInfoResponse {
     static func make(forEnrollment  subscriptionInfo: SubscriptionInfoResponse,

@@ -8,6 +8,7 @@
 import Foundation
 import SmilesSharedServices
 import SmilesUtilities
+import SmilesOffers
 
 extension ManCityHomeViewModel {
     

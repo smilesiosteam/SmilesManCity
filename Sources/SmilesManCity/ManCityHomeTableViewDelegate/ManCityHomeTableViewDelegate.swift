@@ -8,6 +8,7 @@
 import UIKit
 import SmilesUtilities
 import SmilesSharedServices
+import SmilesOffers
 
 extension ManCityHomeViewController: UITableViewDelegate {
     

@@ -9,6 +9,7 @@ import UIKit
 import SmilesUtilities
 import SmilesSharedServices
 import Combine
+import SmilesOffers
 
 public class ManCityHomeViewController: UIViewController {
     
@@ -31,9 +32,10 @@ public class ManCityHomeViewController: UIViewController {
     var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
     var aboutVideoUrl: String?
+    var needsWelcome = false
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
-    private var proceedToPayment: ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)?
+    private var proceedToPayment: ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)?
     private var selectedIndexPath: IndexPath?
     private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     var offersPage = 1 // For offers list pagination
@@ -67,11 +69,12 @@ public class ManCityHomeViewController: UIViewController {
         }
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((BOGODetailsResponseLifestyleOffer, String, String) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, needsWelcome:Bool = false, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
         self.aboutVideoUrl = aboutVideoUrl
+        self.needsWelcome = needsWelcome
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     
@@ -328,9 +331,9 @@ extension ManCityHomeViewController {
         self.subscriptionInfo = response
         dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
             guard let self else {return}
-            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode) in
+            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
                 guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
-                self.proceedToPayment?(offer, playerId, referralCode)
+                self.proceedToPayment?(offer,playerId, referralCode, hasAttendedManCityGame, nil, nil, nil, false, false)
             }
         })
         configureDataSource()
@@ -346,8 +349,12 @@ extension ManCityHomeViewController {
     
     private func configureQuickAccessList(with response: QuickAccessResponseModel) {
         if let quickAccessLinks = response.quickAccess?.links, !quickAccessLinks.isEmpty {
+            var quickAccessResponse = response
+            if let quickAccessSection = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.quickAccess.rawValue }) {
+                quickAccessResponse.quickAccess?.iconUrl = quickAccessSection.iconUrl
+            }
             if let quickAccessIndex = getSectionIndex(for: .quickAccess) {
-                dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: response, data: "#FFFFFF", completion: { quickAccessLink in
+                dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: quickAccessResponse, data: "#FFFFFF", completion: { quickAccessLink in
                     debugPrint(quickAccessLink.redirectionUrl)
                 })
                 
@@ -359,10 +366,13 @@ extension ManCityHomeViewController {
     }
     
     private func configureAboutVideo(with url: String) {
+        if needsWelcome && !url.isEmpty {
+            //TODO: - openPlayer
+        }
         if !url.isEmpty {
             if let aboutVideoIndex = getSectionIndex(for: .about) {
                 let aboutVideo = AboutVideo(videoUrl: url)
-                dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: aboutVideo, data: "#FFFFFF")
+                dataSource?.dataSources?[aboutVideoIndex] = TableViewDataSource.make(forAboutVideo: aboutVideo, data: manCitySections?.sectionDetails?[aboutVideoIndex].backgroundColor ?? "#FFFFFF")
                 configureDataSource()
             }
         } else {

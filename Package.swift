@@ -25,6 +25,7 @@ let package = Package(
         .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesOffers.git", branch: "main"),
         .package(url: "https://github.com/marmelroy/PhoneNumberKit", from: "3.6.0")
     ],
     targets: [
@@ -41,7 +42,8 @@ let package = Package(
                 .product(name: "SmilesLanguageManager", package: "SmilesLanguageManager"),
                 .product(name: "SmilesLoader", package: "SmilesLoader"),
                 .product(name: "SmilesBaseMainRequestManager", package: "SmilesBaseMainRequest"),
-                .product(name: "PhoneNumberKit", package: "PhoneNumberKit")
+                .product(name: "PhoneNumberKit", package: "PhoneNumberKit"),
+                .product(name: "SmilesOffers", package: "SmilesOffers")
             ],
             resources: [
                 .process("Resources")
