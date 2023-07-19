@@ -34,7 +34,7 @@ public class ManCityHomeViewController: UIViewController {
     var aboutVideoUrl: String?
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
-    private var proceedToPayment: ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)?
+    private var proceedToPayment: ((ManCityPaymentParams) -> Void)?
     private var selectedIndexPath: IndexPath?
     private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     var offersPage = 1 // For offers list pagination
@@ -68,7 +68,7 @@ public class ManCityHomeViewController: UIViewController {
         }
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((_ lifeStyleOffer: BOGODetailsResponseLifestyleOffer, _ playerID: String, _ referralCode: String, _ hasAttendedManCityGame:Bool , _ appliedPromoCode: BOGOPromoCode?, _ priceAfterPromo: Double?, _ themeResources: ThemeResources?, _ isComingFromSpecialOffer: Bool, _ isComingFromTreasureChest: Bool) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
@@ -331,7 +331,7 @@ extension ManCityHomeViewController {
             guard let self else {return}
             ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
                 guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
-                self.proceedToPayment?(offer,playerId, referralCode, hasAttendedManCityGame, nil, nil, nil, false, false)
+                self.proceedToPayment?(ManCityPaymentParams(lifeStyleOffer: offer, playerID: playerId, referralCode: referralCode, hasAttendedManCityGame: hasAttendedManCityGame, appliedPromoCode: nil, priceAfterPromo: nil, themeResources: nil, isComingFromSpecialOffer: false, isComingFromTreasureChest: false))
             }
         })
         configureDataSource()
