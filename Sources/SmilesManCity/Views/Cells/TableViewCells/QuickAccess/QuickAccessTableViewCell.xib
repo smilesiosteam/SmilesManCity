@@ -21,14 +21,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="236"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mancity-logo" translatesAutoresizingMaskIntoConstraints="NO" id="1Dp-Xh-ab8">
-                                <rect key="frame" x="164.66666666666666" y="0.0" width="64" height="64"/>
+                                <rect key="frame" x="164.66666666666666" y="24" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="UQx-DO-5Pv"/>
                                     <constraint firstAttribute="width" constant="64" id="nFx-PK-MJk"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ZHD-H9-xVI">
-                                <rect key="frame" x="176" y="80" width="41.333333333333343" height="44.666666666666657"/>
+                                <rect key="frame" x="176" y="104" width="41.333333333333343" height="44.666666666666657"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzs-Wh-gSg">
                                         <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="20.333333333333332"/>
@@ -37,7 +37,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gev-wZ-Qqr">
-                                        <rect key="frame" x="0.0" y="24.333333333333329" width="41.333333333333336" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="24.333333333333343" width="41.333333333333336" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="1Dp-Xh-ab8" firstAttribute="top" secondItem="8Rq-oi-gbi" secondAttribute="top" id="4MS-19-Tig"/>
+                            <constraint firstItem="1Dp-Xh-ab8" firstAttribute="top" secondItem="8Rq-oi-gbi" secondAttribute="top" constant="24" id="4MS-19-Tig"/>
                             <constraint firstItem="1Dp-Xh-ab8" firstAttribute="centerX" secondItem="8Rq-oi-gbi" secondAttribute="centerX" id="4x7-Q4-soK"/>
                             <constraint firstItem="ZHD-H9-xVI" firstAttribute="centerX" secondItem="1Dp-Xh-ab8" secondAttribute="centerX" id="66t-ta-lz0"/>
                             <constraint firstItem="ZHD-H9-xVI" firstAttribute="top" secondItem="1Dp-Xh-ab8" secondAttribute="bottom" constant="16" id="8lI-K3-2e5"/>

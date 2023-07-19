@@ -40,7 +40,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: indexPath.section] {
                     switch sectionData.sectionIdentifier {
                     case ManCitySectionIdentifier.quickAccess.rawValue:
-                        return 220.0
+                        return 236.0
                         
                     case ManCitySectionIdentifier.about.rawValue:
                         return 242.0
@@ -52,6 +52,30 @@ extension ManCityHomeViewController: UITableViewDelegate {
         }
         
         return UITableView.automaticDimension
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if let isUserSubscribed {
+            if !isUserSubscribed {
+                if let faqIndex = getSectionIndex(for: .FAQS), faqIndex == section {
+                    return .leastNormalMagnitude
+                } else if let enrollmentIndex = getSectionIndex(for: .enrollment), enrollmentIndex == section {
+                    return 32.0
+                }
+            } else {
+                if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
+                    switch sectionData.sectionIdentifier {
+                    case ManCitySectionIdentifier.quickAccess.rawValue:
+                        return 24.0
+                        
+                    default:
+                        return .leastNormalMagnitude
+                    }
+                }
+            }
+        }
+        
+        return .leastNormalMagnitude
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -88,13 +112,22 @@ extension ManCityHomeViewController: UITableViewDelegate {
     }
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
-            if sectionData.sectionIdentifier == ManCitySectionIdentifier.quickAccess.rawValue || sectionData.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue {
-                return CGFloat.leastNormalMagnitude
-            } else {
+        if let isUserSubscribed {
+            if !isUserSubscribed {
                 return UITableView.automaticDimension
+            } else {
+                if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
+                    switch sectionData.sectionIdentifier {
+                    case ManCitySectionIdentifier.topPlaceholder.rawValue, ManCitySectionIdentifier.quickAccess.rawValue:
+                        return .leastNormalMagnitude
+                        
+                    default:
+                        return UITableView.automaticDimension
+                    }
+                }
             }
         }
+        
         return UITableView.automaticDimension
     }
     

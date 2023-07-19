@@ -97,7 +97,12 @@ public class ManCityHomeViewController: UIViewController {
     }
     
     private func setupTableView() {
-        
+        contentTableView.sectionFooterHeight = .leastNormalMagnitude
+        if #available(iOS 15.0, *) {
+            contentTableView.sectionHeaderTopPadding = CGFloat(0)
+        }
+        contentTableView.sectionHeaderHeight = UITableView.automaticDimension
+        contentTableView.estimatedSectionHeaderHeight = 1
         contentTableView.delegate = self
         let manCityCellRegistrable: CellRegisterable = ManCityHomeCellRegistration()
         manCityCellRegistrable.register(for: contentTableView)
@@ -347,24 +352,24 @@ extension ManCityHomeViewController {
 extension ManCityHomeViewController {
     
     private func configureEnrollment(with response: SubscriptionInfoResponse) {
-        
         self.subscriptionInfo = response
-        dataSource?.dataSources?[0] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
-            guard let self else {return}
-            ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
-                guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
-                self.proceedToPayment?(ManCityPaymentParams(lifeStyleOffer: offer, playerID: playerId, referralCode: referralCode, hasAttendedManCityGame: hasAttendedManCityGame, appliedPromoCode: nil, priceAfterPromo: nil, themeResources: nil, isComingFromSpecialOffer: false, isComingFromTreasureChest: false))
-            }
-        })
-        configureDataSource()
-        
+        if let enrollmentIndex = getSectionIndex(for: .enrollment) {
+            dataSource?.dataSources?[enrollmentIndex] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: false, completion: { [weak self] in
+                guard let self else {return}
+                ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
+                    guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
+                    self.proceedToPayment?(ManCityPaymentParams(lifeStyleOffer: offer, playerID: playerId, referralCode: referralCode, hasAttendedManCityGame: hasAttendedManCityGame, appliedPromoCode: nil, priceAfterPromo: nil, themeResources: nil, isComingFromSpecialOffer: false, isComingFromTreasureChest: false))
+                }
+            })
+            configureDataSource()
+        }
     }
     
     private func configureFAQsDetails(with response: FAQsDetailsResponse) {
-        
-        dataSource?.dataSources?[1] = TableViewDataSource.make(forFAQs: response.faqsDetails ?? [], data: "#FFFFFF", completion: nil)
-        configureDataSource()
-        
+        if let faqIndex = getSectionIndex(for: .FAQS) {
+            dataSource?.dataSources?[faqIndex] = TableViewDataSource.make(forFAQs: response.faqsDetails ?? [], data: "#FFFFFF", completion: nil)
+            configureDataSource()
+        }
     }
     
     private func configureQuickAccessList(with response: QuickAccessResponseModel) {
