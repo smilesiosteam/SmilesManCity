@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import NetworkingLayer
 import SmilesUtilities
+import SmilesOffers
 
 class OffersCategoryListViewModel: NSObject {
     

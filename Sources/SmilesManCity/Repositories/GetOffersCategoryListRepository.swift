@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 import NetworkingLayer
-import SmilesUtilities
+import SmilesOffers
 
 protocol GetOffersCategoryListServiceable {
     func getOffersCategoryListService(request: OffersCategoryRequestModel) -> AnyPublisher<OffersCategoryResponseModel, NetworkError>

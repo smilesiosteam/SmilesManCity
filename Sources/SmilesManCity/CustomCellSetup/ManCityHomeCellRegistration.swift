@@ -8,6 +8,7 @@
 import Foundation
 import SmilesUtilities
 import UIKit
+import SmilesOffers
 
 struct ManCityHomeCellRegistration: CellRegisterable {
     
@@ -18,7 +19,8 @@ struct ManCityHomeCellRegistration: CellRegisterable {
         tableView.register(UINib(nibName: String(describing: ManCityHeader.self), bundle: .module), forHeaderFooterViewReuseIdentifier: String(describing: ManCityHeader.self))
         tableView.registerCellFromNib(QuickAccessTableViewCell.self, bundle: .module)
         tableView.registerCellFromNib(ManCityVideoTableViewCell.self, bundle: .module)
-        tableView.registerCellFromNib(RestaurantsRevampTableViewCell.self, bundle: .module)
+        tableView.registerCellFromNib(RestaurantsRevampTableViewCell.self, bundle: RestaurantsRevampTableViewCell.module)
+        
     }
     
 }

@@ -127,6 +127,15 @@
       }
     },
     {
+      "identity" : "smilesoffers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesOffers.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7242d0adc9d61bce9f4d540e504b5ac505a1af50"
+      }
+    },
+    {
       "identity" : "smilessharedservices",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
