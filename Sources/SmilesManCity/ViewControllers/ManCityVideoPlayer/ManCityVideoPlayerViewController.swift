@@ -29,18 +29,9 @@ public class ManCityVideoPlayerViewController: UIViewController {
         self.initialSetup()
     }
     
-    public override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        youtubePlayerView.stopVideo()
-        youtubePlayerView = nil
-    }
-    
     // MARK: - ACTIONS -
     @IBAction func playButtonTapped(_ sender: UIButton) {
-        DispatchQueue.main.async {
-            self.playVideo()
-        }
+        self.playVideo()
     }
     
     // MARK: - METHODS -

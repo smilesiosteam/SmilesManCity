@@ -32,6 +32,7 @@ public class ManCityHomeViewController: UIViewController {
     var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
     var aboutVideoUrl: String?
+    private var needsWelcome = false
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
     private var proceedToPayment: ((ManCityPaymentParams) -> Void)?
@@ -68,11 +69,12 @@ public class ManCityHomeViewController: UIViewController {
         }
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, needsWelcome:Bool = false, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
         self.aboutVideoUrl = aboutVideoUrl
+        self.needsWelcome = needsWelcome
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     
@@ -364,6 +366,9 @@ extension ManCityHomeViewController {
     }
     
     private func configureAboutVideo(with url: String) {
+        if needsWelcome && !url.isEmpty {
+            //TODO: - openPlayer
+        }
         if !url.isEmpty {
             if let aboutVideoIndex = getSectionIndex(for: .about) {
                 let aboutVideo = AboutVideo(videoUrl: url)
