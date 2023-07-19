@@ -69,6 +69,11 @@ public class ManCityHomeViewController: UIViewController {
         }
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpNavigationBar()
+    }
+    
     public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, needsWelcome:Bool = false, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
@@ -156,6 +161,26 @@ public class ManCityHomeViewController: UIViewController {
     
     func setUpNavigationBar(isLightContent: Bool = true) {
         
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = .clear
+            appearance.shadowColor = .clear
+            appearance.shadowImage = UIImage()
+            appearance.configureWithTransparentBackground()
+            UINavigationBar.appearance().tintColor = .clear
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().compactAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
+            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+            
+        } else {
+            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+            UINavigationBar.appearance().shadowImage = UIImage()
+            UINavigationBar.appearance().tintColor = .clear
+            UINavigationBar.appearance().barTintColor = .clear
+            UINavigationBar.appearance().isTranslucent = true
+        }
         guard let headerData = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) else { return }
         let imageView = UIImageView()
         NSLayoutConstraint.activate([
@@ -185,11 +210,6 @@ public class ManCityHomeViewController: UIViewController {
         btnBack.clipsToBounds = true
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
     }
@@ -368,6 +388,10 @@ extension ManCityHomeViewController {
     private func configureAboutVideo(with url: String) {
         if needsWelcome && !url.isEmpty {
             //TODO: - openPlayer
+            if let navigationController {
+                ManCityRouter.shared.pushManCityVideoPlayerVC(navVC: navigationController, videoUrl: url, welcomeTitle: "Welcome, User")
+                needsWelcome = false
+            }
         }
         if !url.isEmpty {
             if let aboutVideoIndex = getSectionIndex(for: .about) {
