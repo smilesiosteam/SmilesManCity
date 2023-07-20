@@ -10,6 +10,7 @@ import SmilesUtilities
 import SmilesSharedServices
 import Combine
 import SmilesOffers
+import SmilesStoriesManager
 
 public class ManCityHomeViewController: UIViewController {
     
@@ -300,6 +301,12 @@ extension ManCityHomeViewController {
                     self?.offers.removeAll()
                     self?.configureDataSource()
                     
+                case .updateWishlistStatusDidSucceed(let updateWishlistResponse):
+                    self?.configureWishListData(with: updateWishlistResponse)
+                    
+                case .updateWishlistStatusDidFail(let error):
+                    print(error.localizedDescription)
+                    
                 default: break
                 }
             }.store(in: &cancellables)
@@ -455,7 +462,7 @@ extension ManCityHomeViewController {
     
     func updateOfferWishlistStatus(isFavorite: Bool, offerId: String) {
         offerFavoriteOperation = isFavorite ? 1 : 2
-//        input.send(.updateOfferWishlistStatus(operation: offerFavoriteOperation, offerId: offerId))
+        self.input.send(.updateOfferWishlistStatus(operation: offerFavoriteOperation, offerId: offerId))
     }
     
     fileprivate func configureFiltersData() {
@@ -486,5 +493,24 @@ extension ManCityHomeViewController {
         
         let sortingModel = GetSortingListResponseModel(sortingList: filterDO)
         self.input.send(.generateActionContentForSortingItems(sortingModel: sortingModel))
+    }
+    
+    fileprivate func configureWishListData(with updateWishlistResponse: StoriesWishListResponseModel) {
+        var isFavoriteOffer = false
+        
+        if let favoriteIndexPath = self.selectedIndexPath {
+            if let updateWishlistStatus = updateWishlistResponse.updateWishlistStatus, updateWishlistStatus {
+                isFavoriteOffer = self.offerFavoriteOperation == 1 ? true : false
+            } else {
+                isFavoriteOffer = false
+            }
+            
+            (self.dataSource?.dataSources?[favoriteIndexPath.section] as? TableViewDataSource<OfferDO>)?.models?[favoriteIndexPath.row].isWishlisted = isFavoriteOffer
+            
+            if let cell = contentTableView.cellForRow(at: favoriteIndexPath) as? RestaurantsRevampTableViewCell {
+                cell.offerData?.isWishlisted = isFavoriteOffer
+                cell.showFavouriteAnimation(isRestaurant: false)
+            }
+        }
     }
 }

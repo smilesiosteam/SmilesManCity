@@ -9,6 +9,7 @@ import Foundation
 import SmilesSharedServices
 import SmilesUtilities
 import SmilesOffers
+import SmilesStoriesManager
 
 extension ManCityHomeViewModel {
     
@@ -27,6 +28,7 @@ extension ManCityHomeViewModel {
         case setFiltersSavedList(filtersSavedList: [RestaurantRequestWithNameFilter]?, filtersList: [RestaurantRequestFilter]?)
         case setSelectedSort(sortTitle: String?)
         case emptyOffersList
+        case updateOfferWishlistStatus(operation: Int, offerId: String)
     }
     
     enum Output {
@@ -60,6 +62,9 @@ extension ManCityHomeViewModel {
         case fetchSortingListDidSucceed
         
         case emptyOffersListDidSucceed
+        
+        case updateWishlistStatusDidSucceed(response: StoriesWishListResponseModel)
+        case updateWishlistStatusDidFail(error: Error)
     }
     
 }

@@ -12,6 +12,7 @@ import SmilesUtilities
 import NetworkingLayer
 import SmilesLocationHandler
 import SmilesOffers
+import SmilesStoriesManager
 
 class ManCityHomeViewModel: NSObject {
     
@@ -102,6 +103,13 @@ extension ManCityHomeViewModel {
                 
             case .setSelectedSort(let sortTitle):
                 self?.selectedSort = sortTitle
+                
+            case .updateOfferWishlistStatus(let operation, let offerId):
+                SmilesStoriesHandler.shared.updateWishlistStatus(with: operation, restaurantId: nil, offerId: offerId, baseURL: AppCommonMethods.serviceBaseUrl) { wishlistResponse in
+                    self?.output.send(.updateWishlistStatusDidSucceed(response: wishlistResponse))
+                } failure: { error in
+                    self?.output.send(.updateWishlistStatusDidFail(error: error))
+                }
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
