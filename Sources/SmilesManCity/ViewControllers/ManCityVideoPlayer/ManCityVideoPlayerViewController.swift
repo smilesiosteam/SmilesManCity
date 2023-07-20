@@ -18,7 +18,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
     @IBOutlet weak var youtubePlayerView: YTPlayerView!
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var playButton: UIButton!
-    
+    var customPop:(()->Void)?
     // MARK: - PROPERTIES -
     public var videoUrl: String?
     public var welcomeTitle: String?
@@ -68,10 +68,15 @@ public class ManCityVideoPlayerViewController: UIViewController {
         appearance.backgroundColor = .white
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     @objc func onClickBack() {
-        self.navigationController?.popViewController()
+        if let customPop{
+            customPop()
+        }else{
+            self.navigationController?.popViewController()
+        }
     }
     
     func playVideo() {
