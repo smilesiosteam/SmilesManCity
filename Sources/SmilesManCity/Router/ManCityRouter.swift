@@ -9,9 +9,9 @@ import UIKit
 import SmilesSharedServices
 import SmilesUtilities
 
-final class ManCityRouter {
+public final class ManCityRouter {
     
-    static let shared = ManCityRouter()
+    public static let shared = ManCityRouter()
     
     private init() {}
     
@@ -22,12 +22,12 @@ final class ManCityRouter {
         
     }
     
-    func pushManCityVideoPlayerVC(navVC: UINavigationController, videoUrl: String, welcomeTitle: String) {
-        if let vc = UIStoryboard(name: "ManCityVideoPlayer", bundle: .module).instantiateViewController(withIdentifier: "ManCityVideoPlayerViewController") as? ManCityVideoPlayerViewController {
-            vc.videoUrl = videoUrl
-            vc.welcomeTitle = welcomeTitle
-            
-            navVC.pushViewController(viewController: vc)
-        }
+    public func pushManCityVideoPlayerVC(navVC: UINavigationController?, videoUrl: String, welcomeTitle: String?, customPop: (()->Void)? = nil) -> ManCityVideoPlayerViewController{
+        let vc = UIStoryboard(name: "ManCityVideoPlayer", bundle: .module).instantiateViewController(withIdentifier: "ManCityVideoPlayerViewController") as! ManCityVideoPlayerViewController
+        vc.videoUrl = videoUrl
+        vc.welcomeTitle = welcomeTitle
+        vc.customPop = customPop
+        navVC?.pushViewController(viewController: vc)
+        return vc
     }
 }
