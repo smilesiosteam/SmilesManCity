@@ -63,7 +63,7 @@ extension ManCityHomeViewModel {
         
         case emptyOffersListDidSucceed
         
-        case updateWishlistStatusDidSucceed(response: StoriesWishListResponseModel)
+        case updateWishlistStatusDidSucceed(response: WishListResponseModel)
         case updateWishlistStatusDidFail(error: Error)
     }
     

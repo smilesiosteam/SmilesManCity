@@ -485,7 +485,7 @@ extension ManCityHomeViewController {
         self.input.send(.generateActionContentForSortingItems(sortingModel: sortingModel))
     }
     
-    fileprivate func configureWishListData(with updateWishlistResponse: StoriesWishListResponseModel) {
+    fileprivate func configureWishListData(with updateWishlistResponse: WishListResponseModel) {
         var isFavoriteOffer = false
         
         if let favoriteIndexPath = self.selectedIndexPath {

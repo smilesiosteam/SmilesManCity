@@ -12,7 +12,6 @@ import SmilesUtilities
 import NetworkingLayer
 import SmilesLocationHandler
 import SmilesOffers
-import SmilesStoriesManager
 
 class ManCityHomeViewModel: NSObject {
     
@@ -26,12 +25,14 @@ class ManCityHomeViewModel: NSObject {
     private let faqsViewModel = FAQsViewModel()
     private let quickAccessViewModel = QuickAccessViewModel()
     private let offersCategoryListViewModel = OffersCategoryListViewModel()
+    private let wishListViewModel = WishListViewModel()
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var rewardPointsUseCaseInput: PassthroughSubject<RewardPointsViewModel.Input, Never> = .init()
     private var faqsUseCaseInput: PassthroughSubject<FAQsViewModel.Input, Never> = .init()
     private var quickAccessUseCaseInput: PassthroughSubject<QuickAccessViewModel.Input, Never> = .init()
     private var offersCategoryListUseCaseInput: PassthroughSubject<OffersCategoryListViewModel.Input, Never> = .init()
+    private var wishListUseCaseInput: PassthroughSubject<WishListViewModel.Input, Never> = .init()
     
     private var filtersSavedList: [RestaurantRequestWithNameFilter]?
     private var filtersList: [RestaurantRequestFilter]?
@@ -105,11 +106,8 @@ extension ManCityHomeViewModel {
                 self?.selectedSort = sortTitle
                 
             case .updateOfferWishlistStatus(let operation, let offerId):
-                SmilesStoriesHandler.shared.updateWishlistStatus(with: operation, restaurantId: nil, offerId: offerId, baseURL: AppCommonMethods.serviceBaseUrl) { wishlistResponse in
-                    self?.output.send(.updateWishlistStatusDidSucceed(response: wishlistResponse))
-                } failure: { error in
-                    self?.output.send(.updateWishlistStatusDidFail(error: error))
-                }
+                self?.bind(to: self?.wishListViewModel ?? WishListViewModel())
+                self?.wishListUseCaseInput.send(.updateOfferWishlistStatus(operation: operation, offerId: offerId, baseUrl: AppCommonMethods.serviceBaseUrl))
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -196,6 +194,23 @@ extension ManCityHomeViewModel {
             }
         }.store(in: &cancellables)
     }
+    
+    // WishList ViewModel Binding
+    func bind(to wishListViewModel: WishListViewModel) {
+        wishListUseCaseInput = PassthroughSubject<WishListViewModel.Input, Never>()
+        let output = wishListViewModel.transform(input: wishListUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .updateWishlistStatusDidSucceed(response: let response):
+                    self?.output.send(.updateWishlistStatusDidSucceed(response: response))
+                case .updateWishlistDidFail(error: let error):
+                    debugPrint(error)
+                    break
+                }
+            }.store(in: &cancellables)
+    }
+    
 }
 
 // MARK: - API CALLS -
