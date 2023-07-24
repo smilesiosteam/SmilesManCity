@@ -175,6 +175,7 @@ public class ManCityHomeViewController: UIViewController {
             UINavigationBar.appearance().compactAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
             UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
+            self.navigationController?.navigationBar.backgroundColor = .clear
             self.navigationController?.navigationItem.largeTitleDisplayMode = .never
             
         } else {
