@@ -33,6 +33,8 @@ public class ManCityHomeViewController: UIViewController {
     var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
     var aboutVideoUrl: String?
+    var username: String?
+    
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
     private var proceedToPayment: ((ManCityPaymentParams) -> Void)?
@@ -79,12 +81,13 @@ public class ManCityHomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void), proceedToOfferDetails: @escaping ((OfferDO?) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, username: String?, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void), proceedToOfferDetails: @escaping ((OfferDO?) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
         self.aboutVideoUrl = aboutVideoUrl
         self.proceedToOfferDetails = proceedToOfferDetails
+        self.username = username
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     

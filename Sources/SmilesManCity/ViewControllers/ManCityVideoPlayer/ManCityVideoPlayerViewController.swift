@@ -10,6 +10,7 @@ import YouTubeiOSPlayerHelper
 import SmilesUtilities
 import AVKit
 import AVFoundation
+import SmilesLanguageManager
 
 public class ManCityVideoPlayerViewController: UIViewController {
     
@@ -21,7 +22,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
     var customPop:(()->Void)?
     // MARK: - PROPERTIES -
     public var videoUrl: String?
-    public var welcomeTitle: String?
+    public var username: String?
     
     // MARK: - LIFECYCLE -
     public override func viewDidLoad() {
@@ -49,7 +50,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
         }
         
         self.welcomeTitleLabel.fontTextStyle = .smilesTitle1
-        self.welcomeTitleLabel.text = welcomeTitle
+        self.welcomeTitleLabel.text = SmilesLanguageManager.shared.getLocalizedString(for: "WelcomeUser") + " " + (username ?? "")
     }
     
     private func setupNavigationBar() {
