@@ -13,6 +13,7 @@ import SmilesOffers
 extension ManCityHomeViewController: UITableViewDelegate {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if let faqIndex = getSectionIndex(for: .FAQS), faqIndex == indexPath.section {
             let faqDetail = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<FaqsDetail>)?.models?[safe: indexPath.row] as? FaqsDetail)
             faqDetail?.isHidden = !(faqDetail?.isHidden ?? true)
@@ -27,7 +28,16 @@ extension ManCityHomeViewController: UITableViewDelegate {
                     }
                 }
             }
+        } else if let offersIndex = getSectionIndex(for: .offerListing), offersIndex == indexPath.section {
+            if let dataSource = ((self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<OfferDO
+                                  >)) {
+                if !dataSource.isDummy {
+                    let offer = dataSource.models?[safe: indexPath.row] as? OfferDO
+                    self.proceedToOfferDetails?(offer)
+                }
+            }
         }
+        
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

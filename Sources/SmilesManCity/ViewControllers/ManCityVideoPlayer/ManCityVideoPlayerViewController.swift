@@ -29,6 +29,11 @@ public class ManCityVideoPlayerViewController: UIViewController {
         self.initialSetup()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
+    
     // MARK: - ACTIONS -
     @IBAction func playButtonTapped(_ sender: UIButton) {
         self.playVideo()
@@ -36,8 +41,6 @@ public class ManCityVideoPlayerViewController: UIViewController {
     
     // MARK: - METHODS -
     func initialSetup() {
-        setupNavigationBar(isLightContent: false)
-        
         let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: self.videoUrl ?? "")
         thumbnailImageView.setImageWithUrlString(thumbnailUrl) { image in
             if let image {
@@ -49,10 +52,10 @@ public class ManCityVideoPlayerViewController: UIViewController {
         self.welcomeTitleLabel.text = welcomeTitle
     }
     
-    func setupNavigationBar(isLightContent: Bool = true) {
+    private func setupNavigationBar() {
         let navBarTitle = UILabel()
         navBarTitle.text = "Manchester City Fan Club"
-        navBarTitle.textColor = isLightContent ? .white : .black
+        navBarTitle.textColor = .black
         navBarTitle.fontTextStyle = .smilesHeadline4
         self.navigationItem.titleView = navBarTitle
         
@@ -63,7 +66,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
 
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
-        
+        self.navigationController?.navigationBar.backgroundColor = .white
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
         self.navigationItem.standardAppearance = appearance

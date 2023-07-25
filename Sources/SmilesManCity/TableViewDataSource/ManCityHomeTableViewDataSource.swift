@@ -78,7 +78,7 @@ extension TableViewDataSource where Model == AboutVideo {
 }
 
 extension TableViewDataSource where Model == OfferDO {
-    static func make(forNearbyOffers nearbyOffersObjects: [OfferDO], offerCellType: RestaurantsRevampTableViewCell.OfferCellType = .home,
+    static func make(forNearbyOffers nearbyOffersObjects: [OfferDO], offerCellType: RestaurantsRevampTableViewCell.OfferCellType = .manCity,
                      reuseIdentifier: String = "RestaurantsRevampTableViewCell", data: String, isDummy: Bool = false, completion: ((Bool, String, IndexPath?) -> ())?) -> TableViewDataSource {
         return TableViewDataSource(
             models: nearbyOffersObjects,

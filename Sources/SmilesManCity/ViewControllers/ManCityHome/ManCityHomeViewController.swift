@@ -36,6 +36,7 @@ public class ManCityHomeViewController: UIViewController {
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
     private var proceedToPayment: ((ManCityPaymentParams) -> Void)?
+    var proceedToOfferDetails: ((OfferDO?) -> Void)?
     private var selectedIndexPath: IndexPath?
     private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     var offersPage = 1 // For offers list pagination
@@ -73,11 +74,17 @@ public class ManCityHomeViewController: UIViewController {
         setUpNavigationBar()
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void)) {
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void), proceedToOfferDetails: @escaping ((OfferDO?) -> Void)) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
         self.proceedToPayment = proceedToPayment
         self.aboutVideoUrl = aboutVideoUrl
+        self.proceedToOfferDetails = proceedToOfferDetails
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
     
@@ -411,7 +418,7 @@ extension ManCityHomeViewController {
         let offers = getAllOffers(offersCategoryListResponse: response)
         if !offers.isEmpty {
             if let manCityOffersIndex = getSectionIndex(for: .offerListing) {
-                self.dataSource?.dataSources?[manCityOffersIndex] = TableViewDataSource.make(forNearbyOffers: offers, offerCellType: .categoryDetails, data: self.manCitySections?.sectionDetails?[manCityOffersIndex].backgroundColor ?? "#FFFFFF"
+                self.dataSource?.dataSources?[manCityOffersIndex] = TableViewDataSource.make(forNearbyOffers: offers, offerCellType: .manCity, data: self.manCitySections?.sectionDetails?[manCityOffersIndex].backgroundColor ?? "#FFFFFF"
                 ) { [weak self] isFavorite, offerId, indexPath in
                     
                     self?.selectedIndexPath = indexPath
