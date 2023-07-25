@@ -23,7 +23,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
                 if !dataSource.isDummy {
                     let aboutVideo = dataSource.models?[safe: indexPath.row] as? AboutVideo
                     if let navigationController {
-                        ManCityRouter.shared.pushManCityVideoPlayerVC(navVC: navigationController, videoUrl: aboutVideo?.videoUrl ?? "", welcomeTitle: "Welcome, User")
+                        let _ = ManCityRouter.shared.pushManCityVideoPlayerVC(navVC: navigationController, videoUrl: aboutVideo?.videoUrl ?? "", username: self.username)
                     }
                 }
             }
