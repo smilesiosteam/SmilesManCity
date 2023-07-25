@@ -11,6 +11,7 @@ import SmilesUtilities
 import AVKit
 import AVFoundation
 import SmilesLanguageManager
+import SmilesFontsManager
 
 public class ManCityVideoPlayerViewController: UIViewController {
     
@@ -23,6 +24,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
     // MARK: - PROPERTIES -
     public var videoUrl: String?
     public var username: String?
+    var isFirstTime = false
     
     // MARK: - LIFECYCLE -
     public override func viewDidLoad() {
@@ -42,6 +44,7 @@ public class ManCityVideoPlayerViewController: UIViewController {
     
     // MARK: - METHODS -
     func initialSetup() {
+        welcomeTitleLabel.isHidden = !isFirstTime
         let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: self.videoUrl ?? "")
         thumbnailImageView.setImageWithUrlString(thumbnailUrl) { image in
             if let image {
@@ -54,25 +57,21 @@ public class ManCityVideoPlayerViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let navBarTitle = UILabel()
-        navBarTitle.text = "Manchester City Fan Club"
-        navBarTitle.textColor = .black
-        navBarTitle.fontTextStyle = .smilesHeadline4
-        self.navigationItem.titleView = navBarTitle
         
+        title = SmilesLanguageManager.shared.getLocalizedString(for: "Manchester City Fan Club")
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
         let btnBack: UIButton = UIButton(type: .custom)
         btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
         btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
-        btnBack.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
-
+        btnBack.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
-        self.navigationController?.navigationBar.backgroundColor = .white
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        self.navigationItem.standardAppearance = appearance
-        self.navigationItem.scrollEdgeAppearance = appearance
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
     }
     
     @objc func onClickBack() {

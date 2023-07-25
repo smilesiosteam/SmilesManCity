@@ -22,11 +22,12 @@ public final class ManCityRouter {
         
     }
     
-    public func pushManCityVideoPlayerVC(navVC: UINavigationController?, videoUrl: String, username: String?, customPop: (()->Void)? = nil) -> ManCityVideoPlayerViewController{
+    public func pushManCityVideoPlayerVC(navVC: UINavigationController?, videoUrl: String, username: String?, isFirstTime: Bool = false, customPop: (()->Void)? = nil) -> ManCityVideoPlayerViewController{
         let vc = UIStoryboard(name: "ManCityVideoPlayer", bundle: .module).instantiateViewController(withIdentifier: "ManCityVideoPlayerViewController") as! ManCityVideoPlayerViewController
         vc.videoUrl = videoUrl
         vc.username = username
         vc.customPop = customPop
+        vc.isFirstTime = isFirstTime
         navVC?.pushViewController(viewController: vc)
         return vc
     }

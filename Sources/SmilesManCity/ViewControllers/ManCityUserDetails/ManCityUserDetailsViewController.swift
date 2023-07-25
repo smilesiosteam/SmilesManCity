@@ -151,28 +151,12 @@ class ManCityUserDetailsViewController: UIViewController {
     
     private func setUpNavigationBar() {
         
-        navigationItem.title = SmilesLanguageManager.shared.getLocalizedString(for: "Your details")
-        if #available(iOS 13.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = .clear
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
-            appearance.shadowColor = .clear
-            appearance.shadowImage = UIImage()
-            appearance.configureWithTransparentBackground()
-            UINavigationBar.appearance().tintColor = .clear
-            UINavigationBar.appearance().standardAppearance = appearance
-            UINavigationBar.appearance().compactAppearance = appearance
-            UINavigationBar.appearance().scrollEdgeAppearance = appearance
-            UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
-            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
-            
-        } else {
-            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().tintColor = .clear
-            UINavigationBar.appearance().barTintColor = .clear
-            UINavigationBar.appearance().isTranslucent = true
-        }
+        title = SmilesLanguageManager.shared.getLocalizedString(for: "Your details")
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
         let btnBack: UIButton = UIButton(type: .custom)
         btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
         btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)

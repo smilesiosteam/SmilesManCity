@@ -174,27 +174,11 @@ public class ManCityHomeViewController: UIViewController {
     
     func setUpNavigationBar(isLightContent: Bool = true) {
         
-        if #available(iOS 13.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = .clear
-            appearance.shadowColor = .clear
-            appearance.shadowImage = UIImage()
-            appearance.configureWithTransparentBackground()
-            UINavigationBar.appearance().tintColor = .clear
-            UINavigationBar.appearance().standardAppearance = appearance
-            UINavigationBar.appearance().compactAppearance = appearance
-            UINavigationBar.appearance().scrollEdgeAppearance = appearance
-            UINavigationBar.appearance().overrideUserInterfaceStyle = .dark
-            self.navigationController?.navigationBar.backgroundColor = .clear
-            self.navigationController?.navigationItem.largeTitleDisplayMode = .never
-            
-        } else {
-            UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-            UINavigationBar.appearance().shadowImage = UIImage()
-            UINavigationBar.appearance().tintColor = .clear
-            UINavigationBar.appearance().barTintColor = .clear
-            UINavigationBar.appearance().isTranslucent = true
-        }
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = isLightContent ? .clear : .white
+        appearance.configureWithTransparentBackground()
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
         guard let headerData = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) else { return }
         let imageView = UIImageView()
         NSLayoutConstraint.activate([
