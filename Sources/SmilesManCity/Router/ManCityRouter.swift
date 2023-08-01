@@ -22,6 +22,14 @@ public final class ManCityRouter {
         
     }
     
+    func pushUpcomingMatchesVC(navVC: UINavigationController, viewModel: ManCityHomeViewModel?) {
+        
+        let upcomingMatchesVC = UpcomingMatchesViewController(categoryId: 214, isUserSubscribed: true)
+        upcomingMatchesVC.hidesBottomBarWhenPushed = true
+        navVC.setViewControllers(navVC.viewControllers.filter({!($0 is ManCityVideoPlayerViewController)})+[upcomingMatchesVC], animated: true)
+        
+    }
+    
     public func pushManCityVideoPlayerVC(navVC: UINavigationController?, videoUrl: String, username: String?, isFirstTime: Bool = false, customPop: (()->Void)? = nil) -> ManCityVideoPlayerViewController{
         let vc = UIStoryboard(name: "ManCityVideoPlayer", bundle: .module).instantiateViewController(withIdentifier: "ManCityVideoPlayerViewController") as! ManCityVideoPlayerViewController
         vc.videoUrl = videoUrl
