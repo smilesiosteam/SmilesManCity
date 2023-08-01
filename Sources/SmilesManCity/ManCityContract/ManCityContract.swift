@@ -10,6 +10,7 @@ import SmilesSharedServices
 import SmilesUtilities
 import SmilesOffers
 import SmilesStoriesManager
+import SmilesBanners
 
 extension ManCityHomeViewModel {
     
@@ -29,6 +30,7 @@ extension ManCityHomeViewModel {
         case setSelectedSort(sortTitle: String?)
         case emptyOffersList
         case updateOfferWishlistStatus(operation: Int, offerId: String)
+        case getTopOffers(bannerType: String?, categoryId: Int?)
     }
     
     enum Output {
@@ -65,6 +67,9 @@ extension ManCityHomeViewModel {
         
         case updateWishlistStatusDidSucceed(response: WishListResponseModel)
         case updateWishlistStatusDidFail(error: Error)
+        
+        case fetchTopOffersDidSucceed(response: GetTopOffersResponseModel)
+        case fetchTopOffersDidFail(error: Error)
     }
     
 }
