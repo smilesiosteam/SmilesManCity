@@ -9,6 +9,9 @@ import UIKit
 import SmilesUtilities
 import Combine
 import LottieAnimationManager
+import SmilesLanguageManager
+import SmilesFontsManager
+import SmilesLoader
 
 class ManCityInviteFriendsViewController: UIViewController {
 
@@ -40,14 +43,15 @@ class ManCityInviteFriendsViewController: UIViewController {
     private lazy var viewModel: ManCityInviteFriendsViewModel = {
         return ManCityInviteFriendsViewModel()
     }()
-    
+    private var response:InviteFriendsResponse?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI(response: nil)
+        setupUI()
         self.bind(to: viewModel)
         input.send(.fetchInviteFriendsData)
+        SmilesLoader.show(on: self.view)
         // Do any additional setup after loading the view.
     }
     
@@ -58,32 +62,65 @@ class ManCityInviteFriendsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setupUI(response:InviteFriendsResponse?){
-        infoLbl.fontTextStyle = .smilesTitle1
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpNavigationBar()
+    }
+    func setupUI(){
+        infoLbl.fontTextStyle = .smilesHeadline3
         detailsLbl.fontTextStyle = .smilesBody3
         pinLabel.fontTextStyle = .smilesTitle1
         notesLbl.fontTextStyle = .smilesBody3
         sendInviteBtn.fontTextStyle = .smilesTitle1
         copyView.isHidden = true
-        pinView.dashColor = UIColor(red: 117/255, green: 66/255, blue: 142/255, alpha: 1)
+        pinView.dashColor = response != nil ? UIColor(red: 117/255, green: 66/255, blue: 142/255, alpha: 1) : .clear
+        sendInviteBtn.isHidden = response == nil
         pinView.dashWidth = 2
         pinView.dashLength = 2
         pinView.betweenDashesSpace = 2
         pinLabel.textColor = .black
         pinLabel.text = response?.inviteFriend.referralCode
         if let urlStr = response?.inviteFriend.image, !urlStr.isEmpty {
+            imgView.isHidden = false
             if urlStr.hasSuffix(".json") {
                 LottieAnimationManager.showAnimationFromUrl(FromUrl: urlStr, animationBackgroundView: self.imgView, removeFromSuper: false, loopMode: .loop, shouldAnimate: true) { _ in }
             }else{
                 self.imgView.setImageWithUrlString(urlStr)
             }
+        }else{
+            imgView.isHidden = true
         }
         infoLbl.text = response?.inviteFriend.title
         detailsLbl.text = response?.inviteFriend.subtitle
         notesLbl.text = response?.inviteFriend.additionalInfo
+    }
+    private func setUpNavigationBar() {
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .clear
+        appearance.configureWithTransparentBackground()
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        let locationNavBarTitle = UILabel()
+        locationNavBarTitle.text = SmilesLanguageManager.shared.getLocalizedString(for: "Invite a friend")
+        locationNavBarTitle.textColor = .black
+        locationNavBarTitle.fontTextStyle = .smilesHeadline4
+        self.navigationItem.titleView = locationNavBarTitle
+        let btnBack: UIButton = UIButton(type: .custom)
+        btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
+        btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
+        btnBack.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        let barButton = UIBarButtonItem(customView: btnBack)
+        self.navigationItem.leftBarButtonItem = barButton
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
         
     }
+    
+    @objc func onClickBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func bind(to viewModel: ManCityInviteFriendsViewModel) {
         input = PassthroughSubject<ManCityInviteFriendsViewModel.Input, Never>()
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
@@ -91,7 +128,9 @@ class ManCityInviteFriendsViewController: UIViewController {
             .sink { [weak self] event in
                 switch event {
                 case .getInviteFriendsDataDidSucceed(let response):
-                    self?.setupUI(response: response)
+                    SmilesLoader.dismiss(from: self?.view ?? UIView())
+                    self?.response = response
+                    self?.setupUI()
                 case .getInviteFriendsDataDidFail(error: let error):
                     debugPrint(error.localizedDescription)
                 }
@@ -121,7 +160,7 @@ class ManCityInviteFriendsViewController: UIViewController {
     }
     
     @IBAction func sendInvitePressed(_ sender: UIButton) {
-        
+        self.share(text: self.response?.inviteFriend.invitationText ?? "")
     }
     
     func share(text:String) {
@@ -138,10 +177,6 @@ class ManCityInviteFriendsViewController: UIViewController {
                                                             UIActivity.ActivityType.addToReadingList,
                                                             UIActivity.ActivityType.postToTencentWeibo,
                                                             UIActivity.ActivityType.airDrop]
-            
-            activityViewController.completionWithItemsHandler = { (activityType, completed: Bool, returnedItems: [Any]?, error: Error?) in
-                self.navigationController?.popViewController()
-            }
             
             present(activityViewController, animated: true)
         }
