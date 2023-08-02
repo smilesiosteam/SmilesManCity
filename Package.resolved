@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "smilesbanners",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesBanners.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e1fa7d0813bab3ce63c7e439115284c8bacbfb3a"
+      }
+    },
+    {
       "identity" : "smilesbasemainrequest",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
@@ -151,6 +160,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "7242d0adc9d61bce9f4d540e504b5ac505a1af50"
+      }
+    },
+    {
+      "identity" : "smilespagecontrol",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesPageControl.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "81d488b3d5723907d8728f713db6bc8917db0be8"
       }
     },
     {
