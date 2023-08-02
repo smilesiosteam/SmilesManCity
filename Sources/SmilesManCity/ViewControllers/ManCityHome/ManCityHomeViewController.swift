@@ -11,6 +11,7 @@ import SmilesSharedServices
 import Combine
 import SmilesOffers
 import SmilesStoriesManager
+import SmilesBanners
 
 public class ManCityHomeViewController: UIViewController {
     
@@ -340,6 +341,11 @@ extension ManCityHomeViewController {
                     }
                     
                     self.configureAboutVideo(with: self.aboutVideoUrl ?? "")
+                case .inviteFriends:
+                    if let response = GetTopOffersResponseModel.fromFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forTopOffers: response, data:"#FFFFFF", isDummy: true, completion:nil)
+                    }
+                    self.input.send(.getTopOffers(bannerType: "INVITE_FRIEND", categoryId: categoryId))
                 default: break
                 }
             }
@@ -498,4 +504,18 @@ extension ManCityHomeViewController {
             }
         }
     }
+    
+    fileprivate func configureBannersData(with offersResponse: GetTopOffersResponseModel, sectionIdentifier: ManCitySectionIdentifier) {
+        if let topOffers = offersResponse.ads, !topOffers.isEmpty {
+            if let offersIndex = getSectionIndex(for: sectionIdentifier) {
+                self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forTopOffers: offersResponse, data: self.manCitySections?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion:{ [weak self] data in
+//                    self?.handleBannerDeepLinkRedirections(url: data.externalWebUrl.asStringOrEmpty())
+                })
+                configureDataSource()
+            }
+        } else {
+            self.configureHideSection(for: sectionIdentifier, dataSource: GetTopOffersResponseModel.self)
+        }
+    }
+    
 }
