@@ -13,23 +13,13 @@ import LottieAnimationManager
 class ManCityInviteFriendsViewController: UIViewController {
 
     // MARK: - OUTLETS -
-    
-    
     @IBOutlet weak var imgView: UIImageView!
-    
     @IBOutlet weak var infoLbl: UILabel!
-    
     @IBOutlet weak var detailsLbl: UILabel!
-    
-    
     @IBOutlet weak var notesLbl: UILabel!
-    
     @IBOutlet weak var sendInviteBtn: UICustomButton!
-    
     @IBOutlet weak var pinView: RectangularDashedView!
-    
     @IBOutlet weak var pinLabel: UILabel!
-    
     @IBOutlet weak var copyCodeBtn: UIButton!
     @IBOutlet weak var copyView: UIView!
     @IBOutlet weak var codeCopiedLbl: UILabel!
@@ -41,8 +31,22 @@ class ManCityInviteFriendsViewController: UIViewController {
         return ManCityInviteFriendsViewModel()
     }()
     
+    // MARK: - ACTIONS -
+    @IBAction func copyCodePressed(_ sender: UIButton) {
+        copyCodeBtn.isUserInteractionEnabled = false
+        UIPasteboard.general.string = pinLabel.text
+        showHideInfo(hide: false){
+            self.showHideInfo(hide: true){
+                self.copyCodeBtn.isUserInteractionEnabled = true
+            }
+        }
+    }
     
+    @IBAction func sendInvitePressed(_ sender: UIButton) {
+        
+    }
     
+    // MARK: - METHODS -
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI(response: nil)
@@ -59,7 +63,8 @@ class ManCityInviteFriendsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI(response:InviteFriendsResponse?){
+    private func setupUI(response: InviteFriendsResponse?) {
+        
         infoLbl.fontTextStyle = .smilesTitle1
         detailsLbl.fontTextStyle = .smilesBody3
         pinLabel.fontTextStyle = .smilesTitle1
@@ -84,6 +89,7 @@ class ManCityInviteFriendsViewController: UIViewController {
         notesLbl.text = response?.inviteFriend.additionalInfo
         
     }
+    
     func bind(to viewModel: ManCityInviteFriendsViewModel) {
         input = PassthroughSubject<ManCityInviteFriendsViewModel.Input, Never>()
         let output = viewModel.transform(input: input.eraseToAnyPublisher())
@@ -98,8 +104,6 @@ class ManCityInviteFriendsViewController: UIViewController {
             }.store(in: &cancellables)
     }
     
-    // MARK: - ACTIONS -
-    
     fileprivate func showHideInfo(hide:Bool, _ finished:@escaping ()->Void) {
         copyView.isHidden=false
         UIView.transition(with: copyView, duration: 2.0, options: .transitionCrossDissolve) {
@@ -108,20 +112,6 @@ class ManCityInviteFriendsViewController: UIViewController {
             self.copyView.isHidden = hide
             finished()
         }
-    }
-    
-    @IBAction func copyCodePressed(_ sender: UIButton) {
-        copyCodeBtn.isUserInteractionEnabled = false
-        UIPasteboard.general.string = pinLabel.text
-        showHideInfo(hide: false){
-            self.showHideInfo(hide: true){
-                self.copyCodeBtn.isUserInteractionEnabled = true
-            }
-        }
-    }
-    
-    @IBAction func sendInvitePressed(_ sender: UIButton) {
-        
     }
     
     func share(text:String) {

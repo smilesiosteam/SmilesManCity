@@ -33,7 +33,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
                                   >)) {
                 if !dataSource.isDummy {
                     let offer = dataSource.models?[safe: indexPath.row] as? OfferDO
-                    self.proceedToOfferDetails?(offer)
+                    self.delegate?.proceedToOfferDetails(offer: offer)
                 }
             }
         }

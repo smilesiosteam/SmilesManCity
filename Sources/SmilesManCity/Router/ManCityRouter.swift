@@ -9,11 +9,12 @@ import UIKit
 import SmilesSharedServices
 import SmilesUtilities
 
-public final class ManCityRouter {
+@objcMembers
+public final class ManCityRouter: NSObject {
     
     public static let shared = ManCityRouter()
     
-    private init() {}
+    private override init() {}
     
     func pushUserDetailsVC(navVC: UINavigationController, userData: RewardPointsResponseModel?, viewModel: ManCityHomeViewModel, proceedToPayment: @escaping ((String, String, Bool) -> Void)) {
         
@@ -31,4 +32,10 @@ public final class ManCityRouter {
         navVC?.pushViewController(viewController: vc)
         return vc
     }
+    
+    public func pushManCityInviteFirendsVC(navVC: UINavigationController?) {
+        let vc = ManCityInviteFriendsViewController()
+        navVC?.pushViewController(vc, animated: true)
+    }
+    
 }
