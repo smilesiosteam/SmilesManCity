@@ -73,7 +73,7 @@ public class ManCityHomeViewController: UIViewController {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUpNavigationBar()
+        setUpNavigationBar(isLightContent: tableViewTopSpaceToSuperView.priority != .defaultHigh)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
