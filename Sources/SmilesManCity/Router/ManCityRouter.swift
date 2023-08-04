@@ -33,8 +33,8 @@ public final class ManCityRouter: NSObject {
         return vc
     }
     
-    public func pushManCityInviteFirendsVC(navVC: UINavigationController?) {
-        let vc = ManCityInviteFriendsViewController()
+    public func pushManCityInviteFirendsVC(navVC: UINavigationController?, onInviteSend:@escaping ()->Void) {
+        let vc = ManCityInviteFriendsViewController(onInviteSent: onInviteSend)
         navVC?.pushViewController(vc, animated: true)
     }
     

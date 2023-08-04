@@ -34,7 +34,7 @@ class ManCityInviteFriendsViewController: UIViewController {
         return ManCityInviteFriendsViewModel()
     }()
     private var response:InviteFriendsResponse?
-    
+    private var onInviteSent:()->Void = {}
     // MARK: - ACTIONS -
     @IBAction func copyCodePressed(_ sender: UIButton) {
         copyCodeBtn.isUserInteractionEnabled = false
@@ -60,7 +60,8 @@ class ManCityInviteFriendsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    init() {
+    init(onInviteSent:@escaping ()->Void) {
+        self.onInviteSent = onInviteSent
         super.init(nibName: "ManCityInviteFriendsViewController", bundle: .module)
     }
     
@@ -155,6 +156,7 @@ class ManCityInviteFriendsViewController: UIViewController {
     
     func share(text:String) {
         if !text.isEmpty {
+            onInviteSent()
             let shareItems = [text]
             let activityViewController = UIActivityViewController(activityItems: shareItems as [Any], applicationActivities: nil)
             
