@@ -15,6 +15,15 @@ class ManCityHeader: UIView {
     @IBOutlet weak var titleLabel: UILocalizableLabel!
     @IBOutlet weak var subTitleLabel: UILocalizableLabel!
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var viewAllButton: UIButton!
+    
+    // MARK: - PROPERTIES -
+    var viewAllPressed: (() -> Void)?
+    
+    // MARK: - ACTIONS -
+    @IBAction func viewAllPressed(_ sender: Any) {
+        viewAllPressed?()
+    }
     
     // MARK: - METHODS -
     override init(frame: CGRect) {
@@ -35,7 +44,7 @@ class ManCityHeader: UIView {
         mainView.bindFrameToSuperviewBounds()
     }
     
-    func setupData(title: String?, subTitle: String?, color: UIColor?) {
+    func setupData(title: String?, subTitle: String?, color: UIColor?, showViewAllButton: Bool = false) {
         titleLabel.localizedString = title ?? ""
         subTitleLabel.localizedString = subTitle ?? ""
         if let color {
@@ -46,6 +55,8 @@ class ManCityHeader: UIView {
         subTitleLabel.isHidden = subTitle == nil
         titleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         subTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
+        viewAllButton.isHidden = !showViewAllButton
+        viewAllButton.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceLeftToRight : .forceRightToLeft
     }
     
 }

@@ -9,9 +9,8 @@ import Foundation
 
 enum UpcomingMatchesSectionIdentifier: String {
     
-    case topPlaceholder = "TOP_PLACEHOLDER"
-    case offerListing = "OFFER_LISTING2"
-    case teamRankings = "OFFER_LISTING"
+    case teamRankings = "TEAM_RANKINGS"
+    case teamNews = "TEAM_NEWS"
     
 }
 

@@ -36,12 +36,8 @@ extension UpcomingMatchesViewModel {
             switch event {
             case .getSections(categoryID: let categoryID):
                 self?.bind(to: self?.sectionsViewModel ?? SectionsViewModel())
-                self?.sectionsUseCaseInput.send(.getSections(categoryID: categoryID, baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser))
+                self?.sectionsUseCaseInput.send(.getSections(categoryID: categoryID, baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser, type: "UPDATES"))
                 
-              
-            case .getOffersCategoryList(let pageNo, let categoryId, let searchByLocation, let sortingType, let subCategoryId, let subCategoryTypeIdsList):
-                self?.bind(to: self?.offersCategoryListViewModel ?? OffersCategoryListViewModel())
-                self?.offersCategoryListUseCaseInput.send(.getOffersCategoryList(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation, sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList))
             case .getTeamRankings:
                 self?.getTeamRankings()
             }
@@ -62,21 +58,6 @@ extension UpcomingMatchesViewModel {
                     self?.output.send(.fetchSectionsDidFail(error: error))
                 }
             }.store(in: &cancellables)
-    }
-    
-    // OffersCategoryList ViewModel Binding
-    func bind(to offersCategoryListViewModel: OffersCategoryListViewModel) {
-        offersCategoryListUseCaseInput = PassthroughSubject<OffersCategoryListViewModel.Input, Never>()
-        let output = offersCategoryListViewModel.transform(input: offersCategoryListUseCaseInput.eraseToAnyPublisher())
-        output
-            .sink { [weak self] event in
-                switch event {
-                case .fetchOffersCategoryListDidSucceed(let offersCategoryListResponse):
-                    self?.output.send(.fetchOffersCategoryListDidSucceed(response: offersCategoryListResponse))
-                case .fetchOffersCategoryListDidFail(let error):
-                    self?.output.send(.fetchOffersCategoryListDidFail(error: error))
-            }
-        }.store(in: &cancellables)
     }
     
     

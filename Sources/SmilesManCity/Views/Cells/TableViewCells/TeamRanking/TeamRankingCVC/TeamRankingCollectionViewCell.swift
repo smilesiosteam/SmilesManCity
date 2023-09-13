@@ -33,7 +33,7 @@ class TeamRankingCollectionViewCell: UICollectionViewCell {
         title.textColor = .appRevampCollectionsTitleColor
     }
     
-    func configureCell(with ranking: TeamRanking) {
+    func configureCell(with ranking: TeamRankingColumnData) {
         if let url = ranking.iconUrl, !url.isEmpty {
             iconImageView.isHidden = false
             iconImageView.setImageWithUrlString(url, backgroundColor: .clear) { image in

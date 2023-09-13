@@ -150,7 +150,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesOffers.git",
       "state" : {
         "branch" : "main",
-        "revision" : "7242d0adc9d61bce9f4d540e504b5ac505a1af50"
+        "revision" : "d7d17b80c5c851dc386a686240ef9fc07e9d6718"
       }
     },
     {
@@ -159,7 +159,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
       "state" : {
         "branch" : "main",
-        "revision" : "115b4f8dbfc528e17b3549c76e8156da03ca6e8d"
+        "revision" : "9aadfc227c65e70ea527d3acf07645d4b6e2f78b"
       }
     },
     {

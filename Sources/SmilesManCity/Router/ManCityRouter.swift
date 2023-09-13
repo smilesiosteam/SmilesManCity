@@ -22,11 +22,10 @@ public final class ManCityRouter {
         
     }
     
-    func pushUpcomingMatchesVC(navVC: UINavigationController, viewModel: ManCityHomeViewModel?) {
+    func pushUpcomingMatchesVC(navVC: UINavigationController, categoryId: Int) {
         
-        let upcomingMatchesVC = UpcomingMatchesViewController(categoryId: 214, isUserSubscribed: true)
-        upcomingMatchesVC.hidesBottomBarWhenPushed = true
-        navVC.setViewControllers(navVC.viewControllers.filter({!($0 is ManCityVideoPlayerViewController)})+[upcomingMatchesVC], animated: true)
+        let upcomingMatchesVC = UpcomingMatchesViewController(categoryId: categoryId)
+        navVC.pushViewController(upcomingMatchesVC, animated: true)
         
     }
     

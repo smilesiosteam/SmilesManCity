@@ -28,7 +28,7 @@ class EnrollmentBenefitsTableViewCell: UITableViewCell {
     
     func setupData(benefit: WhatYouGet) {
         
-        iconImageView.setImageWithUrlString(benefit.iconURL)
+        iconImageView.setImageWithUrlString(benefit.iconURL ?? "")
         benefitLabel.text = benefit.text
         
     }
