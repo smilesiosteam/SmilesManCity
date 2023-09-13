@@ -12,6 +12,7 @@ import SmilesUtilities
 import NetworkingLayer
 import SmilesLocationHandler
 import SmilesOffers
+import SmilesBanners
 
 class ManCityHomeViewModel: NSObject {
     
@@ -26,6 +27,7 @@ class ManCityHomeViewModel: NSObject {
     private let quickAccessViewModel = QuickAccessViewModel()
     private let offersCategoryListViewModel = OffersCategoryListViewModel()
     private let wishListViewModel = WishListViewModel()
+    private let topOffersViewModel = TopOffersViewModel()
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var rewardPointsUseCaseInput: PassthroughSubject<RewardPointsViewModel.Input, Never> = .init()
@@ -33,6 +35,7 @@ class ManCityHomeViewModel: NSObject {
     private var quickAccessUseCaseInput: PassthroughSubject<QuickAccessViewModel.Input, Never> = .init()
     private var offersCategoryListUseCaseInput: PassthroughSubject<OffersCategoryListViewModel.Input, Never> = .init()
     private var wishListUseCaseInput: PassthroughSubject<WishListViewModel.Input, Never> = .init()
+    private var topOffersUseCaseInput: PassthroughSubject<TopOffersViewModel.Input, Never> = .init()
     
     private var filtersSavedList: [RestaurantRequestWithNameFilter]?
     private var filtersList: [RestaurantRequestFilter]?
@@ -108,6 +111,9 @@ extension ManCityHomeViewModel {
             case .updateOfferWishlistStatus(let operation, let offerId):
                 self?.bind(to: self?.wishListViewModel ?? WishListViewModel())
                 self?.wishListUseCaseInput.send(.updateOfferWishlistStatus(operation: operation, offerId: offerId, baseUrl: AppCommonMethods.serviceBaseUrl))
+            case .getTopOffers(bannerType: let bannerType, categoryId: let categoryId):
+                self?.bind(to: self?.topOffersViewModel ?? TopOffersViewModel())
+                self?.topOffersUseCaseInput.send(.getTopOffers(menuItemType: nil, bannerType: bannerType, categoryId: categoryId, bannerSubType: nil, isGuestUser: false, baseUrl: AppCommonMethods.serviceBaseUrl))
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -207,6 +213,22 @@ extension ManCityHomeViewModel {
                 case .updateWishlistDidFail(error: let error):
                     debugPrint(error)
                     break
+                }
+            }.store(in: &cancellables)
+    }
+    
+    // TopOffers ViewModel Binding
+    func bind(to topOffersViewModel: TopOffersViewModel) {
+        topOffersUseCaseInput = PassthroughSubject<TopOffersViewModel.Input, Never>()
+        let output = topOffersViewModel.transform(input: topOffersUseCaseInput.eraseToAnyPublisher())
+        output
+            .sink { [weak self] event in
+                switch event {
+                case .fetchTopOffersDidSucceed(let topOffersResponse):
+                    debugPrint(topOffersResponse)
+                    self?.output.send(.fetchTopOffersDidSucceed(response: topOffersResponse))
+                case .fetchTopOffersDidFail(let error):
+                    self?.output.send(.fetchTopOffersDidFail(error: error))
                 }
             }.store(in: &cancellables)
     }

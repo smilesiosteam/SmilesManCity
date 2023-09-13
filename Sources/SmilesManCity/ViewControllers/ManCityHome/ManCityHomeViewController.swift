@@ -11,6 +11,7 @@ import SmilesSharedServices
 import Combine
 import SmilesOffers
 import SmilesStoriesManager
+import SmilesBanners
 
 public class ManCityHomeViewController: UIViewController {
     
@@ -29,6 +30,7 @@ public class ManCityHomeViewController: UIViewController {
         return ManCityHomeViewModel()
     }()
     private let categoryId: Int
+    public weak var delegate: ManCityHomeDelegate?
     var manCitySections: GetSectionsResponseModel?
     var sections = [ManCitySectionData]()
     var isUserSubscribed: Bool? = nil
@@ -37,8 +39,6 @@ public class ManCityHomeViewController: UIViewController {
     
     private var subscriptionInfo: SubscriptionInfoResponse?
     private var userData: RewardPointsResponseModel?
-    private var proceedToPayment: ((ManCityPaymentParams) -> Void)?
-    var proceedToOfferDetails: ((OfferDO?) -> Void)?
     private var selectedIndexPath: IndexPath?
     private var offerFavoriteOperation = 0 // Operation 1 = add and Operation 2 = remove
     var offersPage = 1 // For offers list pagination
@@ -73,7 +73,7 @@ public class ManCityHomeViewController: UIViewController {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setUpNavigationBar()
+        setUpNavigationBar(isLightContent: tableViewTopSpaceToSuperView.priority != .defaultHigh)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -81,12 +81,10 @@ public class ManCityHomeViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, username: String?, proceedToPayment: @escaping ((ManCityPaymentParams) -> Void), proceedToOfferDetails: @escaping ((OfferDO?) -> Void)) {
+    public init(categoryId: Int, isUserSubscribed: Bool? = nil, aboutVideoUrl: String? = nil, username: String?) {
         self.categoryId = categoryId
         self.isUserSubscribed = isUserSubscribed
-        self.proceedToPayment = proceedToPayment
         self.aboutVideoUrl = aboutVideoUrl
-        self.proceedToOfferDetails = proceedToOfferDetails
         self.username = username
         super.init(nibName: "ManCityHomeViewController", bundle: Bundle.module)
     }
@@ -298,6 +296,8 @@ extension ManCityHomeViewController {
                     
                 case .updateWishlistStatusDidFail(let error):
                     print(error.localizedDescription)
+                case .fetchTopOffersDidSucceed(response: let response):
+                    self?.configureBannersData(with: response, sectionIdentifier: .inviteFriends)
                     
                 default: break
                 }
@@ -340,6 +340,11 @@ extension ManCityHomeViewController {
                     }
                     
                     self.configureAboutVideo(with: self.aboutVideoUrl ?? "")
+                case .inviteFriends:
+                    if let response = GetTopOffersResponseModel.fromFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(forTopOffers: response, data:"#FFFFFF", isDummy: true, completion:nil)
+                    }
+                    self.input.send(.getTopOffers(bannerType: "INVITE_FRIEND", categoryId: categoryId))
                 default: break
                 }
             }
@@ -357,7 +362,7 @@ extension ManCityHomeViewController {
                 guard let self else {return}
                 ManCityRouter.shared.pushUserDetailsVC(navVC: self.navigationController!, userData: self.userData, viewModel: self.viewModel) { (playerId, referralCode, hasAttendedManCityGame) in
                     guard let offer = self.subscriptionInfo?.lifestyleOffers?.first else { return }
-                    self.proceedToPayment?(ManCityPaymentParams(lifeStyleOffer: offer, playerID: playerId, referralCode: referralCode, hasAttendedManCityGame: hasAttendedManCityGame, appliedPromoCode: nil, priceAfterPromo: nil, themeResources: nil, isComingFromSpecialOffer: false, isComingFromTreasureChest: false))
+                    self.delegate?.proceedToPayment(params: ManCityPaymentParams(lifeStyleOffer: offer, playerID: playerId, referralCode: referralCode, hasAttendedManCityGame: hasAttendedManCityGame, appliedPromoCode: nil, priceAfterPromo: nil, themeResources: nil, isComingFromSpecialOffer: false, isComingFromTreasureChest: false))
                 }
             })
             configureDataSource()
@@ -498,4 +503,18 @@ extension ManCityHomeViewController {
             }
         }
     }
+    
+    fileprivate func configureBannersData(with offersResponse: GetTopOffersResponseModel, sectionIdentifier: ManCitySectionIdentifier) {
+        if let topOffers = offersResponse.ads, !topOffers.isEmpty {
+            if let offersIndex = getSectionIndex(for: sectionIdentifier) {
+                self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forTopOffers: offersResponse, data: self.manCitySections?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion:{ [weak self] data in
+                    self?.delegate?.handleDeepLinkRedirection(redirectionUrl: data.externalWebUrl.asStringOrEmpty())
+                })
+                configureDataSource()
+            }
+        } else {
+            self.configureHideSection(for: sectionIdentifier, dataSource: GetTopOffersResponseModel.self)
+        }
+    }
+    
 }
