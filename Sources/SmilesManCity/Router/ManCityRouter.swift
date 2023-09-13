@@ -23,7 +23,7 @@ public final class ManCityRouter: NSObject {
         
     }
     
-    func pushUpcomingMatchesVC(navVC: UINavigationController, categoryId: Int) {
+    public func pushUpcomingMatchesVC(navVC: UINavigationController, categoryId: Int) {
         
         let upcomingMatchesVC = UpcomingMatchesViewController(categoryId: categoryId)
         navVC.pushViewController(upcomingMatchesVC, animated: true)

@@ -84,7 +84,7 @@ extension UpcomingMatchesViewModel {
 //                self?.output.send(.fetchOffersCategoryListDidSucceed(response: response))
 //            }
 //        .store(in: &cancellables)
-        self.output.send(.fetchTeamRankingsDidSucceed(response: TeamRankingResponseModel.getTestData()))
+//        self.output.send(.fetchTeamRankingsDidSucceed(response: TeamRankingResponseModel.getTestData()))
     }
     
 }

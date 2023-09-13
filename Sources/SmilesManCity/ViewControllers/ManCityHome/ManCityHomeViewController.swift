@@ -297,7 +297,7 @@ extension ManCityHomeViewController {
                 case .updateWishlistStatusDidFail(let error):
                     print(error.localizedDescription)
                 case .fetchTopOffersDidSucceed(response: let response):
-                    self?.configureBannersData(with: response, sectionIdentifier: .inviteFriends)
+                    self?.configureBannersData(with: response)
                     
                 default: break
                 }
@@ -340,11 +340,11 @@ extension ManCityHomeViewController {
                     }
                     
                     self.configureAboutVideo(with: self.aboutVideoUrl ?? "")
-                case .inviteFriends:
+                case .inviteFriends, .updates:
                     if let response = GetTopOffersResponseModel.fromFile() {
                         self.dataSource?.dataSources?[index] = TableViewDataSource.make(forTopOffers: response, data:"#FFFFFF", isDummy: true, completion:nil)
                     }
-                    self.input.send(.getTopOffers(bannerType: "INVITE_FRIEND", categoryId: categoryId))
+                    self.input.send(.getTopOffers(bannerType: sectionIdentifier, categoryId: categoryId))
                 default: break
                 }
             }
@@ -504,7 +504,8 @@ extension ManCityHomeViewController {
         }
     }
     
-    fileprivate func configureBannersData(with offersResponse: GetTopOffersResponseModel, sectionIdentifier: ManCitySectionIdentifier) {
+    fileprivate func configureBannersData(with offersResponse: GetTopOffersResponseModel) {
+        let sectionIdentifier = ManCitySectionIdentifier(rawValue: offersResponse.bannerType ?? "") ?? .inviteFriends
         if let topOffers = offersResponse.ads, !topOffers.isEmpty {
             if let offersIndex = getSectionIndex(for: sectionIdentifier) {
                 self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forTopOffers: offersResponse, data: self.manCitySections?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion:{ [weak self] data in

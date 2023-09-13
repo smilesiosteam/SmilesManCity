@@ -36,7 +36,7 @@ class TeamRankingTableViewCell: UITableViewCell {
         gridLayout.stickyColumnsCount = 1
         collectionView.bounces = false
         collectionView.collectionViewLayout = gridLayout
-        collectionView.register(UINib(nibName: String(describing: TeamRankingCollectionViewCell.self), bundle: Bundle.module), forCellWithReuseIdentifier: String(describing: TeamRankingCollectionViewCell.self))
+        collectionView.register(UINib(nibName: String(describing: TeamRankingCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: TeamRankingCollectionViewCell.self))
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false

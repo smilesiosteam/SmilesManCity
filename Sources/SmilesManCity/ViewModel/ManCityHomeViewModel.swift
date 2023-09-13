@@ -62,7 +62,7 @@ extension ManCityHomeViewModel {
             switch event {
             case .getSections(categoryID: let categoryID):
                 self?.bind(to: self?.sectionsViewModel ?? SectionsViewModel())
-                self?.sectionsUseCaseInput.send(.getSections(categoryID: categoryID, baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser))
+                self?.sectionsUseCaseInput.send(.getSections(categoryID: categoryID, baseUrl: AppCommonMethods.serviceBaseUrl, isGuestUser: AppCommonMethods.isGuestUser, type: "LANDING"))
                 
             case .getSubscriptionInfo:
                 self?.getSubscriptionInfo()

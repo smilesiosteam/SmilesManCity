@@ -16,7 +16,7 @@ struct UpcomingMatchesCellRegistration: CellRegisterable {
         tableView.registerCellFromNib(ManCityEnrollmentTableViewCell.self, bundle: .module)
         
         tableView.register(UINib(nibName: String(describing: ManCityHeader.self), bundle: .module), forHeaderFooterViewReuseIdentifier: String(describing: ManCityHeader.self))
-        tableView.registerCellFromNib(TeamRankingTableViewCell.self, bundle: TeamRankingTableViewCell.module)
+        tableView.registerCellFromNib(TeamRankingTableViewCell.self, bundle: .module)
         
     }
     

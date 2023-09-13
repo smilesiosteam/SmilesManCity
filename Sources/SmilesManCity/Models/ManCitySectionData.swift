@@ -16,6 +16,7 @@ enum ManCitySectionIdentifier: String {
     case inviteFriends = "INVITE_FRIEND"
     case enrollment = "ENROLLMENT"
     case FAQS
+    case updates = "UPDATES"
     
 }
 
