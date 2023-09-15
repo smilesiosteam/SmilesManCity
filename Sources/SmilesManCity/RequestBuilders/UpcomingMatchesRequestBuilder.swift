@@ -14,6 +14,7 @@ import SmilesOffers
 enum UpcomingMatchesRequestBuilder {
     
     case getTeamRankings(request: TeamRankingRequest)
+    case getTeamNews(request: TeamNewsRequest)
     
     var requestTimeOut: Int {
         return 20
@@ -21,6 +22,8 @@ enum UpcomingMatchesRequestBuilder {
     var httpMethod: SmilesHTTPMethod {
         switch self {
         case .getTeamRankings:
+            return .POST
+        case .getTeamNews:
             return .POST
         }
     }
@@ -37,6 +40,8 @@ enum UpcomingMatchesRequestBuilder {
     var requestBody: Encodable? {
         switch self {
         case .getTeamRankings(let request):
+            return request
+        case .getTeamNews(let request):
             return request
         }
     }

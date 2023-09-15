@@ -40,6 +40,9 @@ extension UpcomingMatchesViewModel {
                 
             case .getTeamRankings:
                 self?.getTeamRankings()
+                
+            case .getTemNews:
+                self?.getTeamNews()
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
@@ -62,6 +65,7 @@ extension UpcomingMatchesViewModel {
     
     
     func getTeamRankings() {
+        
         let teamRankingRequest = TeamRankingRequest()
 
         let service = UpcomingMatchesRepository(
@@ -81,6 +85,32 @@ extension UpcomingMatchesViewModel {
             } receiveValue: { [weak self] response in
                 debugPrint("got my response here \(response)")
                 self?.output.send(.fetchTeamRankingsDidSucceed(response: response))
+            }
+        .store(in: &cancellables)
+        
+    }
+    
+    func getTeamNews() {
+        
+        let teamNewsRequest = TeamNewsRequest()
+
+        let service = UpcomingMatchesRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60),
+            baseUrl: AppCommonMethods.serviceBaseUrl,
+            endPoint: .getTeamNewsInfo)
+
+        service.getTeamNewsService(request: teamNewsRequest)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchTeamNewsDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                debugPrint("got my response here \(response)")
+                self?.output.send(.fetchTeamNewsDidSucceed(response: response))
             }
         .store(in: &cancellables)
         

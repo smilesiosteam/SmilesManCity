@@ -21,9 +21,11 @@ extension UpcomingMatchesViewController: UITableViewDelegate {
         if let sectionData = self.upcomingMatchesSections?.sectionDetails?[safe: indexPath.section] {
             switch sectionData.sectionIdentifier {
             case UpcomingMatchesSectionIdentifier.teamRankings.rawValue:
-                if let dataSource = (self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<TeamRankingResponseModel>) {
-                    return abs(CGFloat(dataSource.models?.first?.teamRankings?.count ?? 0) * 64.0 - 16)
+                if let dataSource = (self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<TeamRankingResponse>) {
+                    return abs(CGFloat((dataSource.models?.first?.teamRankings?.count ?? 0) + 1) * 64.0 - 16)
                 }
+            case UpcomingMatchesSectionIdentifier.teamNews.rawValue:
+                return 218
             default:
                 return UITableView.automaticDimension
             }
@@ -72,11 +74,17 @@ extension UpcomingMatchesViewController: UITableViewDelegate {
         }
         
         
-//        if let offerListingSectionIndex = getSectionIndex(for: .offerListing), offerListingSectionIndex == section {
-//            if let dataSource = (self.dataSource?.dataSources?[safe: offerListingSectionIndex] as? TableViewDataSource<OfferDO>) {
-//                showHide(isDummy: dataSource.isDummy)
-//            }
-//        }
+        if let teamRankingSectionIndex = getSectionIndex(for: .teamRankings), teamRankingSectionIndex == section {
+            if let dataSource = (self.dataSource?.dataSources?[safe: teamRankingSectionIndex] as? TableViewDataSource<TeamRankingResponse>) {
+                showHide(isDummy: dataSource.isDummy)
+            }
+        }
+        
+        if let teamNewsSectionIndex = getSectionIndex(for: .teamNews), teamNewsSectionIndex == section {
+            if let dataSource = (self.dataSource?.dataSources?[safe: teamNewsSectionIndex] as? TableViewDataSource<TeamNewsResponse>) {
+                showHide(isDummy: dataSource.isDummy)
+            }
+        }
         
     }
     

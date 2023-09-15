@@ -17,7 +17,7 @@ struct TeamRankingColumnData {
     var iconUrl: String?
 }
 
-class TeamRankingResponseModel: BaseMainResponse {
+class TeamRankingResponse: BaseMainResponse {
     
     var teamRankings: [TeamRanking]?
     

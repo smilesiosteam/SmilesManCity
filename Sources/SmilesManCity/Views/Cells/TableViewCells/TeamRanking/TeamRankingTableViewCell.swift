@@ -16,7 +16,7 @@ class TeamRankingTableViewCell: UITableViewCell {
     var gridLayout = StickyGridCollectionViewLayout()
     
     // MARK: - PROPERTIES -
-    var teamRankingResponse: TeamRankingResponseModel! {
+    var teamRankingResponse: TeamRankingResponse! {
         didSet {
             setupTeamRankingGrid()
             collectionView.reloadData()
@@ -54,6 +54,10 @@ class TeamRankingTableViewCell: UITableViewCell {
             ]))
         })
         
+    }
+    
+    func setBackGroundColor(color: UIColor) {
+        mainView.backgroundColor = color
     }
     
 }

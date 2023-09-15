@@ -11,7 +11,8 @@ import NetworkingLayer
 import SmilesOffers
 
 protocol UpcomingMatchesServiceable {
-    func getTeamRankingsService(request: TeamRankingRequest) -> AnyPublisher<TeamRankingResponseModel, NetworkError>
+    func getTeamRankingsService(request: TeamRankingRequest) -> AnyPublisher<TeamRankingResponse, NetworkError>
+    func getTeamNewsService(request: TeamNewsRequest) -> AnyPublisher<TeamNewsResponse, NetworkError>
 }
 
 class UpcomingMatchesRepository: UpcomingMatchesServiceable {
@@ -27,11 +28,20 @@ class UpcomingMatchesRepository: UpcomingMatchesServiceable {
         self.endPoint = endPoint
     }
   
-    func getTeamRankingsService(request: TeamRankingRequest) -> AnyPublisher<TeamRankingResponseModel, NetworkError> {
+    func getTeamRankingsService(request: TeamRankingRequest) -> AnyPublisher<TeamRankingResponse, NetworkError> {
         
         let endPoint = UpcomingMatchesRequestBuilder.getTeamRankings(request: request)
         let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .getTeamRankingInfo)
         return self.networkRequest.request(request)
         
     }
+    
+    func getTeamNewsService(request: TeamNewsRequest) -> AnyPublisher<TeamNewsResponse, NetworkingLayer.NetworkError> {
+        
+        let endPoint = UpcomingMatchesRequestBuilder.getTeamNews(request: request)
+        let request = endPoint.createRequest(baseUrl: baseUrl, endPoint: .getTeamNewsInfo)
+        return self.networkRequest.request(request)
+        
+    }
+    
 }

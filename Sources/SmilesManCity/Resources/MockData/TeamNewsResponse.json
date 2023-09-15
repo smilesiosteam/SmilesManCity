@@ -1,0 +1,33 @@
+{
+    "extTransactionId": "1002521792502",
+    "TeamNews": [
+        {
+            "id": "55707eb7-d5a1-41e1-a1b7-0765f18145cb",
+            "title": "DB-1218 - Embedded content not displaying",
+            "Description": "Test summary dataTestsummary data Test summary data Test summary data",
+            "redirectionUrl" : "https://web.stage.mancity.com/news/mens/db-1218-embedded-content-not-displaying-63827865",
+            "imageUrl": "https://web.stage.mancity.com/meta/media/ewch4c2i/pep-watford-presser-vid.jpg"
+        },
+        {
+            "id": "55707eb7-d5a1-41e1-a1b7-0765f1814cds",
+            "title": "DB-1218 - Embedded content not displaying 2",
+            "Description": "Test summary data Test summary data",
+            "redirectionUrl" : "https://web.stage.mancity.com/news/mens/db-1218-embedded-content-not-displaying-63827865",
+            "imageUrl": "https://web.stage.mancity.com/meta/media/ewch4c2i/pep-watford-presser-vid.jpg"
+        },
+        {
+            "id": "55707eb7-d5a1-41e1-a1b7-0765f18145cb",
+            "title": "DB-1218 - Embedded content not displaying",
+            "Description": "Test summary data Test summary data Test summary data Test summary data",
+            "redirectionUrl" : "https://web.stage.mancity.com/news/mens/db-1218-embedded-content-not-displaying-63827865",
+            "imageUrl": "https://web.stage.mancity.com/meta/media/ewch4c2i/pep-watford-presser-vid.jpg"
+        },
+        {
+            "id": "55707eb7-d5a1-41e1-a1b7-0765f1814cds",
+            "title": "DB-1218 - Embedded content not displaying 2",
+            "Description": "Test summary data",
+            "redirectionUrl" : "https://web.stage.mancity.com/news/mens/db-1218-embedded-content-not-displaying-63827865",
+            "imageUrl": "https://web.stage.mancity.com/meta/media/ewch4c2i/pep-watford-presser-vid.jpg"
+        }
+    ]
+}    

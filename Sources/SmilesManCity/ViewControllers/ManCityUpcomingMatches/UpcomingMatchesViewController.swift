@@ -148,6 +148,10 @@ extension UpcomingMatchesViewController {
                     
                 case .fetchTeamRankingsDidFail(let error):
                     debugPrint(error.localizedDescription)
+                case .fetchTeamNewsDidSucceed(response: let response):
+                    self?.configureTeamNews(with: response)
+                case .fetchTeamNewsDidFail(error: let error):
+                    debugPrint(error.localizedDescription)
                 }
             }.store(in: &cancellables)
     }
@@ -174,11 +178,17 @@ extension UpcomingMatchesViewController {
                 }
                 switch UpcomingMatchesSectionIdentifier(rawValue: sectionIdentifier) {
                 case .teamRankings:
-                    if let rankings = TeamRankingResponseModel.fromModuleFile() {
-                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(rankingsResponse: [rankings], data:"#FFFFFF", isDummy:false, completion: nil)
+                    if let rankings = TeamRankingResponse.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(rankingsResponse: [rankings], data:"#FFFFFF", isDummy:true, completion: nil)
                         self.configureDataSource()
                     }
                     self.input.send(.getTeamRankings)
+                case .teamNews:
+                    if let news = TeamNewsResponse.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(newsResponse: [news], data:"#FFFFFF", isDummy:true, completion: nil)
+                        self.configureDataSource()
+                    }
+                    self.input.send(.getTemNews)
                 default: break
                 }
             }
@@ -203,7 +213,7 @@ extension UpcomingMatchesViewController {
 
 extension UpcomingMatchesViewController {
     
-    private func configureTeamRankings(with response: TeamRankingResponseModel) {
+    private func configureTeamRankings(with response: TeamRankingResponse) {
         if !(response.teamRankings?.isEmpty ?? true) {
             if let teamRankingsIndex = getSectionIndex(for: .teamRankings) {
                 self.dataSource?.dataSources?[teamRankingsIndex] = TableViewDataSource.make(rankingsResponse: [response], data: "#FFFFFF", completion: { teamRanking, indexPath in
@@ -212,7 +222,20 @@ extension UpcomingMatchesViewController {
                 self.configureDataSource()
             }
         } else {
-            self.configureHideSection(for: .teamRankings, dataSource: TeamRankingResponseModel.self)
+            self.configureHideSection(for: .teamRankings, dataSource: TeamRankingResponse.self)
+        }
+    }
+    
+    private func configureTeamNews(with response: TeamNewsResponse) {
+        if !(response.teamNews?.isEmpty ?? true) {
+            if let teamNewsIndex = getSectionIndex(for: .teamNews) {
+                self.dataSource?.dataSources?[teamNewsIndex] = TableViewDataSource.make(newsResponse: [response], data: "#FFFFFF", completion: { teamNews, indexPath in
+                    
+                })
+                self.configureDataSource()
+            }
+        } else {
+            self.configureHideSection(for: .teamNews, dataSource: TeamNewsResponse.self)
         }
     }
     
