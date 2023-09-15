@@ -62,29 +62,28 @@ extension UpcomingMatchesViewModel {
     
     
     func getTeamRankings() {
-//        let offersCategoryRequest = OffersCategoryRequestModel(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation,  sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList, isGuestUser: AppCommonMethods.isGuestUser)
-//
-//        let service = GetOffersCategoryListRepository(
-//            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60),
-//            baseUrl: AppCommonMethods.serviceBaseUrl,
-//            endPoint: .offersCategoryList
-//        )
-//
-//        service.getOffersCategoryListService(request: offersCategoryRequest)
-//            .sink { [weak self] completion in
-//                debugPrint(completion)
-//                switch completion {
-//                case .failure(let error):
-//                    self?.output.send(.fetchOffersCategoryListDidFail(error: error))
-//                case .finished:
-//                    debugPrint("nothing much to do here")
-//                }
-//            } receiveValue: { [weak self] response in
-//                debugPrint("got my response here \(response)")
-//                self?.output.send(.fetchOffersCategoryListDidSucceed(response: response))
-//            }
-//        .store(in: &cancellables)
-//        self.output.send(.fetchTeamRankingsDidSucceed(response: TeamRankingResponseModel.getTestData()))
+        let teamRankingRequest = TeamRankingRequest()
+
+        let service = UpcomingMatchesRepository(
+            networkRequest: NetworkingLayerRequestable(requestTimeOut: 60),
+            baseUrl: AppCommonMethods.serviceBaseUrl,
+            endPoint: .getTeamRankingInfo)
+
+        service.getTeamRankingsService(request: teamRankingRequest)
+            .sink { [weak self] completion in
+                debugPrint(completion)
+                switch completion {
+                case .failure(let error):
+                    self?.output.send(.fetchTeamRankingsDidFail(error: error))
+                case .finished:
+                    debugPrint("nothing much to do here")
+                }
+            } receiveValue: { [weak self] response in
+                debugPrint("got my response here \(response)")
+                self?.output.send(.fetchTeamRankingsDidSucceed(response: response))
+            }
+        .store(in: &cancellables)
+        
     }
     
 }

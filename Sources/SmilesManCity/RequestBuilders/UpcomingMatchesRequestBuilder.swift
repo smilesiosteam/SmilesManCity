@@ -12,17 +12,19 @@ import SmilesUtilities
 import SmilesOffers
 
 enum UpcomingMatchesRequestBuilder {
-    case getOffersCategoryList(request: OffersCategoryRequestModel)
+    
+    case getTeamRankings(request: TeamRankingRequest)
+    
     var requestTimeOut: Int {
         return 20
     }
     var httpMethod: SmilesHTTPMethod {
         switch self {
-        case .getOffersCategoryList:
+        case .getTeamRankings:
             return .POST
         }
     }
-    func createRequest(baseUrl: String, endPoint: ManCityHomeEndPoints) -> NetworkRequest {
+    func createRequest(baseUrl: String, endPoint: UpcomingMatchesEndPoints) -> NetworkRequest {
         var headers: [String: String] = [:]
 
         headers["Content-Type"] = "application/json"
@@ -34,12 +36,12 @@ enum UpcomingMatchesRequestBuilder {
     
     var requestBody: Encodable? {
         switch self {
-        case .getOffersCategoryList(let request):
+        case .getTeamRankings(let request):
             return request
         }
     }
     
-    func getURL(baseUrl: String, for endPoint: ManCityHomeEndPoints) -> String {
+    func getURL(baseUrl: String, for endPoint: UpcomingMatchesEndPoints) -> String {
         return baseUrl + endPoint.serviceEndPoints
     }
 }

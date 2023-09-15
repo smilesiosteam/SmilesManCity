@@ -174,6 +174,10 @@ extension UpcomingMatchesViewController {
                 }
                 switch UpcomingMatchesSectionIdentifier(rawValue: sectionIdentifier) {
                 case .teamRankings:
+                    if let rankings = TeamRankingResponseModel.fromModuleFile() {
+                        self.dataSource?.dataSources?[index] = TableViewDataSource.make(rankingsResponse: [rankings], data:"#FFFFFF", isDummy:false, completion: nil)
+                        self.configureDataSource()
+                    }
                     self.input.send(.getTeamRankings)
                 default: break
                 }

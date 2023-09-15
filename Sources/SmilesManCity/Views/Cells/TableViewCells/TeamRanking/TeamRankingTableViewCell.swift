@@ -46,7 +46,7 @@ class TeamRankingTableViewCell: UITableViewCell {
         
         teamRankingRowsData.removeAll()
         teamRankingRowsData.append(TeamRankingRowData(rankings: [
-            TeamRankingColumnData(text: "Team"),TeamRankingColumnData(text: "P"),TeamRankingColumnData(text: "W"),TeamRankingColumnData(text: "D"),TeamRankingColumnData(text: "L"),TeamRankingColumnData(text: "GD"),TeamRankingColumnData(text: "Pts")
+            TeamRankingColumnData(text: "TEAM"),TeamRankingColumnData(text: "P"),TeamRankingColumnData(text: "W"),TeamRankingColumnData(text: "D"),TeamRankingColumnData(text: "L"),TeamRankingColumnData(text: "GD"),TeamRankingColumnData(text: "Pts")
         ]))
         teamRankingResponse.teamRankings?.forEach({ obj in
             teamRankingRowsData.append(TeamRankingRowData(rankings: [

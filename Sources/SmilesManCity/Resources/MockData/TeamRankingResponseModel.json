@@ -1,0 +1,65 @@
+{
+    "extTransactionId":"1002521792502",
+    "teamRankings":[
+        {
+            "teamID":1,
+            "imageUrl":"https://web.stage.mancity.com/meta/media/yzscd2rf/manchester_city_fc_badge.png",
+            "teamName":"Manchester City",
+            "played":3,
+            "won":3,
+            "drawn":0,
+            "lost":0,
+            "goalDifference":"+5",
+            "points":9,
+            "position":1
+        },
+        {
+            "teamID":2,
+            "imageUrl":"https://web.stage.mancity.com/meta/media/t02jppxo/spurs-logo-with-outline.png",
+            "teamName":"Tottenham Hotspur",
+            "played":3,
+            "won":2,
+            "drawn":1,
+            "lost":0,
+            "goalDifference":"+2",
+            "points":7,
+            "position":2
+        },
+        {
+            "teamID":3,
+            "imageUrl":"https://web.stage.mancity.com/meta/media/yzscd2rf/manchester_city_fc_badge.png",
+            "teamName":"Manchester City",
+            "played":3,
+            "won":3,
+            "drawn":0,
+            "lost":0,
+            "goalDifference":"+5",
+            "points":13,
+            "position":1
+        },
+        {
+            "teamID":4,
+            "imageUrl":"https://web.stage.mancity.com/meta/media/t02jppxo/spurs-logo-with-outline.png",
+            "teamName":"Tottenham Hotspur",
+            "played":3,
+            "won":0,
+            "drawn":0,
+            "lost":3,
+            "goalDifference":"+2",
+            "points":4,
+            "position":2
+        },
+        {
+            "teamID":5,
+            "imageUrl":"https://web.stage.mancity.com/meta/media/t02jppxo/spurs-logo-with-outline.png",
+            "teamName":"Tottenham Hotspur",
+            "played":5,
+            "won":2,
+            "drawn":1,
+            "lost":2,
+            "goalDifference":"+2",
+            "points":7,
+            "position":2
+        }
+    ]
+}

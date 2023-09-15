@@ -17,6 +17,8 @@ class TeamRankingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var prefixLbl: UILabel!
+    @IBOutlet weak var stackViewCenterHorizontal: NSLayoutConstraint!
+    @IBOutlet weak var stackViewLeading: NSLayoutConstraint!
     
     // MARK: - METHODS -
     
@@ -45,6 +47,13 @@ class TeamRankingCollectionViewCell: UICollectionViewCell {
             iconImageView.isHidden = true
         }
         prefixLbl.text = ranking.text
+        if ranking.text == "TEAM" || !iconImageView.isHidden {
+            stackViewCenterHorizontal.priority = .defaultLow
+            stackViewLeading.priority = .defaultHigh
+        } else {
+            stackViewCenterHorizontal.priority = .defaultHigh
+            stackViewLeading.priority = .defaultLow
+        }
         title.text = ranking.text
         title.isHidden = iconImageView.isHidden
     }
