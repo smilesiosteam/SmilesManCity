@@ -29,6 +29,7 @@ public class UpcomingMatchesViewController: UIViewController {
     private let categoryId: Int
     var upcomingMatchesSections: GetSectionsResponseModel?
     var sections = [UpcomingMatchesSectionData]()
+    var teamRankingsResponse: TeamRankingResponse?
     
     // MARK: - VIEW LIFECYCLE -
     public override func viewDidLoad() {
@@ -216,6 +217,7 @@ extension UpcomingMatchesViewController {
     private func configureTeamRankings(with response: TeamRankingResponse) {
         if !(response.teamRankings?.isEmpty ?? true) {
             if let teamRankingsIndex = getSectionIndex(for: .teamRankings) {
+                self.teamRankingsResponse = response
                 self.dataSource?.dataSources?[teamRankingsIndex] = TableViewDataSource.make(rankingsResponse: [response], data: "#FFFFFF", completion: { teamRanking, indexPath in
                     
                 })

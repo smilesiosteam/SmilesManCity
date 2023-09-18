@@ -1,46 +1,58 @@
 //
-//  File.swift
+//  ManCityTeamRankingsViewController.swift
 //  
 //
-//  Created by Shmeel Ahmad on 27/07/2023.
+//  Created by Abdul Rehman Amjad on 18/09/2023.
 //
 
 import UIKit
+import SmilesLanguageManager
 import SmilesUtilities
+import SmilesFontsManager
 
-class TeamRankingTableViewCell: UITableViewCell {
-    
+class ManCityTeamRankingsViewController: UIViewController {
+
     // MARK: - OUTLETS -
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    var gridLayout = StickyGridCollectionViewLayout()
+    @IBOutlet weak var teamRankingsCollectionView: UICollectionView!
     
     // MARK: - PROPERTIES -
-    var teamRankingResponse: TeamRankingResponse! {
-        didSet {
-            setupTeamRankingGrid()
-            collectionView.reloadData()
-        }
-    }
+    private var gridLayout = StickyGridCollectionViewLayout()
     private var teamRankingRowsData: [TeamRankingRowData] = []
-    var didTapCell: ((TeamRanking) -> ())?
-    private var recordsToShow = 5
+    var teamRankings: [TeamRanking]
     
     // MARK: - METHODS -
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         setupCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpNavigationBar()
+    }
+    
+    init(teamRankings: [TeamRanking]) {
+        self.teamRankings = teamRankings
+        super.init(nibName: "ManCityTeamRankingsViewController", bundle: Bundle.module)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupCollectionView() {
+        
         gridLayout.stickyRowsCount = 1
         gridLayout.stickyColumnsCount = 1
-        collectionView.bounces = false
-        collectionView.collectionViewLayout = gridLayout
-        collectionView.register(UINib(nibName: String(describing: TeamRankingCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: TeamRankingCollectionViewCell.self))
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.showsVerticalScrollIndicator = false
+        teamRankingsCollectionView.bounces = false
+        teamRankingsCollectionView.collectionViewLayout = gridLayout
+        teamRankingsCollectionView.register(UINib(nibName: String(describing: TeamRankingCollectionViewCell.self), bundle: .module), forCellWithReuseIdentifier: String(describing: TeamRankingCollectionViewCell.self))
+        teamRankingsCollectionView.dataSource = self
+        teamRankingsCollectionView.delegate = self
+        teamRankingsCollectionView.showsVerticalScrollIndicator = false
+        setupTeamRankingGrid()
+        teamRankingsCollectionView.reloadData()
+        
     }
     
     private func setupTeamRankingGrid() {
@@ -49,8 +61,7 @@ class TeamRankingTableViewCell: UITableViewCell {
         teamRankingRowsData.append(TeamRankingRowData(rankings: [
             TeamRankingColumnData(text: "TEAM"),TeamRankingColumnData(text: "P"),TeamRankingColumnData(text: "W"),TeamRankingColumnData(text: "D"),TeamRankingColumnData(text: "L"),TeamRankingColumnData(text: "GD"),TeamRankingColumnData(text: "Pts")
         ]))
-        teamRankingResponse.teamRankings?.forEach({ obj in
-            guard teamRankingRowsData.count < (recordsToShow + 1) else { return }
+        teamRankings.forEach({ obj in
             teamRankingRowsData.append(TeamRankingRowData(rankings: [
                 TeamRankingColumnData(text: obj.teamName, iconUrl: obj.imageURL), TeamRankingColumnData(text: obj.played?.string), TeamRankingColumnData(text: obj.won?.string), TeamRankingColumnData(text: obj.drawn?.string), TeamRankingColumnData(text: obj.lost?.string), TeamRankingColumnData(text: obj.goalDifference), TeamRankingColumnData(text: obj.points?.string)
             ]))
@@ -58,14 +69,32 @@ class TeamRankingTableViewCell: UITableViewCell {
         
     }
     
-    func setBackGroundColor(color: UIColor) {
-        mainView.backgroundColor = color
+    private func setUpNavigationBar() {
+        
+        title = SmilesLanguageManager.shared.getLocalizedString(for: "Team Rankings")
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
+        self.navigationItem.standardAppearance = appearance
+        self.navigationItem.scrollEdgeAppearance = appearance
+        let btnBack: UIButton = UIButton(type: .custom)
+        btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
+        btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
+        btnBack.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        let barButton = UIBarButtonItem(customView: btnBack)
+        self.navigationItem.leftBarButtonItem = barButton
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+    }
+
+    @objc func onClickBack() {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
 
 // MARK: - COLLECTION VIEW DELEGATE & DATASOURCE -
-extension TeamRankingTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension ManCityTeamRankingsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         teamRankingRowsData.count

@@ -22,7 +22,11 @@ extension UpcomingMatchesViewController: UITableViewDelegate {
             switch sectionData.sectionIdentifier {
             case UpcomingMatchesSectionIdentifier.teamRankings.rawValue:
                 if let dataSource = (self.dataSource?.dataSources?[safe: indexPath.section] as? TableViewDataSource<TeamRankingResponse>) {
-                    return abs(CGFloat((dataSource.models?.first?.teamRankings?.count ?? 0) + 1) * 64.0 - 16)
+                    var rankingsCount = 0
+                    if let rankings = dataSource.models?.first?.teamRankings {
+                        rankingsCount = (rankings.count > 5) ? 5 : rankings.count
+                    }
+                    return abs(CGFloat(rankingsCount + 1) * 64.0 - 16)
                 }
             case UpcomingMatchesSectionIdentifier.teamNews.rawValue:
                 return 218
@@ -43,11 +47,21 @@ extension UpcomingMatchesViewController: UITableViewDelegate {
             return nil
         }
         
-        
         if let sectionData = self.upcomingMatchesSections?.sectionDetails?[safe: section] {
             let header = ManCityHeader()
-            header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""), showViewAllButton: true)
-            
+            header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
+            switch sectionData.sectionIdentifier {
+            case UpcomingMatchesSectionIdentifier.teamRankings.rawValue:
+                if let teamRankings = self.teamRankingsResponse?.teamRankings {
+                    header.viewAllButton.isHidden = !(teamRankings.count > 5)
+                    header.viewAllPressed = {
+                        ManCityRouter.shared.pushManCityTeamRankingsVC(navVC: self.navigationController!, teamRankings: self.teamRankingsResponse?.teamRankings ?? [])
+                    }
+                }
+            case UpcomingMatchesSectionIdentifier.teamNews.rawValue:
+                break
+            default: break
+            }
             configureHeaderForShimmer(section: section, headerView: header)
             return header
         }

@@ -6,17 +6,21 @@
 //
 
 import Foundation
+import NetworkingLayer
 
-class TeamNewsResponse: Codable {
+class TeamNewsResponse: BaseMainResponse {
     let teamNews: [TeamNews]?
     
     enum CodingKeys: String, CodingKey {
-        case teamNews = "TeamNews"
+        case teamNews
     }
     
-    init(teamNews: [TeamNews]?) {
-        self.teamNews = teamNews
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        teamNews = try values.decodeIfPresent([TeamNews].self, forKey: .teamNews)
+        try super.init(from: decoder)
     }
+    
 }
 
 class TeamNews: Codable {

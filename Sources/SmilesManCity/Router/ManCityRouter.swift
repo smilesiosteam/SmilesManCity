@@ -45,4 +45,11 @@ public final class ManCityRouter: NSObject {
         navVC?.pushViewController(vc, animated: true)
     }
     
+    func pushManCityTeamRankingsVC(navVC: UINavigationController, teamRankings: [TeamRanking]) {
+        
+        let teamRankingsVC = ManCityTeamRankingsViewController(teamRankings: teamRankings)
+        navVC.pushViewController(teamRankingsVC, animated: true)
+        
+    }
+    
 }
