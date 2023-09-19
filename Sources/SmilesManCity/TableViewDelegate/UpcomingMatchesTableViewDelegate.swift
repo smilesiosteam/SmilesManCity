@@ -54,7 +54,8 @@ extension UpcomingMatchesViewController: UITableViewDelegate {
             case UpcomingMatchesSectionIdentifier.teamRankings.rawValue:
                 if let teamRankings = self.teamRankingsResponse?.teamRankings {
                     header.viewAllButton.isHidden = !(teamRankings.count > 5)
-                    header.viewAllPressed = {
+                    header.viewAllPressed = { [weak self] in
+                        guard let self else { return }
                         ManCityRouter.shared.pushManCityTeamRankingsVC(navVC: self.navigationController!, teamRankings: self.teamRankingsResponse?.teamRankings ?? [])
                     }
                 }

@@ -52,4 +52,12 @@ public final class ManCityRouter: NSObject {
         
     }
     
+    func openExtrenalURL(url: URL) {
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+        
+    }
+    
 }

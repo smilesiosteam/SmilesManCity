@@ -232,7 +232,9 @@ extension UpcomingMatchesViewController {
         if !(response.teamNews?.isEmpty ?? true) {
             if let teamNewsIndex = getSectionIndex(for: .teamNews) {
                 self.dataSource?.dataSources?[teamNewsIndex] = TableViewDataSource.make(newsResponse: [response], data: "#FFFFFF", completion: { teamNews, indexPath in
-                    
+                    if let urlString = teamNews.redirectionURL, let url = URL(string: urlString) {
+                        ManCityRouter.shared.openExtrenalURL(url: url)
+                    }
                 })
                 self.configureDataSource()
             }

@@ -24,22 +24,16 @@ class TeamNewsResponse: BaseMainResponse {
 }
 
 class TeamNews: Codable {
+    
     let id, title, description: String?
     let redirectionURL: String?
     let imageURL: String?
     
     enum CodingKeys: String, CodingKey {
         case id, title
-        case description = "Description"
+        case description
         case redirectionURL = "redirectionUrl"
         case imageURL = "imageUrl"
     }
-    
-    init(id: String?, title: String?, description: String?, redirectionURL: String?, imageURL: String?) {
-        self.id = id
-        self.title = title
-        self.description = description
-        self.redirectionURL = redirectionURL
-        self.imageURL = imageURL
-    }
+ 
 }
