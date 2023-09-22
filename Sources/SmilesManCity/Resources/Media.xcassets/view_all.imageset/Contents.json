@@ -3,16 +3,19 @@
     {
       "filename" : "view_all.png",
       "idiom" : "universal",
+      "language-direction" : "left-to-right",
       "scale" : "1x"
     },
     {
       "filename" : "view_all@2x.png",
       "idiom" : "universal",
+      "language-direction" : "left-to-right",
       "scale" : "2x"
     },
     {
       "filename" : "view_all@3x.png",
       "idiom" : "universal",
+      "language-direction" : "left-to-right",
       "scale" : "3x"
     }
   ],

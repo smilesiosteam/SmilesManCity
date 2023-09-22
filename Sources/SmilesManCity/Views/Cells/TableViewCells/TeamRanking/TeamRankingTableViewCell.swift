@@ -7,6 +7,7 @@
 
 import UIKit
 import SmilesUtilities
+import SmilesLanguageManager
 
 class TeamRankingTableViewCell: UITableViewCell {
     
@@ -41,13 +42,22 @@ class TeamRankingTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
+        if AppCommonMethods.languageIsArabic() {
+            collectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
     }
     
     private func setupTeamRankingGrid() {
         
         teamRankingRowsData.removeAll()
         teamRankingRowsData.append(TeamRankingRowData(rankings: [
-            TeamRankingColumnData(text: "TEAM"),TeamRankingColumnData(text: "P"),TeamRankingColumnData(text: "W"),TeamRankingColumnData(text: "D"),TeamRankingColumnData(text: "L"),TeamRankingColumnData(text: "GD"),TeamRankingColumnData(text: "Pts")
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "TEAM")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "P")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "W")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "D")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "L")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "GD")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "Pts"))
         ]))
         teamRankingResponse.teamRankings?.forEach({ obj in
             guard teamRankingRowsData.count < (recordsToShow + 1) else { return }
@@ -89,7 +99,6 @@ extension TeamRankingTableViewCell: UICollectionViewDelegate, UICollectionViewDa
                 cell.prefixLbl.text = "\(indexPath.section)"
             }
         }
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

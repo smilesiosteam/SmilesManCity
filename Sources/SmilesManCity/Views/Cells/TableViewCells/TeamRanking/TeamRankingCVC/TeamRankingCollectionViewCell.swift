@@ -8,6 +8,7 @@
 import UIKit
 import SmilesUtilities
 import SmilesFontsManager
+import SmilesLanguageManager
 
 class TeamRankingCollectionViewCell: UICollectionViewCell {
     
@@ -33,6 +34,9 @@ class TeamRankingCollectionViewCell: UICollectionViewCell {
         title.fontTextStyle = .smilesTitle2
         prefixLbl.fontTextStyle = .smilesBody4
         title.textColor = .appRevampCollectionsTitleColor
+        if AppCommonMethods.languageIsArabic() {
+            contentView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
     }
     
     func configureCell(with ranking: TeamRankingColumnData) {
@@ -47,7 +51,7 @@ class TeamRankingCollectionViewCell: UICollectionViewCell {
             iconImageView.isHidden = true
         }
         prefixLbl.text = ranking.text
-        if ranking.text == "TEAM" || !iconImageView.isHidden {
+        if ranking.text == SmilesLanguageManager.shared.getLocalizedString(for: "TEAM") || !iconImageView.isHidden {
             stackViewCenterHorizontal.priority = .defaultLow
             stackViewLeading.priority = .defaultHigh
         } else {

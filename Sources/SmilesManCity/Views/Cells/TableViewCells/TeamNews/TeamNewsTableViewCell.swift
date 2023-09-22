@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SmilesUtilities
 
 class TeamNewsTableViewCell: UITableViewCell {
 
@@ -42,6 +43,9 @@ class TeamNewsTableViewCell: UITableViewCell {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 16
         newsCollectionView.collectionViewLayout = layout
+        if AppCommonMethods.languageIsArabic() {
+            newsCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
         
     }
     

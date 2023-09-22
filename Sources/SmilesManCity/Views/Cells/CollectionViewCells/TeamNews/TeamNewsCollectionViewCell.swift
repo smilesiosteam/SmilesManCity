@@ -33,6 +33,9 @@ class TeamNewsCollectionViewCell: UICollectionViewCell {
         newsImageView.layer.cornerRadius = 8
         newsImageView.contentMode = .scaleAspectFill
         descriptionLabel.numberOfLines = 3
+        if AppCommonMethods.languageIsArabic() {
+            contentView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
         
     }
     

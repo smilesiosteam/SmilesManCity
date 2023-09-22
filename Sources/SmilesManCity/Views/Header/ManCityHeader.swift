@@ -15,7 +15,8 @@ class ManCityHeader: UIView {
     @IBOutlet weak var titleLabel: UILocalizableLabel!
     @IBOutlet weak var subTitleLabel: UILocalizableLabel!
     @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var viewAllButton: UIButton!
+    @IBOutlet weak var viewAllContainer: UIView!
+    @IBOutlet weak var viewAllLabel: UILocalizableLabel!
     
     // MARK: - PROPERTIES -
     var viewAllPressed: (() -> Void)?
@@ -55,8 +56,8 @@ class ManCityHeader: UIView {
         subTitleLabel.isHidden = subTitle == nil
         titleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
         subTitleLabel.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceRightToLeft : .forceLeftToRight
-        viewAllButton.isHidden = !showViewAllButton
-        viewAllButton.semanticContentAttribute = AppCommonMethods.languageIsArabic() ? .forceLeftToRight : .forceRightToLeft
+        viewAllContainer.isHidden = !showViewAllButton
+        viewAllLabel.textAlignment = AppCommonMethods.languageIsArabic() ? .left : .right
     }
     
 }

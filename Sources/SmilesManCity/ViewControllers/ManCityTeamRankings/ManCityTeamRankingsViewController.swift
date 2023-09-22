@@ -51,6 +51,9 @@ class ManCityTeamRankingsViewController: UIViewController {
         teamRankingsCollectionView.delegate = self
         teamRankingsCollectionView.showsVerticalScrollIndicator = false
         setupTeamRankingGrid()
+        if SmilesLanguageManager.shared.currentLanguage == .ar {
+            teamRankingsCollectionView.transform = CGAffineTransform(scaleX: -1, y: 1)
+        }
         teamRankingsCollectionView.reloadData()
         
     }
@@ -59,7 +62,13 @@ class ManCityTeamRankingsViewController: UIViewController {
         
         teamRankingRowsData.removeAll()
         teamRankingRowsData.append(TeamRankingRowData(rankings: [
-            TeamRankingColumnData(text: "TEAM"),TeamRankingColumnData(text: "P"),TeamRankingColumnData(text: "W"),TeamRankingColumnData(text: "D"),TeamRankingColumnData(text: "L"),TeamRankingColumnData(text: "GD"),TeamRankingColumnData(text: "Pts")
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "TEAM")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "P")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "W")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "D")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "L")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "GD")),
+            TeamRankingColumnData(text: SmilesLanguageManager.shared.getLocalizedString(for: "Pts"))
         ]))
         teamRankings.forEach({ obj in
             teamRankingRowsData.append(TeamRankingRowData(rankings: [
@@ -118,7 +127,6 @@ extension ManCityTeamRankingsViewController: UICollectionViewDelegate, UICollect
                 cell.prefixLbl.text = "\(indexPath.section)"
             }
         }
-        
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
