@@ -50,8 +50,7 @@ let package = Package(
                 .product(name: "SmilesBanners", package: "SmilesBanners")
             ],
             resources: [
-                .process("Resources"),
-                .copy("Media.xcassets")
+                .process("Resources/Media.xcassets")
             ])
     ]
 )
