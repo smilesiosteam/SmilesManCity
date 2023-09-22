@@ -51,7 +51,7 @@ let package = Package(
             ],
             resources: [
                 .process("Resources"),
-                .copy("Media")
+                .copy("Media.xcassets")
             ])
     ]
 )
