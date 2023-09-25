@@ -199,7 +199,7 @@ public class ManCityHomeViewController: UIViewController {
         
         let btnBack: UIButton = UIButton(type: .custom)
         btnBack.backgroundColor = isLightContent ? .white : UIColor(red: 226.0 / 255.0, green: 226.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
-        if let backImg = UIImage.backIcon {
+        if let bundle = Bundle(identifier: "SmilesManCity"), let backImg = UIImage(named: AppCommonMethods.languageIsArabic() ? "back_icon_ar" : "back_icon", in: bundle, with: nil) {
             btnBack.setImage(backImg, for: .normal)
         } else {
             print("Image not found in bundle \(Bundle.module)")
