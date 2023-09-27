@@ -1,0 +1,25 @@
+{
+    "faqsDetails":[
+        {
+            "id":29,
+            "faq_title":"What would my VIP experience Include?",
+            "faq_content":"<p>Yes. You can give us feedback by reviewing the order you placed.<\/p>"
+        },
+        {
+            "id":30,
+            "faq_title":"What is the duration of my memership?",
+            "faq_content":"<p>You can apply Promo Code on Check Out page.<\/p>"
+        },
+        {
+            "id":31,
+            "faq_title":"How can I avail this for more than one person?",
+            "faq_content":"<p>You can cancel your order within 5 minutes of placing the order, provided the restaurant has not accepted the order. In any other case you may contact us through Live Chat.<\/p>"
+        },
+        {
+            "id":32,
+            "faq_title":"How can I share this with my friend?",
+            "faq_content":"<p>The duration of the refund process varies depending on the payment method you used. Also, depending on your bank it may take anywhere between 2-7 working days.<\/p>"
+        }
+    ],
+    "extTransactionId":"2976408656327"
+}

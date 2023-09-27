@@ -86,7 +86,6 @@ class ManCityInviteFriendsViewController: UIViewController {
         pinView.dashWidth = 2
         pinView.dashLength = 2
         pinView.betweenDashesSpace = 2
-        pinLabel.textColor = .black
         pinLabel.text = response?.inviteFriend.referralCode
         if let urlStr = response?.inviteFriend.image, !urlStr.isEmpty {
             imgView.isHidden = false
@@ -104,16 +103,12 @@ class ManCityInviteFriendsViewController: UIViewController {
     }
     private func setUpNavigationBar() {
         
+        title = SmilesLanguageManager.shared.getLocalizedString(for: "Invite a friend")
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .clear
-        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .white
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
-        let locationNavBarTitle = UILabel()
-        locationNavBarTitle.text = SmilesLanguageManager.shared.getLocalizedString(for: "Invite a friend")
-        locationNavBarTitle.textColor = .black
-        locationNavBarTitle.fontTextStyle = .smilesHeadline4
-        self.navigationItem.titleView = locationNavBarTitle
         let btnBack: UIButton = UIButton(type: .custom)
         btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_arrow_ar" : "back_arrow", in: .module, compatibleWith: nil), for: .normal)
         btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)

@@ -36,7 +36,7 @@ class ManCityUserDetailsViewController: UIViewController {
     private var players: [ManCityPlayer]?
     private var selectedPlayer: ManCityPlayer?
     private var proceedToPayment: ((String, String, Bool) -> Void)?
-    private var isAttendedMatch: Bool?
+    private var isAttendedMatch: Bool? = false
     // MARK: - ACTIONS -
     
     @IBAction func yesPressed(_ sender: Any) {

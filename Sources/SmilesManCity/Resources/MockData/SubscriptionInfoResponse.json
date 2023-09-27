@@ -1,0 +1,79 @@
+{
+    "lifestyleOffers":[
+        {
+            "whatYouGet":[
+                {
+                    "iconUrl":"https:\/\/www.SmilesUAE.ae\/images\/APP\/ICONS\/VIPExperience.png",
+                    "text":"ManCity VIP Experience"
+                },
+                {
+                    "iconUrl":"https:\/\/www.SmilesUAE.ae\/images\/APP\/ICONS\/Merchandise.png",
+                    "text":"Discount on Mancity Merchandise"
+                },
+                {
+                    "iconUrl":"https:\/\/www.SmilesUAE.ae\/images\/APP\/ICONS\/Tickets.png",
+                    "text":"Discount on ManCity Tickets"
+                }
+            ],
+            "pointsValue":3750,
+            "subscribedOfferTitle":"Mancity Subscription",
+            "duration":0,
+            "paymentMethods":[
+                {
+                    "iconUrl":"https:\/\/smilesuae.ae\/images\/APP\/PAYMENT_ICONS\/fullPoints.png",
+                    "paymentMethodId":"1",
+                    "title":"Smiles points",
+                    "titleAr":"نقاط الابتسامات",
+                    "paymentType":"ONLINE",
+                    "paymentTypeText":"Online Payment",
+                    "description":"fullPoints"
+                },
+                {
+                    "iconUrl":"https:\/\/images.vexels.com\/media\/users\/3\/137089\/isolated\/preview\/c3286d4d32fa90ebcf09b488654612b9-wallet-icon-by-vexels.png",
+                    "paymentMethodId":"5",
+                    "title":"Partial Payment",
+                    "titleAr":"دفع جزء من المال",
+                    "paymentType":"ONLINE",
+                    "paymentTypeText":"Online Payment",
+                    "description":"partialPointsCC"
+                }
+            ],
+            "subscribeImage":"https:\/\/www.SmilesUAE.ae\/images\/APP\/HOME_ITEM_CATEGORY\/ManchesterCity.png",
+            "termsAndConditions":"None",
+            "freeBogoOffer":false,
+            "whatYouGetTitle":"Mancity Subscription",
+            "offerTitle":"Mancity Subscription",
+            "subscriptionSegment":"mcfc",
+            "lifeStyleLinkedOffer":{
+                "isPromoCodeAllow":true,
+                "title":"None",
+                "description":"None",
+                "offerDetails":[
+                    
+                ]
+            },
+            "whatYouGetText":"ManCity VIP Experience  •\tDiscount on Mancity Merchandise  •\tDiscount on ManCity Tickets",
+            "offerDescription":"Become an annual MCFC member and enjoy exclusive offers",
+            "autoRenewable":false,
+            "offerId":"Mancity_Subscription",
+            "price":30,
+            "whatYouGetTextList":[
+                "ManCity VIP Experience",
+                "Discount on Mancity Merchandise",
+                "Discount on ManCity Tickets"
+            ],
+            "expiryDate":"06-12-2059 20:00:00",
+            "isSubscription":false
+        }
+    ],
+    "isCustomerElgibile":true,
+    "extTransactionId":"3307151513374",
+    "themeResources":{
+        "mancityImageUrl":"https:\/\/www.SmilesUAE.ae\/images\/APP\/HOME_ITEM_CATEGORY\/ManchesterCity.png",
+        "mancitySubButtonText":"Enroll Now",
+        "mancitySubBgColor":"#9ECFFF|#DBEAF8",
+        "welcomeSubTitle":"Watch This Video To Know More",
+        "welcomeTitle":"Welcome to ManCity",
+        "mancitySubBgColorDirection":"top"
+    }
+}

@@ -158,6 +158,13 @@ public class ManCityHomeViewController: UIViewController {
         self.sections.removeAll()
         self.sections.append(ManCitySectionData(index: 0, identifier: .enrollment))
         self.sections.append(ManCitySectionData(index: 1, identifier: .FAQS))
+        if let enrollmentIndex = getSectionIndex(for: .enrollment), let response = SubscriptionInfoResponse.fromModuleFile() {
+            dataSource?.dataSources?[enrollmentIndex] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: true, completion: nil)
+        }
+        if let faqsIndex = getSectionIndex(for: .FAQS), let response = FAQsDetailsResponse.fromModuleFile() {
+            dataSource?.dataSources?[faqsIndex] = TableViewDataSource.make(forFAQs: response.faqsDetails ?? [], data: "#FFFFFF", isDummy: true, completion: nil)
+        }
+        configureDataSource()
         self.input.send(.getSubscriptionInfo)
         self.input.send(.getFAQsDetails(faqId: 9))
         
