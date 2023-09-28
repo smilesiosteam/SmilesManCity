@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
@@ -36,23 +36,23 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kD3-LH-ldc">
-                    <rect key="frame" x="0.0" y="59" width="393" height="711"/>
+                    <rect key="frame" x="0.0" y="48" width="414" height="766"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbA-q6-LAr">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="605.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="606"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invite_friends" translatesAutoresizingMaskIntoConstraints="NO" id="Hn8-g1-o0A">
-                                    <rect key="frame" x="97.666666666666686" y="41" width="198" height="154"/>
+                                    <rect key="frame" x="108" y="41" width="198" height="154"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="154" id="qRe-54-2mL"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite &amp; earn up-to 2500 Smiles points per day!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmG-PU-Gbh">
-                                    <rect key="frame" x="32" y="273" width="329" height="40.666666666666686"/>
+                                    <rect key="frame" x="32" y="273" width="350" height="41"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.20784313725490194" green="0.21568627450980393" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get 500 Smiles points for each friend who signs up with your referral code" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWA-sq-5nz">
-                                    <rect key="frame" x="32" y="337.66666666666669" width="329" height="40.666666666666686"/>
+                                    <rect key="frame" x="32" y="338" width="350" height="41"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.20784313730000001" green="0.2156862745" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note: Points will be credited after your friend signs up successfully. A reward limit of 5 referrals per day applies." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhN-cx-2d3">
-                                    <rect key="frame" x="36" y="529.33333333333337" width="321" height="61"/>
+                                    <rect key="frame" x="36" y="530" width="342" height="61"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.30196078431372547" green="0.31764705882352939" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -79,7 +79,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8h-Fl-iH0">
-                                    <rect key="frame" x="13" y="458.33333333333337" width="367" height="56"/>
+                                    <rect key="frame" x="13" y="459" width="388" height="56"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="copyButtonTick" translatesAutoresizingMaskIntoConstraints="NO" id="4Jp-Sy-svf">
                                             <rect key="frame" x="13" y="19" width="18" height="18"/>
@@ -89,7 +89,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copied to clipboard!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGm-oT-h6h">
-                                            <rect key="frame" x="38.999999999999993" y="21" width="107.33333333333331" height="14"/>
+                                            <rect key="frame" x="39" y="21" width="110" height="14"/>
                                             <fontDescription key="fontDescription" name="Lato-SemiBold" family="Lato" pointSize="12"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -110,19 +110,19 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePW-mE-gdt" userLabel="pinView" customClass="RectangularDashedView" customModule="SmilesUtilities">
-                                    <rect key="frame" x="66" y="410.33333333333331" width="261" height="49"/>
+                                    <rect key="frame" x="66" y="411" width="282" height="49"/>
                                     <subviews>
                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="voucherCopyBtn" translatesAutoresizingMaskIntoConstraints="NO" id="oso-Ow-tOQ">
-                                            <rect key="frame" x="39.333333333333329" y="12.666666666666686" width="24" height="24"/>
+                                            <rect key="frame" x="54.5" y="12.5" width="24" height="24"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YC02SEMBAQUI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUh-QY-WgC">
-                                            <rect key="frame" x="68.333333333333343" y="15.333333333333369" width="124.66666666666666" height="18.333333333333329"/>
+                                            <rect key="frame" x="83.5" y="15.5" width="115.5" height="18"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                             <color key="textColor" red="0.20784313725490194" green="0.21568627450980393" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FbR-KL-yeY">
-                                            <rect key="frame" x="73.333333333333343" y="7" width="113" height="35"/>
+                                            <rect key="frame" x="73" y="7" width="134" height="35"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="copyCodePressed:" destination="-1" eventType="touchUpInside" id="FWn-12-9dn"/>
@@ -196,7 +196,7 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="bYx-ej-lea"/>
                 </scrollView>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Apo-rX-ZM4" customClass="UICustomButton" customModule="SmilesUtilities">
-                    <rect key="frame" x="16" y="770" width="361" height="48"/>
+                    <rect key="frame" x="16" y="814" width="382" height="48"/>
                     <color key="backgroundColor" red="0.45882352939999999" green="0.25882352939999997" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="9nr-rR-qqr"/>

@@ -42,8 +42,10 @@ class ManCityInviteFriendsViewController: UIViewController {
         copyCodeBtn.isUserInteractionEnabled = false
         UIPasteboard.general.string = pinLabel.text
         showHideInfo(hide: false){
-            self.showHideInfo(hide: true){
-                self.copyCodeBtn.isUserInteractionEnabled = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                self.showHideInfo(hide: true){
+                    self.copyCodeBtn.isUserInteractionEnabled = true
+                }
             }
         }
     }
@@ -144,13 +146,8 @@ class ManCityInviteFriendsViewController: UIViewController {
     fileprivate func showHideInfo(hide:Bool, _ finished:@escaping ()->Void) {
         copyToClipViewTopToPinView.priority = hide ? .defaultLow : .defaultHigh
         noteLblTopToPinView.priority = hide ? .defaultHigh : .defaultLow
-        copyView.isHidden=false
-        UIView.transition(with: copyView, duration: 2.0, options: .transitionCrossDissolve) {
-            self.copyView.alpha = hide ? 0 : 1
-        } completion: { _ in
-            self.copyView.isHidden = hide
-            finished()
-        }
+        copyView.isHidden = hide
+        finished()
     }
     
     func share(text:String) {
