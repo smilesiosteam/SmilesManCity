@@ -26,6 +26,8 @@ class ManCityInviteFriendsViewController: UIViewController {
     @IBOutlet weak var copyCodeBtn: UIButton!
     @IBOutlet weak var copyView: UIView!
     @IBOutlet weak var codeCopiedLbl: UILabel!
+    @IBOutlet weak var copyToClipViewTopToPinView: NSLayoutConstraint!
+    @IBOutlet weak var noteLblTopToPinView: NSLayoutConstraint!
     
     // MARK: - PROPERTIES -
     private var input: PassthroughSubject<ManCityInviteFriendsViewModel.Input, Never> = .init()
@@ -140,6 +142,8 @@ class ManCityInviteFriendsViewController: UIViewController {
     }
     
     fileprivate func showHideInfo(hide:Bool, _ finished:@escaping ()->Void) {
+        copyToClipViewTopToPinView.priority = hide ? .defaultLow : .defaultHigh
+        noteLblTopToPinView.priority = hide ? .defaultHigh : .defaultLow
         copyView.isHidden=false
         UIView.transition(with: copyView, duration: 2.0, options: .transitionCrossDissolve) {
             self.copyView.alpha = hide ? 0 : 1
