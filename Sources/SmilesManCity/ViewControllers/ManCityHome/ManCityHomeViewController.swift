@@ -180,8 +180,10 @@ public class ManCityHomeViewController: UIViewController {
     func setUpNavigationBar(isLightContent: Bool = true) {
         
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = isLightContent ? .clear : .white
-        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = isLightContent ? .clear : .appRevampHomeCompactSearchColor
+        if isLightContent {
+            appearance.configureWithTransparentBackground()
+        }
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
         guard let headerData = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) else { return }
@@ -214,6 +216,7 @@ public class ManCityHomeViewController: UIViewController {
         btnBack.tintColor = .black
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
+        self.navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
     }
