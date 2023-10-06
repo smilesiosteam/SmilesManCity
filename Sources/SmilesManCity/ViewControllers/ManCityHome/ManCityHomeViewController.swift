@@ -180,7 +180,7 @@ public class ManCityHomeViewController: UIViewController {
     func setUpNavigationBar(isLightContent: Bool = true) {
         
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = isLightContent ? .clear : UIColor(hex: "#424C99", alpha: 0.1)
+        appearance.backgroundColor = isLightContent ? .clear : UIColor(hex: "424C99", alpha: 0.1)
         if isLightContent {
             appearance.configureWithTransparentBackground()
         }
@@ -207,7 +207,7 @@ public class ManCityHomeViewController: UIViewController {
         self.navigationItem.titleView = hStack
         
         let btnBack: UIButton = UIButton(type: .custom)
-        btnBack.backgroundColor = isLightContent ? .white : UIColor(red: 226.0 / 255.0, green: 226.0 / 255.0, blue: 226.0 / 255.0, alpha: 1.0)
+        btnBack.backgroundColor = .white
         btnBack.setImage(UIImage(named: AppCommonMethods.languageIsArabic() ? "back_icon_ar" : "back_icon", in: .module, compatibleWith: nil), for: .normal)
         btnBack.addTarget(self, action: #selector(self.onClickBack), for: .touchUpInside)
         btnBack.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
