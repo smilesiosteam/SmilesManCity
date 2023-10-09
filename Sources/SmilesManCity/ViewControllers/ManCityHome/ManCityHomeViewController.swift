@@ -180,7 +180,7 @@ public class ManCityHomeViewController: UIViewController {
     func setUpNavigationBar(isLightContent: Bool = true) {
         
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = isLightContent ? .clear : UIColor(hex: "424C99", alpha: 0.1)
+        appearance.backgroundColor = isLightContent ? .clear : UIColor(hex: "ECEDF5")
         if isLightContent {
             appearance.configureWithTransparentBackground()
         }
