@@ -11,7 +11,7 @@ import NetworkingLayer
 
 class SubscriptionInfoResponse: BaseMainResponse {
     
-    var themeResources: ThemeResources?
+    var themeResources: MCThemeResources?
     var isCustomerElgibile: Bool?
     var lifestyleOffers: [BOGODetailsResponseLifestyleOffer]?
 
@@ -21,7 +21,7 @@ class SubscriptionInfoResponse: BaseMainResponse {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        themeResources = try values.decodeIfPresent(ThemeResources.self, forKey: .themeResources)
+        themeResources = try values.decodeIfPresent(MCThemeResources.self, forKey: .themeResources)
         isCustomerElgibile = try values.decodeIfPresent(Bool.self, forKey: .isCustomerElgibile)
         lifestyleOffers = try values.decodeIfPresent([BOGODetailsResponseLifestyleOffer].self, forKey: .lifestyleOffers)
         try super.init(from: decoder)
@@ -29,7 +29,7 @@ class SubscriptionInfoResponse: BaseMainResponse {
     
 }
 
-public class ThemeResources: Codable {
+public class MCThemeResources: Codable {
     
     var mancityImageURL: String?
     var welcomeTitle, welcomeSubTitle, mancitySubBgColor, mancitySubButtonText, mancitySubBgColorDirection: String?

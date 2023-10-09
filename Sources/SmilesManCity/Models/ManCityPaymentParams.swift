@@ -16,7 +16,7 @@ public struct ManCityPaymentParams {
     public var hasAttendedManCityGame: Bool
     public var appliedPromoCode: BOGOPromoCode?
     public var priceAfterPromo: Double?
-    public var themeResources: ThemeResources?
+    public var themeResources: MCThemeResources?
     public var isComingFromSpecialOffer: Bool
     public var isComingFromTreasureChest: Bool
     
