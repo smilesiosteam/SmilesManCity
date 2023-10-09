@@ -214,7 +214,7 @@
                                                         <constraint firstAttribute="height" constant="40" id="Vrw-1J-PsK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                                    <textInputTraits key="textInputTraits"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesTitle1"/>
                                                     </userDefinedRuntimeAttributes>
