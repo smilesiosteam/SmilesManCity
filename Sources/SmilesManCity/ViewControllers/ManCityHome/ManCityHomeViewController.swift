@@ -32,7 +32,7 @@ public class ManCityHomeViewController: UIViewController {
     private let categoryId: Int
     public weak var delegate: ManCityHomeDelegate?
     var manCitySections: GetSectionsResponseModel?
-    var sections = [ManCitySectionData]()
+    var sections = [TableSectionData<ManCityHomeSectionIdentifier>]()
     var isUserSubscribed: Bool? = nil
     var aboutVideoUrl: String?
     var username: String?
@@ -128,7 +128,7 @@ public class ManCityHomeViewController: UIViewController {
         if let sectionDetailsArray = sectionsResponse.sectionDetails, !sectionDetailsArray.isEmpty {
             self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: sectionDetailsArray.count))
         }
-        if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) {
+        if let topPlaceholderSection = sectionsResponse.sectionDetails?.first(where: { $0.sectionIdentifier == ManCityHomeSectionIdentifier.topPlaceholder.rawValue }) {
             headerImageView.setImageWithUrlString(topPlaceholderSection.backgroundImage ?? "")
         }
     
@@ -144,7 +144,7 @@ public class ManCityHomeViewController: UIViewController {
         
     }
     
-    func getSectionIndex(for identifier: ManCitySectionIdentifier) -> Int? {
+    func getSectionIndex(for identifier: ManCityHomeSectionIdentifier) -> Int? {
         
         return sections.first(where: { obj in
             return obj.identifier == identifier
@@ -156,8 +156,8 @@ public class ManCityHomeViewController: UIViewController {
         
         self.dataSource = SectionedTableViewDataSource(dataSources: Array(repeating: [], count: 2))
         self.sections.removeAll()
-        self.sections.append(ManCitySectionData(index: 0, identifier: .enrollment))
-        self.sections.append(ManCitySectionData(index: 1, identifier: .FAQS))
+        self.sections.append(TableSectionData(index: 0, identifier: .enrollment))
+        self.sections.append(TableSectionData(index: 1, identifier: .FAQS))
         if let enrollmentIndex = getSectionIndex(for: .enrollment), let response = SubscriptionInfoResponse.fromModuleFile() {
             dataSource?.dataSources?[enrollmentIndex] = TableViewDataSource.make(forEnrollment: response, data: "#FFFFFF", isDummy: true, completion: nil)
         }
@@ -186,7 +186,7 @@ public class ManCityHomeViewController: UIViewController {
         }
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
-        guard let headerData = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.topPlaceholder.rawValue }) else { return }
+        guard let headerData = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCityHomeSectionIdentifier.topPlaceholder.rawValue }) else { return }
         let imageView = UIImageView()
         NSLayoutConstraint.activate([
             imageView.heightAnchor.constraint(equalToConstant: 24),
@@ -332,10 +332,10 @@ extension ManCityHomeViewController {
                 guard let sectionIdentifier = element.sectionIdentifier, !sectionIdentifier.isEmpty else {
                     return
                 }
-                if let section = ManCitySectionIdentifier(rawValue: sectionIdentifier), section != .topPlaceholder {
-                    sections.append(ManCitySectionData(index: index, identifier: section))
+                if let section = ManCityHomeSectionIdentifier(rawValue: sectionIdentifier), section != .topPlaceholder {
+                    sections.append(TableSectionData(index: index, identifier: section))
                 }
-                switch ManCitySectionIdentifier(rawValue: sectionIdentifier) {
+                switch ManCityHomeSectionIdentifier(rawValue: sectionIdentifier) {
                 case .quickAccess:
                     self.input.send(.getQuickAccessList(categoryId: self.categoryId))
 
@@ -390,12 +390,14 @@ extension ManCityHomeViewController {
     private func configureQuickAccessList(with response: QuickAccessResponseModel) {
         if let quickAccessLinks = response.quickAccess?.links, !quickAccessLinks.isEmpty {
             var quickAccessResponse = response
-            if let quickAccessSection = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCitySectionIdentifier.quickAccess.rawValue }) {
+            if let quickAccessSection = manCitySections?.sectionDetails?.first(where: { $0.sectionIdentifier == ManCityHomeSectionIdentifier.quickAccess.rawValue }) {
                 quickAccessResponse.quickAccess?.iconUrl = quickAccessSection.iconUrl
             }
             if let quickAccessIndex = getSectionIndex(for: .quickAccess) {
                 dataSource?.dataSources?[quickAccessIndex] = TableViewDataSource.make(forQuickAccess: quickAccessResponse, data: "#FFFFFF", completion: { quickAccessLink in
-                    debugPrint(quickAccessLink.redirectionUrl)
+                    if let subCategoryId = quickAccessLink.redirectionUrl?.components(separatedBy: "/").last as? String {
+                        self.delegate?.navigateToCategoryDetails(subCategoryId: Int(subCategoryId) ?? 218)
+                    }
                 })
                 
                 configureDataSource()
@@ -452,7 +454,7 @@ extension ManCityHomeViewController {
         
     }
     
-    fileprivate func configureHideSection<T>(for section: ManCitySectionIdentifier, dataSource: T.Type) {
+    fileprivate func configureHideSection<T>(for section: ManCityHomeSectionIdentifier, dataSource: T.Type) {
         if let index = getSectionIndex(for: section) {
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.models = []
             (self.dataSource?.dataSources?[index] as? TableViewDataSource<T>)?.isDummy = false
@@ -516,7 +518,7 @@ extension ManCityHomeViewController {
     }
     
     fileprivate func configureBannersData(with offersResponse: GetTopOffersResponseModel) {
-        let sectionIdentifier = ManCitySectionIdentifier(rawValue: offersResponse.bannerType ?? "") ?? .inviteFriends
+        let sectionIdentifier = ManCityHomeSectionIdentifier(rawValue: offersResponse.bannerType ?? "") ?? .inviteFriends
         if let topOffers = offersResponse.ads, !topOffers.isEmpty {
             if let offersIndex = getSectionIndex(for: sectionIdentifier) {
                 self.dataSource?.dataSources?[offersIndex] = TableViewDataSource.make(forTopOffers: offersResponse, data: self.manCitySections?.sectionDetails?[offersIndex].backgroundColor ?? "#FFFFFF", completion:{ [weak self] data in

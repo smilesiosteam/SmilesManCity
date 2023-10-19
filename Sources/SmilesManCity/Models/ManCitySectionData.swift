@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import SmilesUtilities
 
-enum ManCitySectionIdentifier: String {
+enum ManCityHomeSectionIdentifier: String, SectionIdentifierProtocol {
+    
+    var identifier: String { return self.rawValue}
     
     case topPlaceholder = "TOP_PLACEHOLDER"
     case quickAccess = "QUICK_ACCESS"
@@ -20,9 +23,9 @@ enum ManCitySectionIdentifier: String {
     
 }
 
-struct ManCitySectionData {
+enum ManCityMerchStoreSectionIdentifier: String, SectionIdentifierProtocol {
     
-    let index: Int
-    let identifier: ManCitySectionIdentifier
+    var identifier: String { return self.rawValue}
+    case offerListing = "OFFER_LISTING"
     
 }

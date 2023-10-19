@@ -13,5 +13,6 @@ public protocol ManCityHomeDelegate: AnyObject {
     func proceedToPayment(params: ManCityPaymentParams)
     func proceedToOfferDetails(offer: OfferDO?)
     func handleDeepLinkRedirection(redirectionUrl: String)
+    func navigateToCategoryDetails(subCategoryId: Int)
     
 }

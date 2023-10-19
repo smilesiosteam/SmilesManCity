@@ -9,7 +9,6 @@ import Foundation
 import SmilesSharedServices
 import SmilesUtilities
 import SmilesOffers
-import SmilesStoriesManager
 import SmilesBanners
 
 extension ManCityHomeViewModel {

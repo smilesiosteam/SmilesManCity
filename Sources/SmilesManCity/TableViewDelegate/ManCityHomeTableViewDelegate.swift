@@ -49,10 +49,10 @@ extension ManCityHomeViewController: UITableViewDelegate {
             } else {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: indexPath.section] {
                     switch sectionData.sectionIdentifier {
-                    case ManCitySectionIdentifier.quickAccess.rawValue:
+                    case ManCityHomeSectionIdentifier.quickAccess.rawValue:
                         return 236.0
                         
-                    case ManCitySectionIdentifier.about.rawValue:
+                    case ManCityHomeSectionIdentifier.about.rawValue:
                         return 242.0
                     default:
                         return UITableView.automaticDimension
@@ -75,7 +75,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
             } else {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
                     switch sectionData.sectionIdentifier {
-                    case ManCitySectionIdentifier.quickAccess.rawValue:
+                    case ManCityHomeSectionIdentifier.quickAccess.rawValue:
                         return 24.0
                         
                     default:
@@ -103,7 +103,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
                 }
             } else {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
-                    if sectionData.sectionIdentifier != ManCitySectionIdentifier.quickAccess.rawValue && sectionData.sectionIdentifier != ManCitySectionIdentifier.topPlaceholder.rawValue {
+                    if sectionData.sectionIdentifier != ManCityHomeSectionIdentifier.quickAccess.rawValue && sectionData.sectionIdentifier != ManCityHomeSectionIdentifier.topPlaceholder.rawValue {
                         let header = ManCityHeader()
                         header.setupData(title: sectionData.title, subTitle: sectionData.subTitle, color: UIColor(hexString: sectionData.backgroundColor ?? ""))
                         
@@ -128,7 +128,7 @@ extension ManCityHomeViewController: UITableViewDelegate {
             } else {
                 if let sectionData = self.manCitySections?.sectionDetails?[safe: section] {
                     switch sectionData.sectionIdentifier {
-                    case ManCitySectionIdentifier.topPlaceholder.rawValue, ManCitySectionIdentifier.quickAccess.rawValue:
+                    case ManCityHomeSectionIdentifier.topPlaceholder.rawValue, ManCityHomeSectionIdentifier.quickAccess.rawValue:
                         return .leastNormalMagnitude
                         
                     default:

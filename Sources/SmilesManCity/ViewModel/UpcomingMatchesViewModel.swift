@@ -10,7 +10,6 @@ import Combine
 import SmilesSharedServices
 import SmilesUtilities
 import NetworkingLayer
-import SmilesLocationHandler
 import SmilesOffers
 
 class UpcomingMatchesViewModel: NSObject {
@@ -21,7 +20,6 @@ class UpcomingMatchesViewModel: NSObject {
     
     // MARK: - VIEWMODELS -
     private let sectionsViewModel = SectionsViewModel()
-    private let offersCategoryListViewModel = OffersCategoryListViewModel()
     
     private var sectionsUseCaseInput: PassthroughSubject<SectionsViewModel.Input, Never> = .init()
     private var offersCategoryListUseCaseInput: PassthroughSubject<OffersCategoryListViewModel.Input, Never> = .init()
