@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "smilesappheader",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smilesiosteam/SmilesAppHeader.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "4532a5fd138320ff2543b9d917fda6de8b1519a5"
+      }
+    },
+    {
       "identity" : "smilesbanners",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesBanners.git",
@@ -212,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/youtube/youtube-ios-player-helper.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "f57129cd4380ec0a74dd3a59da3270a1d653d59b"
+        "revision" : "f57129cd4380ec0a74dd3a59da3270a1d653d59b",
+        "version" : "1.0.4"
       }
     }
   ],
