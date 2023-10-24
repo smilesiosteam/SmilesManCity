@@ -162,7 +162,6 @@ extension ManCityMerchStoreViewController {
                 case .updateWishlistStatusDidFail(let error):
                     print(error.localizedDescription)
                     
-                default: break
                 }
             }.store(in: &cancellables)
     }
