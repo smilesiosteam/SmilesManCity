@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -241,14 +241,14 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="56.333333333333336" height="24"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SjY-az-eiq">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="0.99999999999999822" width="24" height="22.666666666666664"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="24" id="1bC-4H-JiA"/>
                                                                         <constraint firstAttribute="width" secondItem="SjY-az-eiq" secondAttribute="height" multiplier="1:1" id="t9F-0d-DTL"/>
                                                                     </constraints>
                                                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" image="circle" catalog="system"/>
+                                                                    <state key="normal" backgroundImage="circle" catalog="system"/>
                                                                     <connections>
                                                                         <action selector="yesPressed:" destination="-1" eventType="touchUpInside" id="cMq-mL-lXF"/>
                                                                     </connections>
@@ -321,7 +321,7 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a95-gQ-GPU" customClass="UICustomButton" customModule="SmilesUtilities">
-                                    <rect key="frame" x="16" y="691.33333333333337" width="361" height="48"/>
+                                    <rect key="frame" x="16" y="694.33333333333337" width="361" height="48"/>
                                     <color key="backgroundColor" red="0.45882352941176469" green="0.25882352941176467" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="50a-lr-olj"/>
@@ -346,7 +346,7 @@
                             <constraints>
                                 <constraint firstItem="wV1-bf-FCS" firstAttribute="top" secondItem="M2d-47-MLe" secondAttribute="top" constant="34" id="4JQ-4d-gdb"/>
                                 <constraint firstAttribute="trailing" secondItem="wV1-bf-FCS" secondAttribute="trailing" constant="16" id="6Y7-4H-GTW"/>
-                                <constraint firstItem="a95-gQ-GPU" firstAttribute="top" secondItem="wV1-bf-FCS" secondAttribute="bottom" constant="45" id="6mQ-bj-BT2"/>
+                                <constraint firstItem="a95-gQ-GPU" firstAttribute="top" secondItem="wV1-bf-FCS" secondAttribute="bottom" constant="48" id="6mQ-bj-BT2"/>
                                 <constraint firstItem="wV1-bf-FCS" firstAttribute="leading" secondItem="M2d-47-MLe" secondAttribute="leading" constant="16" id="DVb-Cy-Dey"/>
                                 <constraint firstItem="a95-gQ-GPU" firstAttribute="leading" secondItem="wV1-bf-FCS" secondAttribute="leading" id="lbG-iM-kUz"/>
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="a95-gQ-GPU" secondAttribute="bottom" constant="10" id="nfq-CS-wUI"/>
@@ -429,7 +429,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="checkbox" width="30" height="30"/>
+        <image name="checkbox" width="21.333333969116211" height="21.333333969116211"/>
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="dropdown_icon" width="30" height="30"/>
     </resources>

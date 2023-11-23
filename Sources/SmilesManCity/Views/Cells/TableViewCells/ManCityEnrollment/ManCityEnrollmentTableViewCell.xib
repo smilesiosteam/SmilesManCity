@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,9 +37,6 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="fontTextStyleName" value="smilesHeadline3"/>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="smilesSmiley" translatesAutoresizingMaskIntoConstraints="NO" id="SQE-Em-jH3">
-                                <rect key="frame" x="58" y="208.66666666666666" width="24" height="24"/>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QQV-zp-GsR">
                                 <rect key="frame" x="86" y="210.66666666666666" width="175" height="20.333333333333343"/>
                                 <subviews>
@@ -73,15 +70,18 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SmilesSmileys" translatesAutoresizingMaskIntoConstraints="NO" id="K41-IN-cUT">
+                                <rect key="frame" x="58" y="209" width="24" height="24"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9LB-VA-IgH">
-                                <rect key="frame" x="35" y="264.66666666666669" width="265" height="152"/>
+                                <rect key="frame" x="35" y="273" width="265" height="152"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="152" id="cjG-TI-S22"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKd-PR-l8j" customClass="UICustomButton" customModule="SmilesUtilities">
-                                <rect key="frame" x="95" y="440.66666666666669" width="145" height="48"/>
+                                <rect key="frame" x="95" y="449" width="145" height="48"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="1L3-hM-Xtr"/>
@@ -113,15 +113,15 @@
                             <constraint firstItem="yKd-PR-l8j" firstAttribute="top" secondItem="9LB-VA-IgH" secondAttribute="bottom" constant="24" id="0ub-98-46u"/>
                             <constraint firstItem="dxe-GR-a2I" firstAttribute="top" secondItem="oeN-80-KTX" secondAttribute="bottom" constant="24" id="1Cu-nk-SMz"/>
                             <constraint firstItem="9LB-VA-IgH" firstAttribute="leading" secondItem="rbQ-eS-vST" secondAttribute="leading" constant="35" id="4FU-0U-l27"/>
-                            <constraint firstItem="QQV-zp-GsR" firstAttribute="leading" secondItem="SQE-Em-jH3" secondAttribute="trailing" constant="4" id="8s1-eq-FYr"/>
                             <constraint firstAttribute="trailing" secondItem="dxe-GR-a2I" secondAttribute="trailing" constant="33" id="DNg-Sa-DDL"/>
-                            <constraint firstItem="QQV-zp-GsR" firstAttribute="centerY" secondItem="SQE-Em-jH3" secondAttribute="centerY" id="Hz2-S7-2Ah"/>
                             <constraint firstItem="oeN-80-KTX" firstAttribute="top" secondItem="rbQ-eS-vST" secondAttribute="top" constant="40" id="Ijb-KL-frj"/>
                             <constraint firstItem="dxe-GR-a2I" firstAttribute="leading" secondItem="rbQ-eS-vST" secondAttribute="leading" constant="33" id="PV0-a9-hsx"/>
                             <constraint firstItem="QQV-zp-GsR" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" constant="6" id="Q45-Ik-Boh"/>
+                            <constraint firstItem="K41-IN-cUT" firstAttribute="centerY" secondItem="QQV-zp-GsR" secondAttribute="centerY" id="UAS-I3-Pf0"/>
+                            <constraint firstItem="QQV-zp-GsR" firstAttribute="leading" secondItem="K41-IN-cUT" secondAttribute="trailing" constant="4" id="VIB-Ht-KkN"/>
+                            <constraint firstItem="QQV-zp-GsR" firstAttribute="top" secondItem="dxe-GR-a2I" secondAttribute="bottom" constant="18" id="VQS-aU-rhI"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yKd-PR-l8j" secondAttribute="bottom" constant="40" id="YJm-mF-A3W"/>
-                            <constraint firstItem="9LB-VA-IgH" firstAttribute="top" secondItem="SQE-Em-jH3" secondAttribute="bottom" constant="32" id="dHb-vi-mgg"/>
-                            <constraint firstItem="SQE-Em-jH3" firstAttribute="top" secondItem="dxe-GR-a2I" secondAttribute="bottom" constant="16" id="hv4-fh-uDZ"/>
+                            <constraint firstItem="9LB-VA-IgH" firstAttribute="top" secondItem="QQV-zp-GsR" secondAttribute="bottom" constant="42" id="acQ-wv-4p0"/>
                             <constraint firstItem="oeN-80-KTX" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" id="lDT-1G-wSI"/>
                             <constraint firstItem="yKd-PR-l8j" firstAttribute="centerX" secondItem="rbQ-eS-vST" secondAttribute="centerX" id="pDD-DZ-hzp"/>
                             <constraint firstAttribute="trailing" secondItem="9LB-VA-IgH" secondAttribute="trailing" constant="35" id="uem-Rw-YqU"/>
@@ -175,13 +175,16 @@
         </tableViewCell>
     </objects>
     <designables>
+        <designable name="6lg-kF-7GG">
+            <size key="intrinsicContentSize" width="15.666666666666666" height="20.333333333333332"/>
+        </designable>
         <designable name="yKd-PR-l8j">
             <size key="intrinsicContentSize" width="73" height="30"/>
         </designable>
     </designables>
     <resources>
+        <image name="SmilesSmileys" width="24" height="24"/>
         <image name="manCity_logo" width="88" height="88"/>
-        <image name="smilesSmiley" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

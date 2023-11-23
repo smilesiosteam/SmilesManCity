@@ -84,7 +84,7 @@ class ManCityUserDetailsViewController: UIViewController {
     }
     
     private func setupViews() {
-        
+        fontSetup()
         bind(to: viewModel)
         SmilesLoader.show(on: self.view)
         input.send(.getPlayersList)
@@ -92,6 +92,16 @@ class ManCityUserDetailsViewController: UIViewController {
         yesLabel.text = SmilesLanguageManager.shared.getLocalizedString(for: "Yes").capitalizingFirstLetter()
         setupTextFields()
         
+    }
+    
+    private func fontSetup(){
+        proceedButton.fontTextStyle = .smilesHeadline4
+        firstNameTextField.fontTextStyle = .smilesTitle1
+        lastNameTextField.fontTextStyle = .smilesTitle1
+        mobileTextField.fontTextStyle = .smilesTitle1
+        emailTextField.fontTextStyle = .smilesTitle1
+        playerTextField.fontTextStyle = .smilesTitle1
+        referralTextField.fontTextStyle = .smilesTitle1
     }
     
     private func setupTextFields() {
@@ -155,6 +165,8 @@ class ManCityUserDetailsViewController: UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black, .font: SmilesFonts.circular.getFont(style: .bold, size: 16)]
+        appearance.shadowImage = UIImage()
+        appearance.shadowColor = .clear
         self.navigationItem.standardAppearance = appearance
         self.navigationItem.scrollEdgeAppearance = appearance
         let btnBack: UIButton = UIButton(type: .custom)
@@ -164,6 +176,8 @@ class ManCityUserDetailsViewController: UIViewController {
         let barButton = UIBarButtonItem(customView: btnBack)
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
     }
     
