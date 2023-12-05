@@ -10,6 +10,7 @@ import Combine
 import SmilesSharedServices
 import SmilesOffers
 import SmilesUtilities
+import SmilesLocationHandler
 
 class ManCityMerchStoreViewModel: NSObject {
 
@@ -41,7 +42,14 @@ extension ManCityMerchStoreViewModel {
 
             case .getOffersCategoryList(let pageNo, let categoryId, let searchByLocation, let sortingType, let subCategoryId, let subCategoryTypeIdsList):
                 self?.bind(to: self?.offersCategoryListViewModel ?? OffersCategoryListViewModel())
-                self?.offersCategoryListUseCaseInput.send(.getOffersCategoryList(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation, sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList))
+                var latitude = 0.0
+                var longitude = 0.0
+                
+                if let userInfo = LocationStateSaver.getLocationInfo(){
+                    latitude = Double(userInfo.latitude ?? "0.0") ?? 0.0
+                    longitude = Double(userInfo.longitude ?? "0.0") ?? 0.0
+                }
+                self?.offersCategoryListUseCaseInput.send(.getOffersCategoryList(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation, sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList, latitude: latitude, longitude: longitude))
 
             case .updateOfferWishlistStatus(let operation, let offerId):
                 self?.bind(to: self?.wishListViewModel ?? WishListViewModel())

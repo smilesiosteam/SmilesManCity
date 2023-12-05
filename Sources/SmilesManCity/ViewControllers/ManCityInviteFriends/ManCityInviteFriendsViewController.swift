@@ -94,7 +94,9 @@ class ManCityInviteFriendsViewController: UIViewController {
         if let urlStr = response?.inviteFriend.image, !urlStr.isEmpty {
             imgView.isHidden = false
             if urlStr.hasSuffix(".json") {
-                LottieAnimationManager.showAnimationFromUrl(FromUrl: urlStr, animationBackgroundView: self.imgView, removeFromSuper: false, loopMode: .loop, shouldAnimate: true) { _ in }
+                if let url = URL(string: urlStr) {
+                    LottieAnimationManager.showAnimationFromUrl(FromUrl: url, animationBackgroundView: self.imgView, removeFromSuper: false, loopMode: .loop, shouldAnimate: true) { _ in }
+                }
             }else{
                 self.imgView.setImageWithUrlString(urlStr)
             }

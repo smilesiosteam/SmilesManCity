@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "b2fa556e4e48cbf06cf8c63def138c98f4b811fa",
-        "version" : "5.8.0"
+        "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
+        "version" : "5.8.1"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/smilesiosteam/LottieAnimationManager.git",
       "state" : {
         "branch" : "main",
-        "revision" : "f25b53cbc39d2938144ba4cc64a0b00f49348ffb"
+        "revision" : "f36032ff43f4dfb7f630fbabb222019bc56e7541"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "292376b48955916414769184d273c8ae3f306a54"
+        "revision" : "ce9d841179a6cb4d5e21e60bb5d31691ecb80ca1"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/marmelroy/PhoneNumberKit",
       "state" : {
-        "revision" : "b456f2f9be10c1d183158220b831afd22697dd68",
-        "version" : "3.7.4"
+        "revision" : "736e333d28c85fa4411e5210ded8c48a402b9300",
+        "version" : "3.7.5"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "1f06ef5007b6a580b3873ed2adee19e05d3b215a",
-        "version" : "5.18.3"
+        "revision" : "0383fd49fe4d9ae43f150f24693550ebe6ef0d14",
+        "version" : "5.18.6"
       }
     },
     {
@@ -96,7 +96,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesAppHeader.git",
       "state" : {
         "branch" : "main",
-        "revision" : "4532a5fd138320ff2543b9d917fda6de8b1519a5"
+        "revision" : "68791fe302aba9770fe725ccd907cbb537068251"
       }
     },
     {
@@ -105,7 +105,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesBanners.git",
       "state" : {
         "branch" : "main",
-        "revision" : "b089d7ce05471da60e5f2a5e09d30cf9a38351d8"
+        "revision" : "ab94fce6f788ecb621a3e8fb5078b3a8f13832a3"
       }
     },
     {
@@ -114,7 +114,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
         "branch" : "main",
-        "revision" : "58f52dee58fa8dd719dba99fb5a853c24e747ba1"
+        "revision" : "196b65fd71c0b23ccb87c05161213fda752c1fe3"
       }
     },
     {
@@ -132,7 +132,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesFontsManager.git",
       "state" : {
         "branch" : "main",
-        "revision" : "6cd2eca9539a6ccacbe19762bb9b3b6af74481e5"
+        "revision" : "08f10b60a92cf507339595161289eabd55c9ab10"
       }
     },
     {
@@ -141,7 +141,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesLanguageManager.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ec56617c4be91c35133f4fe59b403947cbcad1af"
+        "revision" : "d70bc6f7a910dd4e7dcae9224b4988500cd1006e"
       }
     },
     {
@@ -159,7 +159,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesLocationHandler.git",
       "state" : {
         "branch" : "main",
-        "revision" : "878b8c812467d8d6954fb06dbc68adf33fe42f20"
+        "revision" : "74d1cc01a66d96cfd9c4f82e7203b493f5f59dd1"
       }
     },
     {
@@ -168,7 +168,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesOffers.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a34a6bee6f6951f01b594e8a6f6d8286eb16f257"
+        "revision" : "b07029c7ea0b81a2c9ec27cb045c85bc52b247e0"
       }
     },
     {
@@ -186,7 +186,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
       "state" : {
         "branch" : "main",
-        "revision" : "31be0acb3d472c694f338cc4009c8117759a6c5d"
+        "revision" : "6478dc17d816e1f7cad7583ca3d61a9c74e7fc48"
       }
     },
     {
@@ -204,7 +204,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesStoriesManager.git",
       "state" : {
         "branch" : "main",
-        "revision" : "e0a63acbd8770d234039af5386ca2b3de14564a2"
+        "revision" : "7cf6a685412a3eae376a6aaa7d260113d44c69e5"
       }
     },
     {
@@ -213,7 +213,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "c6136e49253854240a9c0e237598bfedf472768f"
+        "revision" : "5b1926c683fa28b9c540c45e7ae6f0d3e9941423"
       }
     },
     {
