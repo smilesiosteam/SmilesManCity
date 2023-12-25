@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "googlemaps-sp",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/YAtechnologies/GoogleMaps-SP.git",
+      "state" : {
+        "revision" : "684ea6db362feaefdfcff89356e446bec8bcde3d",
+        "version" : "7.2.0"
+      }
+    },
+    {
       "identity" : "lottie-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-ios.git",
@@ -42,7 +51,7 @@
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ce9d841179a6cb4d5e21e60bb5d31691ecb80ca1"
+        "revision" : "66df8ceb6b98dd821bc07162ab7102dd4c67109d"
       }
     },
     {
@@ -59,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/marmelroy/PhoneNumberKit",
       "state" : {
-        "revision" : "736e333d28c85fa4411e5210ded8c48a402b9300",
-        "version" : "3.7.5"
+        "revision" : "d2886b0735a47e47fb227504666756efb2e2ac26",
+        "version" : "3.7.6"
       }
     },
     {
@@ -68,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "0383fd49fe4d9ae43f150f24693550ebe6ef0d14",
-        "version" : "5.18.6"
+        "revision" : "e278c13e46e8d20c895c221e922c6ac6b72aaca9",
+        "version" : "5.18.7"
       }
     },
     {
@@ -95,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesAppHeader.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "68791fe302aba9770fe725ccd907cbb537068251"
+        "branch" : "addressBook",
+        "revision" : "548bce383b89b7f7093b74f7a2205b06332eeaf9"
       }
     },
     {
@@ -158,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/smilesiosteam/SmilesLocationHandler.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "74d1cc01a66d96cfd9c4f82e7203b493f5f59dd1"
+        "branch" : "address_book",
+        "revision" : "d7c3f209d5c1e3112a61f3107330c603fa01c96f"
       }
     },
     {
@@ -168,7 +177,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesOffers.git",
       "state" : {
         "branch" : "main",
-        "revision" : "b07029c7ea0b81a2c9ec27cb045c85bc52b247e0"
+        "revision" : "56e0428334e91aaad17c5668c53198838058e3c9"
       }
     },
     {
@@ -186,7 +195,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
       "state" : {
         "branch" : "main",
-        "revision" : "6478dc17d816e1f7cad7583ca3d61a9c74e7fc48"
+        "revision" : "b3e0bd53a4886814b90d7e35f67db5ede1bb44d5"
       }
     },
     {
@@ -204,7 +213,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesStoriesManager.git",
       "state" : {
         "branch" : "main",
-        "revision" : "7cf6a685412a3eae376a6aaa7d260113d44c69e5"
+        "revision" : "69437b35e64f2f6628975234f53551bf3b55829a"
       }
     },
     {
@@ -213,7 +222,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5b1926c683fa28b9c540c45e7ae6f0d3e9941423"
+        "revision" : "1e0d8419f766ff42fb7c97bbd5fe7a77dd204222"
       }
     },
     {

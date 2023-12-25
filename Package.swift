@@ -21,7 +21,7 @@ let package = Package(
         .package(url: "https://github.com/smilesiosteam/SmilesFontsManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesUtilities.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesSharedServices.git", branch: "main"),
-        .package(url: "https://github.com/smilesiosteam/SmilesLocationHandler.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesLocationHandler.git", branch: "address_book"),
         .package(url: "https://github.com/smilesiosteam/SmilesLanguageManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesLoader.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesBaseMainRequest.git", branch: "main"),
@@ -29,7 +29,7 @@ let package = Package(
         .package(url: "https://github.com/marmelroy/PhoneNumberKit", from: "3.6.0"),
         .package(url: "https://github.com/smilesiosteam/SmilesStoriesManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesBanners.git", branch: "main"),
-        .package(url: "https://github.com/smilesiosteam/SmilesAppHeader.git", branch: "main")
+        .package(url: "https://github.com/smilesiosteam/SmilesAppHeader.git", branch: "addressBook")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
