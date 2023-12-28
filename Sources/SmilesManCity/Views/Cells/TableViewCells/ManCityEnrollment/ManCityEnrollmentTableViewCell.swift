@@ -57,11 +57,9 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
         descriptionLabel.text = subscriptionData.lifestyleOffers?.first?.offerDescription
         pointsLabel.text = "\(subscriptionData.lifestyleOffers?.first?.pointsValue ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "PTS"))"
 
-        let price = subscriptionData.lifestyleOffers?.first?.price
-        if (price ?? 0).isInteger {
-            priceLabel.text = "\(Int(price ?? 0)) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
-        } else {
-            priceLabel.text = "\((price?.rounded(toPlaces: 2) ?? 0)) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
+        if let price = subscriptionData.lifestyleOffers?.first?.price {
+            let priceString = price.isInteger ? "\(Int(price))" : "\(price.rounded(toPlaces: 2))"
+            priceLabel.text = priceString + " " + SmilesLanguageManager.shared.getLocalizedString(for: "AED")
         }
         
         enrollButton.setTitle(subscriptionData.themeResources?.mancitySubButtonText, for: .normal)
