@@ -56,7 +56,14 @@ class ManCityEnrollmentTableViewCell: UITableViewCell {
         logoImageView.setImageWithUrlString(subscriptionData.themeResources?.mancityImageURL ?? "", defaultImage: "manCity_logo")
         descriptionLabel.text = subscriptionData.lifestyleOffers?.first?.offerDescription
         pointsLabel.text = "\(subscriptionData.lifestyleOffers?.first?.pointsValue ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "PTS"))"
-        priceLabel.text = "\(subscriptionData.lifestyleOffers?.first?.price ?? 0) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
+
+        let price = subscriptionData.lifestyleOffers?.first?.price
+        if (price ?? 0).isInteger {
+            priceLabel.text = "\(Int(price ?? 0)) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
+        } else {
+            priceLabel.text = "\((price?.rounded(toPlaces: 2) ?? 0)) \(SmilesLanguageManager.shared.getLocalizedString(for: "AED"))"
+        }
+        
         enrollButton.setTitle(subscriptionData.themeResources?.mancitySubButtonText, for: .normal)
         benefits = subscriptionData.lifestyleOffers?.first?.benefits ?? []
         tableViewHeight.constant = (rowHeight + spacing) * CGFloat(benefits.count)
