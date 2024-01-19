@@ -29,6 +29,7 @@ let package = Package(
         .package(url: "https://github.com/marmelroy/PhoneNumberKit", from: "3.6.0"),
         .package(url: "https://github.com/smilesiosteam/SmilesStoriesManager.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesBanners.git", branch: "main"),
+        .package(url: "https://github.com/smilesiosteam/SmilesReusableComponents.git", branch: "main"),
         .package(url: "https://github.com/smilesiosteam/SmilesAppHeader.git", branch: "main")
     ],
     targets: [
@@ -49,6 +50,7 @@ let package = Package(
                 .product(name: "SmilesOffers", package: "SmilesOffers"),
                 .product(name: "SmilesStoriesManager", package: "SmilesStoriesManager"),
                 .product(name: "SmilesBanners", package: "SmilesBanners"),
+                .product(name: "SmilesReusableComponents", package: "SmilesReusableComponents"),
                 .product(name: "AppHeader", package: "SmilesAppHeader")
             ],
             resources: [
