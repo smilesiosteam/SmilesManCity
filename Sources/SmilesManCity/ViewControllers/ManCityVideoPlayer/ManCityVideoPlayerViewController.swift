@@ -46,9 +46,9 @@ public class ManCityVideoPlayerViewController: UIViewController {
     func initialSetup() {
         welcomeTitleLabel.isHidden = !isFirstTime
         let thumbnailUrl = AppCommonMethods.extractThumbnailFromYoutube(url: self.videoUrl ?? "")
-        thumbnailImageView.setImageWithUrlString(thumbnailUrl) { image in
+        thumbnailImageView.setImageWithUrlString(thumbnailUrl) { [weak self] image in
             if let image {
-                self.thumbnailImageView.image = image
+                self?.thumbnailImageView.image = image
             }
         }
         
