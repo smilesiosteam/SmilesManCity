@@ -11,6 +11,7 @@ import SmilesSharedServices
 import UIKit
 import SmilesOffers
 import SmilesBanners
+import SmilesReusableComponents
 
 extension TableViewDataSource where Model == SubscriptionInfoResponse {
     static func make(forEnrollment  subscriptionInfo: SubscriptionInfoResponse,
@@ -38,8 +39,8 @@ extension TableViewDataSource where Model == FaqsDetail {
             isDummy:isDummy
         ) { (faqDetail, cell, data, indexPath) in
             guard let cell = cell as? FAQTableViewCell else {return}
-            cell.bottomView.isHidden = faqDetail.isHidden ?? true
-            cell.setupCell(faqDetail: faqDetail)
+            cell.bottomViewIsHidden = faqDetail.isHidden ?? true
+            cell.setupCell(model: faqDetail)
         }
     }
 }

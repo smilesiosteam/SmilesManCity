@@ -42,9 +42,9 @@ class TeamRankingCollectionViewCell: UICollectionViewCell {
     func configureCell(with ranking: TeamRankingColumnData) {
         if let url = ranking.iconUrl, !url.isEmpty {
             iconImageView.isHidden = false
-            iconImageView.setImageWithUrlString(url, backgroundColor: .clear) { image in
+            iconImageView.setImageWithUrlString(url, backgroundColor: .clear) { [weak self] image in
                 if let image {
-                    self.iconImageView.image = image
+                    self?.iconImageView.image = image
                 }
             }
         } else {
