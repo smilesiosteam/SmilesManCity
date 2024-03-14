@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/marmelroy/PhoneNumberKit",
       "state" : {
-        "revision" : "301e2c1931ab294aa7c1bbabf2ed5fe7a78f1549",
-        "version" : "3.7.8"
+        "revision" : "d2886b0735a47e47fb227504666756efb2e2ac26",
+        "version" : "3.7.6"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "b11493f76481dff17ac8f45274a6b698ba0d3af5",
-        "version" : "5.18.11"
+        "revision" : "59730af512c06fb569c119d737df4c1c499e001d",
+        "version" : "5.18.10"
       }
     },
     {
@@ -105,7 +105,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesAppHeader.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3554f5a9e3f7ede9f3baacc1d270e59eb52a8846"
+        "revision" : "561277ac0be8a1f4b61e59a00bd7cbce8c058256"
       }
     },
     {
@@ -168,7 +168,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesLocationHandler.git",
       "state" : {
         "branch" : "main",
-        "revision" : "ff864e53cda91db6878aa0aa8af745ea98f7eb91"
+        "revision" : "a35d8cd7418d6a90ea04cf8f0db2e95efb874219"
       }
     },
     {
@@ -195,7 +195,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesReusableComponents.git",
       "state" : {
         "branch" : "main",
-        "revision" : "4a1a36c822ea25551eb8d7faae5c417efa981db5"
+        "revision" : "94faf980800c1bf0b5eebeadaaeb5b2e7c023e67"
       }
     },
     {
@@ -231,7 +231,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "852581aca2860c6b819da58c4b9ddae19a6fee93"
+        "revision" : "a79a685f07c4f0b761d3afe808c53cba63a05355"
       }
     },
     {

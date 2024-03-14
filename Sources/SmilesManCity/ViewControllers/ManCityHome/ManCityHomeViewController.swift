@@ -12,6 +12,7 @@ import Combine
 import SmilesOffers
 import SmilesStoriesManager
 import SmilesBanners
+import SmilesReusableComponents
 
 public class ManCityHomeViewController: UIViewController {
     
@@ -44,21 +45,6 @@ public class ManCityHomeViewController: UIViewController {
     var offersPage = 1 // For offers list pagination
     var offers = [OfferDO]()
     
-    var sortOfferBy: String?
-    var sortingType: String?
-    var lastSortCriteria: String?
-    var arraySelectedSubCategoryPaths: [IndexPath] = []
-    var arraySelectedSubCategoryTypes: [String] = []
-    
-    var filtersSavedList: [RestaurantRequestWithNameFilter]?
-    var savedFilters: [RestaurantRequestFilter]?
-    var filtersData: [FiltersCollectionViewCellRevampModel]?
-    var selectedSortingTableViewCellModel: FilterDO?
-    var sortingListRowModels: [BaseRowModel]?
-    
-    var selectedSortTypeIndex: Int?
-    var didSelectFilterOrSort = false
-    
     // MARK: - ACTIONS -
     
     
@@ -66,11 +52,8 @@ public class ManCityHomeViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
-        if let sortBy = self.sortOfferBy, !sortBy.isEmpty {
-            self.sortingType = sortBy
-        }
     }
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpNavigationBar(isLightContent: tableViewTopSpaceToSuperView.priority != .defaultHigh)
@@ -277,26 +260,6 @@ extension ManCityHomeViewController {
                 case .fetchOffersCategoryListDidFail(let error):
                     debugPrint(error.localizedDescription)
                     
-                case .fetchFiltersDataSuccess(let filters, let selectedSortingTableViewCellModel):
-                    self?.filtersData = filters
-                    self?.selectedSortingTableViewCellModel = selectedSortingTableViewCellModel
-                    
-                case .fetchAllSavedFiltersSuccess(let filtersList, let savedFilters):
-                    self?.savedFilters = filtersList
-                    self?.filtersSavedList = savedFilters
-                    self?.offers.removeAll()
-                    self?.configureDataSource()
-                    self?.configureFiltersData()
-                    
-                case .fetchSavedFiltersAfterSuccess(let filtersSavedList):
-                    self?.filtersSavedList = filtersSavedList
-                    
-                case .fetchSortingListDidSucceed:
-                    self?.configureSortingData()
-                    
-                case .fetchContentForSortingItems(let baseRowModels):
-                    self?.sortingListRowModels = baseRowModels
-                    
                 case .emptyOffersListDidSucceed:
                     self?.offersPage = 1
                     self?.offers.removeAll()
@@ -466,36 +429,6 @@ extension ManCityHomeViewController {
     func updateOfferWishlistStatus(isFavorite: Bool, offerId: String) {
         offerFavoriteOperation = isFavorite ? 1 : 2
         self.input.send(.updateOfferWishlistStatus(operation: offerFavoriteOperation, offerId: offerId))
-    }
-    
-    fileprivate func configureFiltersData() {
-        if let filtersSavedList = self.filtersSavedList {
-            arraySelectedSubCategoryTypes = []
-            arraySelectedSubCategoryPaths = []
-
-            for filter in filtersSavedList {
-                arraySelectedSubCategoryTypes.append(filter.filterValue ?? "")
-                arraySelectedSubCategoryPaths.append(filter.indexPath ?? IndexPath())
-            }
-        }
-
-        self.input.send(.getOffersCategoryList(pageNo: 1, categoryId: "\(self.categoryId)", searchByLocation: false, sortingType: sortingType, subCategoryTypeIdsList: arraySelectedSubCategoryTypes))
-    }
-    
-    fileprivate func configureSortingData() {
-        guard let sortData = AppCommonMethods.getLocalizedArray(forKey: "ViewAllSortCriteria") as? [String] else { return }
-        var filterDO = [FilterDO]()
-
-        sortData.forEach {
-            let filter = FilterDO()
-            filter.name = $0
-            filter.filterKey = "order_sort"
-            
-            filterDO.append(filter)
-        }
-        
-        let sortingModel = GetSortingListResponseModel(sortingList: filterDO)
-        self.input.send(.generateActionContentForSortingItems(sortingModel: sortingModel))
     }
     
     fileprivate func configureWishListData(with updateWishlistResponse: WishListResponseModel) {

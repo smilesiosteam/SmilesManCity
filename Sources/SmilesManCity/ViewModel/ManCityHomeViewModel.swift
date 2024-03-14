@@ -13,6 +13,7 @@ import NetworkingLayer
 import SmilesLocationHandler
 import SmilesOffers
 import SmilesBanners
+import SmilesReusableComponents
 
 class ManCityHomeViewModel: NSObject {
     
@@ -37,10 +38,6 @@ class ManCityHomeViewModel: NSObject {
     private var wishListUseCaseInput: PassthroughSubject<WishListViewModel.Input, Never> = .init()
     private var topOffersUseCaseInput: PassthroughSubject<TopOffersViewModel.Input, Never> = .init()
     
-    private var filtersSavedList: [RestaurantRequestWithNameFilter]?
-    private var filtersList: [RestaurantRequestFilter]?
-    private var selectedSortingTableViewCellModel: FilterDO?
-    private var selectedSort: String?
     
     // MARK: - METHODS -
     private func logoutUser() {
@@ -94,27 +91,8 @@ extension ManCityHomeViewModel {
                 
                 self?.offersCategoryListUseCaseInput.send(.getOffersCategoryList(pageNo: pageNo, categoryId: categoryId, searchByLocation: searchByLocation, sortingType: sortingType, subCategoryId: subCategoryId, subCategoryTypeIdsList: subCategoryTypeIdsList, latitude: latitude, longitude: longitude))
                 
-            case .getFiltersData(let filtersSavedList, let isFilterAllowed, let isSortAllowed):
-                self?.createFiltersData(filtersSavedList: filtersSavedList, isFilterAllowed: isFilterAllowed, isSortAllowed: isSortAllowed)
-                
-            case .removeAndSaveFilters(let filter):
-                self?.removeAndSaveFilters(filter: filter)
-                
-            case .getSortingList:
-                self?.output.send(.fetchSortingListDidSucceed)
-                
-            case .generateActionContentForSortingItems(let sortingModel):
-                self?.generateActionContentForSortingItems(sortingModel: sortingModel)
-                
             case .emptyOffersList:
                 self?.output.send(.emptyOffersListDidSucceed)
-                
-            case .setFiltersSavedList(let filtersSavedList, let filtersList):
-                self?.filtersSavedList = filtersSavedList
-                self?.filtersList = filtersList
-                
-            case .setSelectedSort(let sortTitle):
-                self?.selectedSort = sortTitle
                 
             case .updateOfferWishlistStatus(let operation, let offerId):
                 self?.bind(to: self?.wishListViewModel ?? WishListViewModel())
@@ -293,139 +271,4 @@ extension ManCityHomeViewModel {
         
     }
     
-}
-
-// MARK: -- Filter and sorting
-
-extension ManCityHomeViewModel {
-    // Create Filters Data
-    func createFiltersData(filtersSavedList: [RestaurantRequestWithNameFilter]?, isFilterAllowed: Int?, isSortAllowed: Int?) {
-        var filters = [FiltersCollectionViewCellRevampModel]()
-        
-        // Filter List
-        var firstFilter = FiltersCollectionViewCellRevampModel(name: "Filters".localizedString, leftImage: "", rightImage: "filter-revamp", filterCount: filtersSavedList?.count ?? 0)
-        
-        let firstFilterRowWidth = AppCommonMethods.getAutoWidthWith(firstFilter.name, font: .circularXXTTBookFont(size: 14), additionalWidth: 60)
-        firstFilter.rowWidth = firstFilterRowWidth
-        
-        let sortByTitle = !self.selectedSort.asStringOrEmpty().isEmpty ? "\("SortbyTitle".localizedString): \(self.selectedSort.asStringOrEmpty())" : "\("SortbyTitle".localizedString)"
-        var secondFilter = FiltersCollectionViewCellRevampModel(name: sortByTitle, leftImage: "", rightImage: "sortby-chevron-down", rightImageWidth: 0, rightImageHeight: 4, tag: RestaurantFiltersType.deliveryTime.rawValue)
-        
-        let secondFilterRowWidth = AppCommonMethods.getAutoWidthWith(secondFilter.name, font: .circularXXTTBookFont(size: 14), additionalWidth: 40)
-        secondFilter.rowWidth = secondFilterRowWidth
-        
-        if isFilterAllowed != 0 {
-            filters.append(firstFilter)
-        }
-        
-        if isSortAllowed != 0 {
-            filters.append(secondFilter)
-        }
-        
-        if let appliedFilters = filtersSavedList, appliedFilters.count > 0 {
-            for filter in appliedFilters {
-                
-                let width = AppCommonMethods.getAutoWidthWith(filter.filterName.asStringOrEmpty(), font: .circularXXTTMediumFont(size: 22), additionalWidth: 30)
-                
-                let model = FiltersCollectionViewCellRevampModel(name: filter.filterName.asStringOrEmpty(), leftImage: "", rightImage: "filters-cross", isFilterSelected: true, filterValue: filter.filterValue.asStringOrEmpty(), tag: 0, rowWidth: width)
-
-                filters.append(model)
-
-            }
-        }
-        
-        self.output.send(.fetchFiltersDataSuccess(filters: filters, selectedSortingTableViewCellModel: self.selectedSortingTableViewCellModel)) // Send filters back to VC
-    }
-    
-    // Get saved filters
-//    func getSavedFilters() -> [RestaurantRequestFilter] {
-//        if let savedFilters = UserDefaults.standard.object([RestaurantRequestWithNameFilter].self, with: FilterDictTags.FiltersDict.rawValue) {
-//            if savedFilters.count > 0 {
-//                let uniqueUnordered = Array(Set(savedFilters))
-//
-//                filtersSavedList = uniqueUnordered
-//
-//                filtersList = [RestaurantRequestFilter]()
-//
-//                if let savedFilters = filtersSavedList {
-//                    for filter in savedFilters {
-//                        let restaurantRequestFilter = RestaurantRequestFilter()
-//                        restaurantRequestFilter.filterKey = filter.filterKey
-//                        restaurantRequestFilter.filterValue = filter.filterValue
-//
-//                        filtersList?.append(restaurantRequestFilter)
-//                    }
-//                }
-//
-//                defer {
-//                    self.output.send(.fetchSavedFiltersAfterSuccess(filtersSavedList: filtersSavedList ?? []))
-//                }
-//
-//                return filtersList ?? []
-//
-//            }
-//        }
-//        return []
-//    }
-    
-    func removeAndSaveFilters(filter: FiltersCollectionViewCellRevampModel) {
-        // Remove all saved Filters
-        let isFilteredIndex = filtersSavedList?.firstIndex(where: { (restaurantRequestWithNameFilter) -> Bool in
-            filter.name.lowercased() == restaurantRequestWithNameFilter.filterName?.lowercased()
-        })
-        
-        if let isFilteredIndex = isFilteredIndex {
-            filtersSavedList?.remove(at: isFilteredIndex)
-        }
-        
-        // Remove Names for filters
-        let isFilteredNameIndex = filtersList?.firstIndex(where: { (restaurantRequestWithNameFilter) -> Bool in
-            filter.filterValue.lowercased() == restaurantRequestWithNameFilter.filterValue?.lowercased()
-        })
-        
-        if let isFilteredNameIndex = isFilteredNameIndex {
-            filtersList?.remove(at: isFilteredNameIndex)
-        }
-        
-        self.output.send(.emptyOffersListDidSucceed)
-        self.output.send(.fetchAllSavedFiltersSuccess(filtersList: filtersList ?? [], filtersSavedList: filtersSavedList ?? []))
-    }
-    
-    func generateActionContentForSortingItems(sortingModel: GetSortingListResponseModel?) {
-        var items = [BaseRowModel]()
-        
-        if let sortingList = sortingModel?.sortingList, sortingList.count > 0 {
-            for (index, sorting) in sortingList.enumerated() {
-                if let sortingModel = selectedSortingTableViewCellModel {
-                    if sortingModel.name?.lowercased() == sorting.name?.lowercased() {
-                        if index == sortingList.count - 1 {
-                            addSortingItems(items: &items, sorting: sorting, isSelected: true, isBottomLineHidden: true)
-                        } else {
-                            addSortingItems(items: &items, sorting: sorting, isSelected: true, isBottomLineHidden: false)
-                        }
-                    } else {
-                        if index == sortingList.count - 1 {
-                            addSortingItems(items: &items, sorting: sorting, isSelected: false, isBottomLineHidden: true)
-                        } else {
-                            addSortingItems(items: &items, sorting: sorting, isSelected: false, isBottomLineHidden: false)
-                        }
-                    }
-                } else {
-                    selectedSortingTableViewCellModel = FilterDO()
-                    selectedSortingTableViewCellModel = sorting
-                    if index == sortingList.count - 1 {
-                        addSortingItems(items: &items, sorting: sorting, isSelected: true, isBottomLineHidden: true)
-                    } else {
-                        addSortingItems(items: &items, sorting: sorting, isSelected: true, isBottomLineHidden: false)
-                    }
-                }
-            }
-        }
-        
-        self.output.send(.fetchContentForSortingItems(baseRowModels: items))
-    }
-    
-    func addSortingItems(items: inout [BaseRowModel], sorting: FilterDO, isSelected: Bool, isBottomLineHidden: Bool) {
-//        items.append(SortingTableViewCell.rowModel(model: SortingTableViewCellModel(title: sorting.name.asStringOrEmpty(), mode: .SingleSelection, isSelected: isSelected, multiChoiceUpTo: 1, isSelectionMandatory: true, sortingModel: sorting, bottomLineHidden: isBottomLineHidden)))
-    }
 }
