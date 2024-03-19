@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
       "state" : {
-        "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
-        "version" : "5.8.1"
+        "revision" : "723fa5a6c65812aec4a0d7cc432ee198883b6e00",
+        "version" : "5.9.0"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/smilesiosteam/NetworkingLayer.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8ca4cfd1d524c7776f86e89b91ae3aae1270d9e7"
+        "revision" : "1d69917fbd71570c307e326ae69cb2da2a3b7eec"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/marmelroy/PhoneNumberKit",
       "state" : {
-        "revision" : "d2886b0735a47e47fb227504666756efb2e2ac26",
-        "version" : "3.7.6"
+        "revision" : "a8d72d9c90f8336aff6fd6002976d7e36f4fbe8c",
+        "version" : "3.7.9"
       }
     },
     {
@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "59730af512c06fb569c119d737df4c1c499e001d",
-        "version" : "5.18.10"
+        "revision" : "73b9397cfbd902f606572964055464903b1d84c6",
+        "version" : "5.19.0"
       }
     },
     {
@@ -123,7 +123,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesBaseMainRequest.git",
       "state" : {
         "branch" : "main",
-        "revision" : "943fcb2821791a62a33954f54d4e14759c0b6cc3"
+        "revision" : "7e2d5d880baf451931da03fc8f1e41055a1fee93"
       }
     },
     {
@@ -177,7 +177,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesOffers.git",
       "state" : {
         "branch" : "main",
-        "revision" : "cb0aef6c9351544a5b67d6ce336ed29971d57027"
+        "revision" : "cc9131cbd24c91484b7c552caf9325ec1b60b80d"
       }
     },
     {
@@ -195,7 +195,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesReusableComponents.git",
       "state" : {
         "branch" : "main",
-        "revision" : "94faf980800c1bf0b5eebeadaaeb5b2e7c023e67"
+        "revision" : "0d5492417a2a158cdc32570dbb170924e70ae1ee"
       }
     },
     {
@@ -204,7 +204,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesSharedServices.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8627f75dc0c4f4d4e57cf2be1d4b27f454a6845a"
+        "revision" : "4dd7cfab83c2bd402486de8c29429edac50720a9"
       }
     },
     {
@@ -231,7 +231,7 @@
       "location" : "https://github.com/smilesiosteam/SmilesUtilities.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a79a685f07c4f0b761d3afe808c53cba63a05355"
+        "revision" : "e13a9cf07114042de3338b7a4af1a0991a97f4c0"
       }
     },
     {

@@ -21,7 +21,7 @@ extension ManCityHomeViewModel {
         case getFAQsDetails(faqId: Int)
         case getPlayersList
         case getQuickAccessList(categoryId: Int)
-        case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String = "1", subCategoryTypeIdsList: [String]?)
+        case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String?, subCategoryTypeIdsList: [String]?)
         case emptyOffersList
         case updateOfferWishlistStatus(operation: Int, offerId: String)
         case getTopOffers(bannerType: String?, categoryId: Int?)

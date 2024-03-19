@@ -13,7 +13,7 @@ extension ManCityMerchStoreViewModel {
     
     enum Input {
         case getSections(categoryID: Int)
-        case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String = "1", subCategoryTypeIdsList: [String]?)
+        case getOffersCategoryList(pageNo: Int, categoryId: String, searchByLocation: Bool, sortingType: String?, subCategoryId: String?, subCategoryTypeIdsList: [String]?)
         case updateOfferWishlistStatus(operation: Int, offerId: String)
         case emptyOffersList
     }
